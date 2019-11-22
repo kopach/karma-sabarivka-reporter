@@ -1,0 +1,53 @@
+{
+  "name": "karma-sabarivka-reporter",
+  "version": "1.0.0",
+  "description": "A Karma plugin. Adds untested files to coverage statistic",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kopach/karma-sabarivka-reporter"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kopach/karma-sabarivka-reporter/issues"
+  },
+  "homepage": "https://github.com/kopach/karma-sabarivka-reporter",
+  "keywords": [
+    "karma-plugin",
+    "karma-reporter",
+    "coverage",
+    "istanbul",
+    "istanbuljs",
+    "sabarivka"
+  ],
+  "author": "Ihor Kopach <i40r@outlook.com> (https://github.com/kopach)",
+  "peerDependencies": {
+    "karma": ">=0.9"
+  },
+  "dependencies": {
+    "glob": "^7.1.6",
+    "istanbul-lib-instrument": "^1.10.1",
+    "lodash": "^4.17.15",
+    "typescript": "^2.9.2"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.1",
+    "@types/istanbul-lib-instrument": "^1.7.3",
+    "@types/lodash": "^4.14.149",
+    "@types/node": "^10.14.21",
+    "ts-node": "^8.4.1",
+    "tslint": "^5.20.0",
+    "tslint-clean-code": "^0.2.10",
+    "tslint-config-airbnb": "^5.11.2",
+    "tslint-config-standard": "^9.0.0",
+    "uglify-js": "^3.6.9"
+  },
+  "scripts": {
+    "build:watch": "npm run build -- --watch",
+    "prebuild": "npm run lint",
+    "build": "tsc",
+    "postbuild": "uglifyjs dist/index.js -c -m -o dist/index.js --warn",
+    "lint:fix": "tslint src/**/*.ts --fix",
+    "lint": "tslint src/**/*.ts"
+  }
+}
