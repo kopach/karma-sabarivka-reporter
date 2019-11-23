@@ -4,7 +4,7 @@
   - [Why?](#why)
   - [Usage](#usage)
 
-A Karma plugin. Adds untested files to coverage statistic
+A Karma plugin. Adds untested files to [istanbul](https://github.com/gotwarlost/istanbul) coverage statistic
 
 ## Why?
 
