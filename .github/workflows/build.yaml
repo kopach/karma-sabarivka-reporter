@@ -8,7 +8,7 @@ jobs:
       matrix:
         node-version: ['12', '10']
         install-option: ['', '--minimum']
-    name: Node ${{ matrix.node }} sample
+    name: Node v${{ matrix.node-version }} ${{ matrix.install-option }} 
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js
