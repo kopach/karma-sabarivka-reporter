@@ -1,5 +1,7 @@
 # karma-sabarivka-reporter
 
+[![Known Vulnerabilities](https://snyk.io/test/github/kopach/karma-sabarivka-reporter/badge.svg?targetFile=package.json)](https://snyk.io/test/github/kopach/karma-sabarivka-reporter?targetFile=package.json)
+
 > https://github.com/kopach/karma-sabarivka-reporter
 
 - [karma-sabarivka-reporter](#karma-sabarivka-reporter)
