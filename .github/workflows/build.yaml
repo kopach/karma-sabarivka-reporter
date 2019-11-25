@@ -1,17 +1,17 @@
-name: Build
-on: [push, pull_request]
+name: PR check
+on: [pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['12', '10']
+        node-version: ['8', '13']
         install-option: ['', '--minimum']
     name: Node v${{ matrix.node-version }} ${{ matrix.install-option }} 
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js
+      - name: Setting up Node.js v${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version:  ${{ matrix.node-version }}
