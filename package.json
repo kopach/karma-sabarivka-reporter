@@ -28,15 +28,12 @@
     "karma": ">=0.9"
   },
   "dependencies": {
-    "glob": "^7.1.6",
+    "globby": "^10.0.1",
     "istanbul-lib-instrument": "^1.10.1",
-    "lodash": "^4.17.15",
     "typescript": "^2.9.2"
   },
   "devDependencies": {
-    "@types/glob": "^7.1.1",
     "@types/istanbul-lib-instrument": "^1.7.3",
-    "@types/lodash": "^4.14.149",
     "@types/node": "^10.14.21",
     "ts-node": "^8.4.1",
     "tslint": "^5.20.0",

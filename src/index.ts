@@ -1,9 +1,9 @@
 import * as fs from 'fs';
-import { sync } from 'glob';
 import { createInstrumenter } from 'istanbul-lib-instrument';
-import { difference } from 'lodash';
 import * as path from 'path';
 import * as typescript from 'typescript';
+// tslint:disable-next-line: no-var-requires
+const sync = require('globby').sync;
 
 const instrumenter = createInstrumenter({
     esModules: true,
@@ -25,11 +25,9 @@ const sabarivkaReporter: Reporter = Object.defineProperty(
 );
 
 interface Config {
-    include: any;
-    exclude: any;
+    include?: string[] | string;
+    exclude?: string[] | string;
 }
-
-const globOptions = { cwd: process.cwd() };
 
 function getFileIntrumenterFn(coverageReporterConfig: Config): (a, b) => any {
     return (browser, { coverage = {} }) => {
@@ -41,7 +39,7 @@ function getFileIntrumenterFn(coverageReporterConfig: Config): (a, b) => any {
 
 function instrumentFilesWithCoverage(filesToCover: string[], coverage) {
     filesToCover.forEach((filePath: string) => {
-        const fullFilePath = path.resolve(globOptions.cwd, filePath);
+        const fullFilePath = path.resolve(process.cwd(), filePath);
 
         if (!coverage[fullFilePath]) {
             const fileContent = getFileTranspilledToJs(fullFilePath);
@@ -68,15 +66,25 @@ function getFileTranspilledToJs(fullFilePath: string) {
 }
 
 function getListOfFilesToCover(coverageReporterConfig: Config) {
-    const include = sync(coverageReporterConfig.include, globOptions);
-    const exclude = coverageReporterConfig.exclude
-        ? sync(coverageReporterConfig.exclude, globOptions)
-        : [];
-    const all = difference(include, exclude);
-    return all;
+    const includeFlattenPattern: string[] = flatten(coverageReporterConfig.include);
+    const excludeFlattenPattern: string[] = flatten(coverageReporterConfig.exclude).map(val => negatePattern(val));
+
+    return sync([...includeFlattenPattern, ...excludeFlattenPattern]);
 }
 
 module.exports = {
     'reporter:karma-sabarivka-reporter': ['type', sabarivkaReporter],
     'reporter:sabarivka': ['type', sabarivkaReporter],
 };
+
+function negatePattern(pattern: string): string {
+    return isNegated(pattern) ? pattern.slice(1) : `!${pattern}`;
+
+    function isNegated(val: string) {
+        return val.charAt(0) === '!' && val.charAt(1) !== '(';
+    }
+}
+
+function flatten(arr: string[] | undefined | string): string[] {
+    return [].concat(...([arr || []]));
+}
