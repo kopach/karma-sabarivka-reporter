@@ -7,6 +7,7 @@
 > [https://github.com/kopach/karma-sabarivka-reporter](https://github.com/kopach/karma-sabarivka-reporter)
 
 - [karma-sabarivka-reporter](#karma-sabarivka-reporter)
+  - [Support](#support)
   - [Why?](#why)
   - [Features](#features)
   - [Usage](#usage)
@@ -16,6 +17,12 @@
       - [Example](#example)
 
 A Karma plugin. Adds untested files to [istanbul](https://github.com/gotwarlost/istanbul) coverage statistic
+
+## Support
+
+Do you like this project? Please, star it on GitHub :sparkles:.
+
+[![GitHub stars](https://img.shields.io/github/stars/kopach/karma-sabarivka-reporter)](https://github.com/kopach/karma-sabarivka-reporter/stargazers)
 
 ## Why?
 
