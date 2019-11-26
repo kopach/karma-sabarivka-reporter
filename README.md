@@ -1,5 +1,9 @@
 # karma-sabarivka-reporter
 
+[![Known Vulnerabilities](https://snyk.io/test/github/kopach/karma-sabarivka-reporter/badge.svg?targetFile=package.json)](https://snyk.io/test/github/kopach/karma-sabarivka-reporter?targetFile=package.json)
+[![GitHub](https://img.shields.io/github/license/kopach/karma-sabarivka-reporter)](https://github.com/kopach/karma-sabarivka-reporter/blob/master/LICENSE)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/kopach/karma-sabarivka-reporter)](https://github.com/kopach/karma-sabarivka-reporter)
+
 > [https://github.com/kopach/karma-sabarivka-reporter](https://github.com/kopach/karma-sabarivka-reporter)
 
 - [karma-sabarivka-reporter](#karma-sabarivka-reporter)
@@ -15,9 +19,9 @@ A Karma plugin. Adds untested files to [istanbul](https://github.com/gotwarlost/
 
 ## Why?
 
-If your project has single entry point for your test files (e.g. `test.(ts|js)` file which gathers all `*.spec.(ts|js))`) - you probably facing an issue, that if files with source code aren't imported directly in one of `*.spec.(ts|js))` files - such a file doesn't shows up in coverate report at all, which creates higher coverate result then they are in reality.
+If your project has single entry point for your test files (e.g. `test.(ts|js)` file which gathers all `*.spec.(ts|js))`) - you're probably facing an issue with "fake" test coverage. To have a real picture of test coverage all files with source code should be imported directly into `*.spec.(ts|js))` files. Files with source code, which were not imported in any `*.spec.(ts|js))` files will not be shown in coverage report at all, which creates higher coverage result than it is in reality.
 
-This karma plugin tries to fix this issue by going through all source files and including them explicitly to coverage result.
+This karma plugin attempts to fix described issue by going through all of the source files and including them explicitly into coverage result.
 
 Plugin works with both: TypeScript (`*.ts`) and JavaScript (`*.js`) files
 
