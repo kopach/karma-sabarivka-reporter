@@ -1,6 +1,7 @@
 # karma-sabarivka-reporter
 
 [![Known Vulnerabilities](https://snyk.io/test/github/kopach/karma-sabarivka-reporter/badge.svg?targetFile=package.json)](https://snyk.io/test/github/kopach/karma-sabarivka-reporter?targetFile=package.json)
+[![GitHub](https://img.shields.io/github/license/kopach/karma-sabarivka-reporter)](https://github.com/kopach/karma-sabarivka-reporter/blob/master/LICENSE)
 
 > https://github.com/kopach/karma-sabarivka-reporter
 
