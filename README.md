@@ -50,9 +50,9 @@ npm install --save-dev karma-sabarivka-reporter
 
 #### Basic syntax
 
-`@param {string[] | string} [coverageReporter.include]` - Glob pattern string or array of strings. Files which should be included into the coverage result.
+`@param {string[] | string} [coverageReporter.include]` - Glob pattern, `string` or `array of strings`. Files which should be included into the coverage result.
 
-`@param {string[] | string} [coverageReporter.exclude]` - Glob pattern string or array of strings. Files which should be excluded from the coverage result.
+`@param {string[] | string} [coverageReporter.exclude]` - Glob pattern, `string` or `array of strings`. Files which should be excluded from the `include` pattern.
 
 #### Example
 
