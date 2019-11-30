@@ -25,8 +25,7 @@ const sabarivkaReporter: Reporter = Object.defineProperty(
 );
 
 interface Config {
-    include?: string[] | string;
-    exclude?: string[] | string;
+    include: string[] | string;
 }
 
 function getFileIntrumenterFn(coverageReporterConfig: Config): (a, b) => any {
@@ -66,10 +65,9 @@ function getFileTranspilledToJs(fullFilePath: string) {
 }
 
 function getListOfFilesToCover(coverageReporterConfig: Config) {
-    const includeFlattenPattern: string[] = flatten(coverageReporterConfig.include);
-    const excludeFlattenPattern: string[] = flatten(coverageReporterConfig.exclude).map(val => negatePattern(val));
+    const globPatternList: string[] = flatten([coverageReporterConfig.include || []]);
 
-    return sync([...includeFlattenPattern, ...excludeFlattenPattern]);
+    return sync(globPatternList);
 }
 
 module.exports = {
@@ -77,14 +75,6 @@ module.exports = {
     'reporter:sabarivka': ['type', sabarivkaReporter],
 };
 
-function negatePattern(pattern: string): string {
-    return isNegated(pattern) ? pattern.slice(1) : `!${pattern}`;
-
-    function isNegated(val: string) {
-        return val.charAt(0) === '!' && val.charAt(1) !== '(';
-    }
-}
-
-function flatten(arr: string[] | undefined | string): string[] {
-    return [].concat(...([arr || []]));
+function flatten(arr: Array<string | string[]>): string[] {
+    return [].concat(...arr);
 }

@@ -15,6 +15,8 @@
     - [Update `karma.conf.js`](#update-karmaconfjs)
       - [Basic syntax](#basic-syntax)
       - [Example](#example)
+        - [`include` as array of strings](#include-as-array-of-strings)
+        - [`include` as string](#include-as-string)
 
 A Karma plugin. Adds untested files to [istanbul](https://github.com/gotwarlost/istanbul) coverage statistic
 
@@ -36,7 +38,7 @@ Plugin works with both: TypeScript (`*.ts`) and JavaScript (`*.js`) files
 
 - Both JavaScript `*.js` and TypeScript `*.js` files support
 - Multiple patterns
-- Exclude patterns: ['foo*', '!foobar']
+- Negated patterns: ['foo*', '!foobar']
 
 ## Usage
 
@@ -50,11 +52,11 @@ npm install --save-dev karma-sabarivka-reporter
 
 #### Basic syntax
 
-`@param {string[] | string} [coverageReporter.include]` - Glob pattern, `string` or `array of strings`. Files which should be included into the coverage result.
-
-`@param {string[] | string} [coverageReporter.exclude]` - Glob pattern, `string` or `array of strings`. Files which should be excluded from the `include` pattern.
+`@param {string[] | string} coverageReporter.include` - Glob pattern, `string` or `array of strings`. Files which should be included into the coverage result.
 
 #### Example
+
+##### `include` as array of strings
 
 ``` JavaScript
 reporters: [
@@ -63,12 +65,29 @@ reporters: [
   // ...
 ],
 coverageReporter: {
-  include: 'src/**/*.(ts|js)',
-  exclude: [
-    'src/main.(ts|js)',
-    'src/**/*.spec.(ts|js)',
-    'src/**/*.module.(ts|js)',
-    'src/**/environment*.(ts|js)'
+  include: [
+      // Specify include pattern(s) first
+      'src/**/*.(ts|js)',
+      // Then specify "do not include" patterns (note `!` sign on the beggining of each statement)
+      '!src/main.(ts|js)',
+      '!src/**/*.spec.(ts|js)',
+      '!src/**/*.module.(ts|js)',
+      '!src/**/environment*.(ts|js)'
   ]
+},
+```
+
+Same result may be achieved with more complex one line glob pattern
+
+##### `include` as string
+
+``` JavaScript
+reporters: [
+  // ...
+  'sabarivka'
+  // ...
+],
+coverageReporter: {
+    include: 'src/**/!(*.spec|*.module|environment*|main).(ts|js)',
 },
 ```
