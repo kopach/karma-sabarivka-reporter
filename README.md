@@ -1,22 +1,43 @@
-# karma-sabarivka-reporter
+<div align="center"><pre>
+╔═╗╔═╗╔╗ ╔═╗╦═╗╦╦  ╦╦╔═╔═╗
+╚═╗╠═╣╠╩╗╠═╣╠╦╝║╚╗╔╝╠╩╗╠═╣
+╚═╝╩ ╩╚═╝╩ ╩╩╚═╩ ╚╝ ╩ ╩╩ ╩
+</pre></div>
 
-[![Known Vulnerabilities](https://snyk.io/test/github/kopach/karma-sabarivka-reporter/badge.svg?targetFile=package.json)](https://snyk.io/test/github/kopach/karma-sabarivka-reporter?targetFile=package.json)
-[![GitHub](https://img.shields.io/github/license/kopach/karma-sabarivka-reporter)](https://github.com/kopach/karma-sabarivka-reporter/blob/master/LICENSE)
-[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/kopach/karma-sabarivka-reporter)](https://github.com/kopach/karma-sabarivka-reporter)
+<h1 align="center">karma-sabarivka-reporter</h1>
+
+<div align="center">
+    <a href="https://snyk.io/test/github/kopach/karma-sabarivka-reporter">
+        <img src="https://camo.githubusercontent.com/f857e5f0ba00648dd89224a8aa91af1f389806bf/68747470733a2f2f736e796b2e696f2f746573742f6769746875622f6b6f706163682f6b61726d612d736162617269766b612d7265706f727465722f62616467652e7376673f74617267657446696c653d7061636b6167652e6a736f6e"
+            alt="Known Vulnerabilities"
+        />
+    </a>
+    <a href="https://github.com/kopach/karma-sabarivka-reporter/blob/master/LICENSE">
+        <img src="https://camo.githubusercontent.com/b2a47d97326e4ad2ca799414b77ffb57d16ba92a/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6963656e73652f6b6f706163682f6b61726d612d736162617269766b612d7265706f72746572"
+            alt="MIT"
+        />
+    </a>
+    <a href="https://github.com/kopach/karma-sabarivka-reporter">
+        <img src="https://camo.githubusercontent.com/034d02a85c11c83e86b36f4af5fb9b2f99eea13a/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c616e6775616765732f636f64652d73697a652f6b6f706163682f6b61726d612d736162617269766b612d7265706f72746572"
+            alt="GitHub code size in bytes"
+        />
+    </a>
+</div>
 
 > [https://github.com/kopach/karma-sabarivka-reporter](https://github.com/kopach/karma-sabarivka-reporter)
 
-- [karma-sabarivka-reporter](#karma-sabarivka-reporter)
-  - [Support](#support)
-  - [Why?](#why)
-  - [Features](#features)
-  - [Usage](#usage)
-    - [Install via npm](#install-via-npm)
-    - [Update `karma.conf.js`](#update-karmaconfjs)
-      - [Basic syntax](#basic-syntax)
-      - [Example](#example)
-        - [`include` as array of strings](#include-as-array-of-strings)
-        - [`include` as string](#include-as-string)
+
+## Table of Contents
+
+- [Support](#support)
+- [Why?](#why)
+- [Features](#features)
+- [Install](#install)
+- [API](#api)
+- [Usage](#usage)
+  - [`include` as array of strings](#include-as-array-of-strings)
+  - [`include` as string](#include-as-string)
+- [License](#license)
 
 A Karma plugin. Adds untested files to [istanbul](https://github.com/gotwarlost/istanbul) coverage statistic
 
@@ -40,25 +61,25 @@ Plugin works with both: TypeScript (`*.ts`) and JavaScript (`*.js`) files
 - Multiple patterns
 - Negated patterns: ['foo*', '!foobar']
 
-## Usage
+## Install
 
-### Install via [npm](https://www.npmjs.com/package/karma-sabarivka-reporter)
+With [npm](https://npmjs.org/) installed, run
 
-``` bash
+```bash
 npm install --save-dev karma-sabarivka-reporter
 ```
 
-### Update `karma.conf.js`
-
-#### Basic syntax
+## API
 
 `@param {string[] | string} coverageReporter.include` - Glob pattern, `string` or `array of strings`. Files which should be included into the coverage result.
 
-#### Example
+## Usage
 
-##### `include` as array of strings
+Update `karma.conf.js`
 
-``` JavaScript
+### `include` as array of strings
+
+```JavaScript
 reporters: [
   // ...
   'sabarivka'
@@ -79,9 +100,9 @@ coverageReporter: {
 
 Same result may be achieved with more complex one line glob pattern
 
-##### `include` as string
+### `include` as string
 
-``` JavaScript
+```JavaScript
 reporters: [
   // ...
   'sabarivka'
@@ -91,3 +112,7 @@ coverageReporter: {
     include: 'src/**/!(*.spec|*.module|environment*|main).(ts|js)',
 },
 ```
+
+## License
+
+[MIT](https://github.com/kopach/karma-sabarivka-reporter/blob/master/LICENSE)
