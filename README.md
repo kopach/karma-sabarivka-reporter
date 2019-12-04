@@ -24,7 +24,7 @@ A Karma plugin. Adds untested files to [istanbul](https://github.com/gotwarlost/
 
 Do you like this project? Please, star it on GitHub :sparkles:.
 
-[![GitHub stars](https://img.shields.io/github/stars/kopach/karma-sabarivka-reporter)](https://github.com/kopach/karma-sabarivka-reporter/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/kopach/karma-sabarivka-reporter)](https://github.com/kopach/karma-sabarivka-reporter/stargazers) [![Greenkeeper badge](https://badges.greenkeeper.io/kopach/karma-sabarivka-reporter.svg)](https://greenkeeper.io/)
 
 ## Why?
 
