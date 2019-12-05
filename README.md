@@ -112,4 +112,4 @@ coverageReporter: {
 
 ## :page_facing_up: License
 
-[MIT](https://github.com/kopach/karma-sabarivka-reporter/blob/master/LICENSE)
+This software is licensed under the [MIT](https://github.com/kopach/karma-sabarivka-reporter/blob/master/LICENSE)
