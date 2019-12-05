@@ -26,7 +26,7 @@
     </a>
 </div>
 
-## Table of Contents
+## 🧬 Table of Contents
 
 - [Support](#support)
 - [Why?](#why)
@@ -40,13 +40,13 @@
 
 A Karma plugin. Adds untested files to [istanbul](https://github.com/gotwarlost/istanbul) coverage statistic
 
-## Support
+## :sos: Support
 
 Do you like this project? Please, star it on GitHub :sparkles:.
 
 [![GitHub stars](https://img.shields.io/github/stars/kopach/karma-sabarivka-reporter)](https://github.com/kopach/karma-sabarivka-reporter/stargazers)
 
-## Why?
+## :question: Why?
 
 If your project has single entry point for your test files (e.g. `test.(ts|js)` file which gathers all `*.spec.(ts|js))`) - you're probably facing an issue with "fake" test coverage. To have a real picture of test coverage all files with source code should be imported directly into `*.spec.(ts|js))` files. Files with source code, which were not imported in any `*.spec.(ts|js))` files will not be shown in coverage report at all, which creates higher coverage result than it is in reality.
 
@@ -54,13 +54,13 @@ This karma plugin attempts to fix described issue by going through all of the so
 
 Plugin works with both: TypeScript (`*.ts`) and JavaScript (`*.js`) files
 
-## Features
+## :sparkles: Features
 
 - Both JavaScript `*.js` and TypeScript `*.js` files support
 - Multiple patterns
 - Negated patterns: ['foo*', '!foobar']
 
-## Install
+## :floppy_disk: Install
 
 With [npm](https://npmjs.org/) installed, run
 
@@ -68,11 +68,11 @@ With [npm](https://npmjs.org/) installed, run
 npm install --save-dev karma-sabarivka-reporter
 ```
 
-## API
+## :alien: API
 
 `@param {string[] | string} coverageReporter.include` - Glob pattern, `string` or `array of strings`. Files which should be included into the coverage result.
 
-## Usage
+## :hammer: Usage
 
 Update `karma.conf.js`
 
@@ -112,6 +112,6 @@ coverageReporter: {
 },
 ```
 
-## License
+## :page_facing_up: License
 
 [MIT](https://github.com/kopach/karma-sabarivka-reporter/blob/master/LICENSE)
