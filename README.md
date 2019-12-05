@@ -4,7 +4,9 @@
 ╚═╝╩ ╩╚═╝╩ ╩╩╚═╩ ╚╝ ╩ ╩╩ ╩
 </pre></div>
 
-<h1 align="center">karma-sabarivka-reporter</h1>
+<h1 align="center">
+    <a href="https://github.com/kopach/karma-sabarivka-reporter">karma-sabarivka-reporter</a>
+</h1>
 
 <div align="center">
     <a href="https://snyk.io/test/github/kopach/karma-sabarivka-reporter">
@@ -23,9 +25,6 @@
         />
     </a>
 </div>
-
-> [https://github.com/kopach/karma-sabarivka-reporter](https://github.com/kopach/karma-sabarivka-reporter)
-
 
 ## Table of Contents
 
