@@ -34,8 +34,6 @@
 - [Install](#install)
 - [API](#api)
 - [Usage](#usage)
-  - [`include` as array of strings](#include-as-array-of-strings)
-  - [`include` as string](#include-as-string)
 - [License](#license)
 
 A Karma plugin. Adds untested files to [istanbul](https://github.com/gotwarlost/istanbul) coverage statistic
