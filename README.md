@@ -26,23 +26,22 @@
     </a>
 </div>
 
+:star: Please, star me on GitHub — it helps!
+
+[karma-sabarivka-reporter](https://github.com/kopach/karma-sabarivka-reporter) – is a Karma plugin which adds untested files to [istanbul](https://github.com/gotwarlost/istanbul) coverage statistic
+
+![screenshot before](./assets/before.png)
+
+![screenshot after](./assets/after.png)
+
 ## 🧬 Table of Contents
 
-- [Support](#support)
 - [Why?](#why)
 - [Features](#features)
 - [Install](#install)
 - [API](#api)
 - [Usage](#usage)
 - [License](#license)
-
-A Karma plugin. Adds untested files to [istanbul](https://github.com/gotwarlost/istanbul) coverage statistic
-
-## :sos: Support
-
-Do you like this project? Please, star it on GitHub :sparkles:.
-
-[![GitHub stars](https://img.shields.io/github/stars/kopach/karma-sabarivka-reporter)](https://github.com/kopach/karma-sabarivka-reporter/stargazers)
 
 ## :question: Why?
 
