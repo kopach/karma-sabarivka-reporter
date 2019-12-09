@@ -1,6 +1,6 @@
 {
   "name": "karma-sabarivka-reporter",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A Karma plugin. Adds untested files to istanbul coverage statistic",
   "main": "dist/index.js",
   "repository": {
