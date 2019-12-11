@@ -26,7 +26,7 @@
     </a>
 </div>
 
-:star: Please, star me on GitHub — it helps!
+⭐️ Please, star me on GitHub — it helps!
 
 [karma-sabarivka-reporter](https://github.com/kopach/karma-sabarivka-reporter) – is a Karma plugin which adds untested files to [istanbul](https://github.com/gotwarlost/istanbul) coverage statistic
 
@@ -43,7 +43,7 @@
 - [Usage](#usage)
 - [License](#license)
 
-## :question: Why?
+## ❓ Why?
 
 If your project has single entry point for your test files (e.g. `test.(ts|js)` file which gathers all `*.spec.(ts|js))`) - you're probably facing an issue with "fake" test coverage. To have a real picture of test coverage all files with source code should be imported directly into `*.spec.(ts|js))` files. Files with source code, which were not imported in any `*.spec.(ts|js))` files will not be shown in coverage report at all, which creates higher coverage result than it is in reality.
 
@@ -53,13 +53,13 @@ This karma plugin attempts to fix described issue by going through all of the so
 
 Plugin works with both: TypeScript (`*.ts`) and JavaScript (`*.js`) files
 
-## :sparkles: Features
+## ✨ Features
 
 - Both JavaScript `*.js` and TypeScript `*.js` files support
 - Multiple patterns
 - Negated patterns: ['foo*', '!foobar']
 
-## :floppy_disk: Install
+## 💾 Install
 
 With [npm](https://npmjs.org/) installed, run
 
@@ -67,11 +67,11 @@ With [npm](https://npmjs.org/) installed, run
 npm install --save-dev karma-sabarivka-reporter
 ```
 
-## :alien: API
+## 👽 API
 
 `@param {string[] | string} coverageReporter.include` - Glob pattern, `string` or `array of strings`. Files which should be included into the coverage result.
 
-## :hammer: Usage
+## 🔨 Usage
 
 Update `karma.conf.js`
 
@@ -111,6 +111,6 @@ coverageReporter: {
 },
 ```
 
-## :page_facing_up: License
+## 📄 License
 
 This software is licensed under the [MIT](https://github.com/kopach/karma-sabarivka-reporter/blob/master/LICENSE)
