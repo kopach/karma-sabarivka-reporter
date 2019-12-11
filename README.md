@@ -36,12 +36,12 @@
 
 ## 🧬 Table of Contents
 
-- [Why?](#why)
-- [Features](#features)
-- [Install](#install)
-- [API](#api)
-- [Usage](#usage)
-- [License](#license)
+- [Why?](#-why)
+- [Features](#-features)
+- [Install](#-install)
+- [API](#-api)
+- [Usage](#-usage)
+- [License](#-license)
 
 ## ❓ Why?
 
