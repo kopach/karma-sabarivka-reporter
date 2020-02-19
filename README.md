@@ -36,6 +36,8 @@
 
 ## 🧬 Table of Contents
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/kopach/karma-sabarivka-reporter.svg)](https://greenkeeper.io/)
+
 - [Why?](#-why)
 - [Features](#-features)
 - [Install](#-install)
