@@ -24,6 +24,8 @@
             alt="GitHub code size in bytes"
         />
     </a>
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/kopach/karma-sabarivka-reporter.svg)](https://greenkeeper.io/)
 </div>
 
 ⭐️ Please, star me on GitHub — it helps!
@@ -35,8 +37,6 @@
 ![screenshot after](./assets/after.png)
 
 ## 🧬 Table of Contents
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/kopach/karma-sabarivka-reporter.svg)](https://greenkeeper.io/)
 
 - [Why?](#-why)
 - [Features](#-features)
