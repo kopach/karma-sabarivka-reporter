@@ -1,80 +1,101 @@
 import * as fs from 'fs';
-import { createInstrumenter } from 'istanbul-lib-instrument';
+import { sync } from 'globby';
+import { createInstrumenter, Instrumenter } from 'istanbul-lib-instrument';
 import * as path from 'path';
-import * as typescript from 'typescript';
-// tslint:disable-next-line: no-var-requires
-const sync = require('globby').sync;
+import { ModuleKind, transpileModule, TranspileOutput } from 'typescript';
 
-const instrumenter = createInstrumenter({
-    esModules: true,
+const instrumenter: Instrumenter = createInstrumenter({
+  esModules: true,
 });
 
-declare type KarmaReprter = (coverageReporterConfig: any) => void;
+declare type KarmaReprter = (coverageReporterConfig: Config) => void;
 interface Reporter extends KarmaReprter {
-    $inject: string[];
+  $inject: string[];
 }
 
 const sabarivkaReporter: Reporter = Object.defineProperty(
-    function (coverageReporterConfig) {
-        this.onBrowserComplete = getFileIntrumenterFn(coverageReporterConfig);
-    },
-    '$inject',
-    {
-        value: ['config.coverageReporter'],
-    },
+  function(
+    // tslint:disable-next-line: no-any
+    this: { onBrowserComplete: (a: any, b: any) => any },
+    coverageReporterConfig: Config
+  ): void {
+    this.onBrowserComplete = getFileIntrumenterFn(coverageReporterConfig);
+  },
+  '$inject',
+  {
+    value: ['config.coverageReporter'],
+  }
 );
 
 interface Config {
-    include: string[] | string;
+  include: string[] | string;
 }
 
-function getFileIntrumenterFn(coverageReporterConfig: Config): (a, b) => any {
-    return (browser, { coverage = {} }) => {
-        const filesToCover = getListOfFilesToCover(coverageReporterConfig);
+function getFileIntrumenterFn(
+  coverageReporterConfig: Config
+  // tslint:disable-next-line: no-any
+): (...args: any) => any {
+  // tslint:disable-next-line: no-any
+  return (...[, { coverage = {} }]: any): void => {
+    const filesToCover: string[] = getListOfFilesToCover(
+      coverageReporterConfig
+    );
 
-        instrumentFilesWithCoverage(filesToCover, coverage);
-    };
+    instrumentFilesWithCoverage(filesToCover, coverage);
+  };
 }
 
-function instrumentFilesWithCoverage(filesToCover: string[], coverage) {
-    filesToCover.forEach((filePath: string) => {
-        const fullFilePath = path.resolve(process.cwd(), filePath);
+function instrumentFilesWithCoverage(
+  filesToCover: string[],
+  // tslint:disable-next-line: no-any
+  coverage: { [x: string]: any }
+): void {
+  filesToCover.forEach((filePath: string) => {
+    const fullFilePath: string = path.resolve(process.cwd(), filePath);
 
-        if (!coverage[fullFilePath]) {
-            const fileContent = getFileTranspilledToJs(fullFilePath);
+    if (!coverage[fullFilePath]) {
+      const fileContent: TranspileOutput = getFileTranspilledToJs(fullFilePath);
 
-            instrumentFile(fileContent, fullFilePath, coverage);
-        }
-    });
+      instrumentFile(fileContent, fullFilePath, coverage);
+    }
+  });
 }
 
-function instrumentFile(jsResult: typescript.TranspileOutput, fullFilePath: string, coverage: any) {
-    instrumenter.instrumentSync(jsResult.outputText, fullFilePath);
-    coverage[fullFilePath] = instrumenter.lastFileCoverage();
+function instrumentFile(
+  jsResult: TranspileOutput,
+  fullFilePath: string,
+  // tslint:disable-next-line: no-any
+  coverage: any
+): void {
+  instrumenter.instrumentSync(jsResult.outputText, fullFilePath);
+  coverage[fullFilePath] = instrumenter.lastFileCoverage();
 }
 
-function getFileTranspilledToJs(fullFilePath: string) {
-    const rawFile = fs.readFileSync(fullFilePath, 'utf-8');
-    const jsResult = typescript.transpileModule(rawFile, {
-        compilerOptions: {
-            allowJs: true,
-            module: typescript.ModuleKind.ES2015,
-        },
-    });
-    return jsResult;
+function getFileTranspilledToJs(fullFilePath: string): TranspileOutput {
+  const rawFile: string = fs.readFileSync(fullFilePath, 'utf-8');
+  const jsResult: TranspileOutput = transpileModule(rawFile, {
+    compilerOptions: {
+      allowJs: true,
+      module: ModuleKind.ES2015,
+    },
+  });
+  return jsResult;
 }
 
-function getListOfFilesToCover(coverageReporterConfig: Config) {
-    const globPatternList: string[] = flatten([coverageReporterConfig.include || []]);
+function getListOfFilesToCover(coverageReporterConfig: Config): string[] {
+  const globPatternList: string[] = flatten([
+    coverageReporterConfig.include || [],
+  ]);
 
-    return sync(globPatternList);
+  return sync(globPatternList);
 }
 
 module.exports = {
-    'reporter:karma-sabarivka-reporter': ['type', sabarivkaReporter],
-    'reporter:sabarivka': ['type', sabarivkaReporter],
+  'reporter:karma-sabarivka-reporter': ['type', sabarivkaReporter],
+  'reporter:sabarivka': ['type', sabarivkaReporter],
 };
 
-function flatten(arr: Array<string | string[]>): string[] {
-    return [].concat(...arr);
+function flatten(arr: ReadonlyArray<string | string[]>): string[] {
+  // tslint:disable-next-line: no-any
+  return [].concat(...(arr as any[]));
 }
