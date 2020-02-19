@@ -1,53 +1,58 @@
 {
   "name": "karma-sabarivka-reporter",
-  "version": "2.0.3",
   "description": "A Karma plugin. Adds untested files to istanbul coverage statistic",
-  "main": "dist/index.js",
+  "license": "MIT",
+  "author": "Ihor Kopach <i40r@outlook.com> (https://github.com/kopach)",
+  "homepage": "https://github.com/kopach/karma-sabarivka-reporter",
   "repository": {
     "type": "git",
     "url": "https://github.com/kopach/karma-sabarivka-reporter"
   },
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kopach/karma-sabarivka-reporter/issues"
   },
-  "homepage": "https://github.com/kopach/karma-sabarivka-reporter",
-  "keywords": [
-    "karma-plugin",
-    "karma-reporter",
-    "karma-include",
-    "include-all-sources",
-    "allsources",
-    "coverage",
-    "istanbul",
-    "istanbuljs",
-    "sabarivka"
-  ],
-  "author": "Ihor Kopach <i40r@outlook.com> (https://github.com/kopach)",
-  "peerDependencies": {
-    "karma": ">=0.9"
+  "version": "2.0.3",
+  "main": "dist/index.js",
+  "scripts": {
+    "prebuild": "npm run lint",
+    "build": "tsc",
+    "postbuild": "uglifyjs dist/index.js -c -m -o dist/index.js --warn",
+    "build:watch": "npm run build -- --watch",
+    "lint": "tslint --project tsconfig.json src/**/*.ts",
+    "lint-package.json": "prettier-package-json --write",
+    "lint:fix": "npm run lint -- --fix"
   },
   "dependencies": {
     "globby": "^10.0.1",
     "istanbul-lib-instrument": "^1.10.1",
-    "typescript": "^2.9.2"
+    "typescript": "3.7.5"
+  },
+  "peerDependencies": {
+    "karma": ">=0.9"
   },
   "devDependencies": {
     "@types/istanbul-lib-instrument": "^1.7.3",
     "@types/node": "^10.14.21",
+    "prettier": "1.19.1",
+    "prettier-package-json": "2.1.3",
     "ts-node": "^8.4.1",
     "tslint": "^5.20.0",
     "tslint-clean-code": "^0.2.10",
     "tslint-config-airbnb": "^5.11.2",
+    "tslint-config-prettier": "1.18.0",
     "tslint-config-standard": "^9.0.0",
+    "tslint-plugin-prettier": "2.1.0",
     "uglify-js": "^3.6.9"
   },
-  "scripts": {
-    "build:watch": "npm run build -- --watch",
-    "prebuild": "npm run lint",
-    "build": "tsc",
-    "postbuild": "uglifyjs dist/index.js -c -m -o dist/index.js --warn",
-    "lint:fix": "tslint src/**/*.ts --fix",
-    "lint": "tslint src/**/*.ts"
-  }
+  "keywords": [
+    "allsources",
+    "coverage",
+    "include-all-sources",
+    "istanbul",
+    "istanbuljs",
+    "karma-include",
+    "karma-plugin",
+    "karma-reporter",
+    "sabarivka"
+  ]
 }

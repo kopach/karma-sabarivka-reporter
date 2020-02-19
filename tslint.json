@@ -2,38 +2,35 @@
   "extends": [
     "tslint:latest",
     "tslint:recommended",
-    "tslint-config-standard",
     "tslint-config-airbnb",
-    "tslint-clean-code"
+    "tslint-clean-code",
+    "tslint-plugin-prettier",
+    "tslint-config-prettier"
   ],
   "rules": {
-    "arrow-return-shorthand": true,
+    "prettier": true,
+    "no-void-expression": true,
+    "typedef": [
+      true,
+      "call-signature",
+      "arrow-call-signature",
+      "parameter",
+      "arrow-parameter",
+      "property-declaration",
+      "variable-declaration",
+      "variable-declaration-ignore-function",
+      "member-variable-declaration",
+      "object-destructuring",
+      "array-destructuring"
+    ],
+
+    "no-any": true,
     "callable-types": true,
     "class-name": true,
-    "comment-format": [
-      true,
-      "check-space"
-    ],
-    "curly": true,
     "deprecation": {
       "severity": "warn"
     },
-    "eofline": true,
-    "forin": true,
-    "import-spacing": true,
-    "indent": [
-      true,
-      "spaces",
-      4
-    ],
-    "ter-indent": [true, 4],
-    "interface-over-type-literal": true,
-    "label-position": true,
-    "max-line-length": [
-      true,
-      140
-    ],
-    "member-access": false,
+    "interface-over-type-literal": false,
     "member-ordering": [
       true,
       {
@@ -45,64 +42,19 @@
         ]
       }
     ],
-    "no-arg": true,
-    "no-bitwise": true,
-    "no-console": [
-      true,
-      "log",
-      "debug",
-      "info",
-      "time",
-      "timeEnd",
-      "trace"
-    ],
-    "no-construct": true,
-    "no-debugger": true,
-    "no-duplicate-super": true,
-    "no-empty": true,
-    "no-empty-interface": true,
-    "no-eval": true,
-    "no-inferrable-types": [
-      true,
-      "ignore-params"
-    ],
+    "no-inferrable-types": true,
     "no-misused-new": true,
     "no-non-null-assertion": true,
     "no-redundant-jsdoc": true,
     "no-shadowed-variable": true,
-    "no-string-literal": true,
     "no-string-throw": true,
     "no-switch-case-fall-through": true,
-    "no-trailing-whitespace": true,
     "no-unnecessary-initializer": true,
     "no-unused-expression": true,
-    "no-use-before-declare": true,
     "no-var-keyword": true,
-    "object-literal-sort-keys": [
-      true,
-      "shorthand-first"
-    ],
-    "one-line": [
-      true,
-      "check-open-brace",
-      "check-catch",
-      "check-else",
-      "check-whitespace"
-    ],
     "prefer-const": true,
-    "quotemark": [
-      true,
-      "single"
-    ],
     "radix": true,
-    "semicolon": [
-      true,
-      "always"
-    ],
-    "triple-equals": [
-      true,
-      "allow-null-check"
-    ],
+    "triple-equals": [true, "allow-null-check"],
     "typedef-whitespace": [
       true,
       {
@@ -114,26 +66,18 @@
       }
     ],
     "unified-signatures": true,
-    "whitespace": [
-      true,
-      "check-branch",
-      "check-decl",
-      "check-operator",
-      "check-separator",
-      "check-type"
-    ],
-    "no-submodule-imports": false,
-    "no-floating-promises": false,
-    "no-implicit-dependencies": [true, "dev"],
     "interface-name": [true, "never-prefix"],
-    "align": [true, "parameters", "statements", "members", "elements"],
-    "prefer-array-literal": false, // Conflicts with "array-type": [true, "array-simple"]
 
-    // Clean Code rules https://github.com/Glavin001/tslint-clean-code
+    "try-catch-first": true,
+    "max-func-args": 3,
+    "min-class-cohesion": true,
+    "newspaper-order": true,
     "no-flag-args": true,
     "no-for-each-push": true,
+    "no-feature-envy": true,
     "no-map-without-usage": true,
-    "no-commented-out-code": true,
-    "no-unused-variable": true
+    "no-complex-conditionals": true,
+    "prefer-dry-conditionals": true,
+    "no-commented-out-code": true
   }
 }
