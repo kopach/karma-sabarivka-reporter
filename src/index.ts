@@ -43,7 +43,7 @@ function instrumentFilesWithCoverage(
   filesToCover: string[],
   coverage: CoverageData
 ): void {
-  filesToCover.forEach((filePath: string) => {
+  filesToCover.forEach((filePath: string): void => {
     const fullFilePath: string = path.resolve(process.cwd(), filePath);
 
     if (!coverage[fullFilePath]) {
