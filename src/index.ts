@@ -3,20 +3,20 @@ import { sync } from 'globby';
 import { createInstrumenter, Instrumenter } from 'istanbul-lib-instrument';
 import * as path from 'path';
 import { ModuleKind, transpileModule, TranspileOutput } from 'typescript';
+import {
+  Config,
+  CoverageData,
+  InstrumenterFnArgs,
+  KarmaReprter,
+} from './model';
 
 const instrumenter: Instrumenter = createInstrumenter({
   esModules: true,
 });
 
-declare type KarmaReprter = (coverageReporterConfig: Config) => void;
-interface Reporter extends KarmaReprter {
-  $inject: string[];
-}
-
-const sabarivkaReporter: Reporter = Object.defineProperty(
+const sabarivkaReporter: KarmaReprter = Object.defineProperty(
   function(
-    // tslint:disable-next-line: no-any
-    this: { onBrowserComplete: (a: any, b: any) => any },
+    this: { onBrowserComplete: (...args: InstrumenterFnArgs) => void },
     coverageReporterConfig: Config
   ): void {
     this.onBrowserComplete = getFileIntrumenterFn(coverageReporterConfig);
@@ -27,16 +27,10 @@ const sabarivkaReporter: Reporter = Object.defineProperty(
   }
 );
 
-interface Config {
-  include: string[] | string;
-}
-
 function getFileIntrumenterFn(
   coverageReporterConfig: Config
-  // tslint:disable-next-line: no-any
-): (...args: any) => any {
-  // tslint:disable-next-line: no-any
-  return (...[, { coverage = {} }]: any): void => {
+): (...args: InstrumenterFnArgs) => void {
+  return (...[, { coverage }]: InstrumenterFnArgs): void => {
     const filesToCover: string[] = getListOfFilesToCover(
       coverageReporterConfig
     );
@@ -47,8 +41,7 @@ function getFileIntrumenterFn(
 
 function instrumentFilesWithCoverage(
   filesToCover: string[],
-  // tslint:disable-next-line: no-any
-  coverage: { [x: string]: any }
+  coverage: CoverageData
 ): void {
   filesToCover.forEach((filePath: string) => {
     const fullFilePath: string = path.resolve(process.cwd(), filePath);
@@ -64,8 +57,7 @@ function instrumentFilesWithCoverage(
 function instrumentFile(
   jsResult: TranspileOutput,
   fullFilePath: string,
-  // tslint:disable-next-line: no-any
-  coverage: any
+  coverage: CoverageData
 ): void {
   instrumenter.instrumentSync(jsResult.outputText, fullFilePath);
   coverage[fullFilePath] = instrumenter.lastFileCoverage();
@@ -96,6 +88,5 @@ module.exports = {
 };
 
 function flatten(arr: ReadonlyArray<string | string[]>): string[] {
-  // tslint:disable-next-line: no-any
-  return [].concat(...(arr as any[]));
+  return ([] as string[]).concat(...arr);
 }
