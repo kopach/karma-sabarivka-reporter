@@ -1,28 +1,28 @@
 {
-	"include": [
-		"src"
-	],
+    "compilerOptions": {
+        "module": "commonjs",
+        "outDir": "./dist",
+        "target": "es5",
+        "lib": [
+            "es5"
+        ],
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "sourceMap": true,
+        "strict": true,
+        "strictNullChecks": true
+    },
     "exclude": [
         "src/**/*.spec.ts"
     ],
-	"compileOnSave": false,
-	"compilerOptions": {
-		"outDir": "./dist",
-		"strict": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"sourceMap": true,
-		"module": "commonjs",
-		"noImplicitAny": true,
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
-		"strictNullChecks": true,
-		"target": "es5",
-		"typeRoots": [
-			"node_modules/@types"
-		],
-		"lib": [
-			"es5"
-		]
-	}
+    "include": [
+        "src"
+    ],
+    "compileOnSave": false
 }

@@ -4,10 +4,11 @@ import { createInstrumenter, Instrumenter } from 'istanbul-lib-instrument';
 import * as path from 'path';
 import { ModuleKind, transpileModule, TranspileOutput } from 'typescript';
 import {
-  Config,
   CoverageData,
   InstrumenterFnArgs,
+  isSabarivkaReporterConfig,
   KarmaReprter,
+  PublicAPI,
 } from './model';
 
 const instrumenter: Instrumenter = createInstrumenter({
@@ -17,18 +18,30 @@ const instrumenter: Instrumenter = createInstrumenter({
 const sabarivkaReporter: KarmaReprter = Object.defineProperty(
   function(
     this: { onBrowserComplete: (...args: InstrumenterFnArgs) => void },
-    coverageReporterConfig: Config
+    coverageReporterConfig: PublicAPI
   ): void {
+    if (!isSabarivkaReporterConfig(coverageReporterConfig)) {
+      const schema: string = JSON.stringify(
+        require('./public_api.schema.json'),
+        null,
+        2
+      );
+
+      throw new Error(
+        `Not valid karma-sabarivka-reporter-confiig\nvalid schema is: \n${schema}`
+      );
+    }
+
     this.onBrowserComplete = getFileIntrumenterFn(coverageReporterConfig);
   },
   '$inject',
   {
-    value: ['config.coverageReporter'],
+    value: ['config'],
   }
 );
 
 function getFileIntrumenterFn(
-  coverageReporterConfig: Config
+  coverageReporterConfig: PublicAPI
 ): (...args: InstrumenterFnArgs) => void {
   return (...[, { coverage }]: InstrumenterFnArgs): void => {
     const filesToCover: string[] = getListOfFilesToCover(
@@ -74,9 +87,9 @@ function getFileTranspilledToJs(fullFilePath: string): TranspileOutput {
   return jsResult;
 }
 
-function getListOfFilesToCover(coverageReporterConfig: Config): string[] {
+function getListOfFilesToCover(coverageReporterConfig: PublicAPI): string[] {
   const globPatternList: string[] = flatten([
-    coverageReporterConfig.include || [],
+    coverageReporterConfig.coverageReporter.include || [],
   ]);
 
   return sync(globPatternList);
