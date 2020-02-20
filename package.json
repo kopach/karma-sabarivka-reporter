@@ -16,7 +16,6 @@
   "scripts": {
     "prebuild": "npm run lint",
     "build": "tsc",
-    "postbuild": "uglifyjs dist/index.js -c -m -o dist/index.js --warn",
     "build:watch": "npm run build -- --watch",
     "lint": "tslint --project tsconfig.json src/**/*.ts",
     "lint-package.json": "prettier-package-json --write",
@@ -41,8 +40,7 @@
     "tslint-config-airbnb": "^5.11.2",
     "tslint-config-prettier": "^1.18.0",
     "tslint-config-standard": "^9.0.0",
-    "tslint-plugin-prettier": "^2.1.0",
-    "uglify-js": "^3.6.9"
+    "tslint-plugin-prettier": "^2.1.0"
   },
   "keywords": [
     "allsources",
