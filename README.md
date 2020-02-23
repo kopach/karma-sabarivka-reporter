@@ -79,7 +79,7 @@ coverageReporter: {
   include: [
       // Specify include pattern(s) first
       'src/**/*.(ts|js)',
-      // Then specify "do not include" patterns (note `!` sign on the beggining of each statement)
+      // Then specify "do not include" patterns (note `!` sign on the beginning of each statement)
       '!src/main.(ts|js)',
       '!src/**/*.spec.(ts|js)',
       '!src/**/*.module.(ts|js)',
