@@ -103,6 +103,24 @@ coverageReporter: {
 },
 ```
 
+### karma `plugins` section
+
+If your karma config has `plugins` section, add also `karma-sabarivka-reporter` there. Otherwise — no action is required.
+
+Karma's documentation:
+> By default, Karma loads all sibling NPM modules which have a name starting with karma-\*.\
+You can also explicitly list plugins you want to load via the plugins configuration setting. The configuration value can either be a string (module name), which will be required by Karma, or an object (inlined plugin).
+
+[See here more info on how karma plugins loading works](https://karma-runner.github.io/4.0/config/plugins.html)
+
+```JavaScript
+plugins: [
+  // ...
+  require('karma-sabarivka-reporter'),
+  // ...
+],
+```
+
 ## 📄 License
 
 This software is licensed under the [MIT](https://github.com/kopach/karma-sabarivka-reporter/blob/master/LICENSE)
