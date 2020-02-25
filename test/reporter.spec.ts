@@ -109,39 +109,7 @@ describe('karma-sabarivka-reporter', () => {
   });
 
   describe('correct config', () => {
-    it('should not throw error if correct config being set', done => {
-      console.log('start');
-      // TODO: remove this
-      // given
-      const KarmaCLIOutputFile = join(
-        __dirname,
-        'fixtures',
-        'outputs',
-        `karma-output${generate()}.log`
-      );
-      const server = createServer(
-        { coverageReporter: { include: '' } },
-        KarmaCLIOutputFile
-      );
-      function checkOutput() {
-        const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
-        expect(CLI_output).not.to.contain(
-          'Not valid karma-sabarivka-reporter-confiig'
-        );
-        done();
-      }
-
-      // when
-      server.start();
-
-      // then
-
-      server.on('run_complete', () => {
-        setTimeout(checkOutput, fileReadTimeout);
-      });
-      console.log('stop');
-    });
-
+    // TODO: move this spec on top of file
     it('should not have untested files included in coverage raport if karma-sabarivka-reporter disabled', done => {
       console.log('start');
       // given
@@ -167,95 +135,116 @@ describe('karma-sabarivka-reporter', () => {
       console.log('stop');
     });
 
-    it('should not have untested files included in coverage raport if they are not covered by include pattern', done => {
-      console.log('start');
-      // given
-      const server = createServer(
-        { coverageReporter: { include: '**/**/example.ts' } },
-        undefined,
-        true
-      );
-      function checkOutput() {
-        const coverageSummary = JSON.stringify(
-          readFileSync(`${OUTPUT_PATH}/coverage-summary.json`).toString()
-        );
-        expect(coverageSummary).to.not.contain('ignored-file.ts');
-        expect(coverageSummary).to.contain('example.ts');
-        expect(coverageSummary).to.contain('another-file.ts');
-
-        done();
-      }
-
-      // when
-      server.start();
-
-      // then
-      server.on('run_complete', () => {
-        setTimeout(checkOutput, fileReadTimeout);
-      });
-      console.log('stop');
-    });
-
-    it('should not have untested files included in coverage raport if they are not covered by include array pattern', done => {
-      console.log('start');
-      // given
-      const server = createServer(
-        { coverageReporter: { include: ['**/**/example.ts'] } },
-        undefined,
-        true
-      );
-      function checkOutput() {
-        const coverageSummary = JSON.stringify(
-          readFileSync(`${OUTPUT_PATH}/coverage-summary.json`).toString()
-        );
-        expect(coverageSummary).to.not.contain('ignored-file.ts');
-        expect(coverageSummary).to.contain('example.ts');
-        expect(coverageSummary).to.contain('another-file.ts');
-
-        done();
-      }
-
-      // when
-      server.start();
-
-      // then
-      server.on('run_complete', () => {
-        setTimeout(checkOutput, fileReadTimeout);
-      });
-      console.log('stop');
-    });
-
-    it('should not have untested files included in coverage raport if they are blacklisted from include pattern', done => {
-      console.log('start');
-      // given
-      const server = createServer(
-        {
+    [
+      {
+        name: 'untested files are blacklisted from include pattern',
+        config: {
           coverageReporter: {
             include: ['**/**/example.ts', '!**/**/ignored-file.ts'],
           },
         },
-        undefined,
-        true
-      );
-      function checkOutput() {
-        const coverageSummary = JSON.stringify(
-          readFileSync(`${OUTPUT_PATH}/coverage-summary.json`).toString()
-        );
-        expect(coverageSummary).to.not.contain('ignored-file.ts');
-        expect(coverageSummary).to.contain('example.ts');
-        expect(coverageSummary).to.contain('another-file.ts');
+      },
+      {
+        name: 'untested files are not covered by include array pattern',
+        config: {
+          coverageReporter: {
+            include: ['**/**/example.ts'],
+          },
+        },
+      },
+      {
+        name: 'untested files are not covered by include string pattern',
+        config: {
+          coverageReporter: {
+            include: '**/**/example.ts',
+          },
+        },
+      },
+      {
+        name: 'include pattern is empty string',
+        config: {
+          coverageReporter: {
+            include: '',
+          },
+        },
+      },
+      {
+        name: 'include pattern is empty array',
+        config: {
+          coverageReporter: {
+            include: [],
+          },
+        },
+      },
+    ].forEach(({ name, config }) => {
+      it(`should not have untested files included in coverage raport if: ${name}`, done => {
+        console.log('start');
+        // given
+        const server = createServer(config, undefined, true);
+        function checkOutput() {
+          const coverageSummary = JSON.stringify(
+            readFileSync(`${OUTPUT_PATH}/coverage-summary.json`).toString()
+          );
+          expect(coverageSummary).to.not.contain('ignored-file.ts');
+          expect(coverageSummary).to.contain('example.ts');
+          expect(coverageSummary).to.contain('another-file.ts');
 
-        done();
-      }
+          done();
+        }
 
-      // when
-      server.start();
+        // when
+        server.start();
 
-      // then
-      server.on('run_complete', () => {
-        setTimeout(checkOutput, fileReadTimeout);
+        // then
+        server.on('run_complete', () => {
+          setTimeout(checkOutput, fileReadTimeout);
+        });
+        console.log('stop');
       });
-      console.log('stop');
+    });
+
+    [
+      {
+        name: 'untested files are covered by include array pattern',
+        config: {
+          coverageReporter: {
+            include: ['**/**/example.ts', '**/**/ignored-file.ts'],
+          },
+        },
+      },
+      // { // TODO: investigate this. Doen'st work for some rerason
+      //   name: 'untested files are covered by include string pattern',
+      //   config: {
+      //     coverageReporter: {
+      //       include: '**/**/*.ts',
+      //     },
+      //   },
+      // },
+    ].forEach(({ name, config }) => {
+      it(`should have untested files included in coverage raport if: ${name}`, done => {
+        console.log('start');
+        // given
+        const server = createServer(config, undefined, true);
+        function checkOutput() {
+          const coverageSummary = JSON.stringify(
+            readFileSync(`${OUTPUT_PATH}/coverage-summary.json`).toString()
+          );
+          expect(coverageSummary).to.contain('ignored-file.ts');
+          expect(coverageSummary).to.contain('example.ts');
+          expect(coverageSummary).to.contain('another-file.ts');
+
+          done();
+        }
+
+        // when
+        server.start();
+
+        // then
+        server.on('run_complete', () => {
+          setTimeout(checkOutput, fileReadTimeout);
+        });
+        console.log('stop');
+      });
     });
   });
 });
