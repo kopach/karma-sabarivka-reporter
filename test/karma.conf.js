@@ -42,7 +42,7 @@ module.exports = function(config) {
   config.set({
     basePath: './',
 
-    browsers: ['PhantomJS'],
+    browsers: ['PhantomJS'], // Some test fail on Chrome Headless. Investigation needed
 
     frameworks: ['mocha'],
 
