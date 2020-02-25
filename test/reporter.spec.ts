@@ -22,7 +22,6 @@ function createServer(
       plugins: [
         'karma-mocha',
         'karma-chrome-launcher',
-        'karma-phantomjs-launcher',
         'karma-webpack',
         'karma-sourcemap-loader',
         'karma-coverage-istanbul-reporter',

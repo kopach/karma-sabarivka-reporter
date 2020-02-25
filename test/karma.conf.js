@@ -1,4 +1,6 @@
-const path = require('path');
+process.env.CHROME_BIN = require('puppeteer').executablePath();
+process.env.NODE_OPTIONS = '--max-old-space-size=4096';
+
 const webpack = require('webpack');
 
 const webpackConfig = {
@@ -42,8 +44,13 @@ module.exports = function(config) {
   config.set({
     basePath: './',
 
-    browsers: ['PhantomJS'], // Some test fail on Chrome Headless. Investigation needed
-
+    browsers: ['ChromeHeadlessWithoutSandbox'],
+    customLaunchers: {
+      ChromeHeadlessWithoutSandbox: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox', '--disable-setuid-sandbox'],
+      },
+    },
     frameworks: ['mocha'],
 
     singleRun: true,

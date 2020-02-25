@@ -62,6 +62,7 @@
     "onchange": "^6.1.0",
     "prettier": "^1.19.1",
     "prettier-package-json": "^2.1.3",
+    "puppeteer": "^2.1.1",
     "rimraf": "^3.0.2",
     "ts-loader": "^6.2.1",
     "ts-node": "^8.6.2",
