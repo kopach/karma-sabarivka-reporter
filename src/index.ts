@@ -22,7 +22,7 @@ const sabarivkaReporter: KarmaReprter = Object.defineProperty(
   ): void {
     if (!isSabarivkaReporterConfig(coverageReporterConfig)) {
       const schema: string = JSON.stringify(
-        require('../dist/public_api.schema.json'), // TODO: fix this
+        require('../dist/public_api.schema.json'),
         null,
         2
       );
