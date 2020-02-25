@@ -8,7 +8,6 @@ import * as karmaSabarivkaReporter from '../src';
 import { generate } from 'shortid';
 
 const OUTPUT_PATH = join(__dirname, 'fixtures', 'outputs');
-const fileReadTimeout = 300; // Hacky workaround to make sure the output file has been written
 
 function createServer(
   config = {},
@@ -56,44 +55,43 @@ describe('karma-sabarivka-reporter', () => {
     rimraf(OUTPUT_PATH, done);
   });
 
-  describe('correct config', () => {
-    // TODO: move this spec on top of file
-    it('should not have untested files included in coverage raport if karma-sabarivka-reporter disabled', done => {
-      console.log('start');
-      // given
-      const coverageReportDir = join(OUTPUT_PATH, `coverage${generate()}`);
-      const server = createServer(
-        {
-          coverageIstanbulReporter: {
-            fixWebpackSourcePaths: true,
-            reports: ['json-summary'],
-            dir: coverageReportDir,
-          },
+  it('should not have untested files included in coverage raport if karma-sabarivka-reporter disabled', done => {
+    console.log('start');
+    // given
+    const coverageReportDir = join(OUTPUT_PATH, `coverage${generate()}`);
+    const server = createServer(
+      {
+        coverageIstanbulReporter: {
+          fixWebpackSourcePaths: true,
+          reports: ['json-summary'],
+          dir: coverageReportDir,
         },
-        undefined,
-        false
+      },
+      undefined,
+      false
+    );
+    function checkOutput() {
+      const coverageSummary = JSON.stringify(
+        readFileSync(`${coverageReportDir}/coverage-summary.json`).toString()
       );
-      function checkOutput() {
-        const coverageSummary = JSON.stringify(
-          readFileSync(`${coverageReportDir}/coverage-summary.json`).toString()
-        );
-        expect(coverageSummary).to.not.contain('ignored-file.ts');
-        expect(coverageSummary).to.contain('example.ts');
-        expect(coverageSummary).to.contain('another-file.ts');
+      expect(coverageSummary).to.not.contain('ignored-file.ts');
+      expect(coverageSummary).to.contain('example.ts');
+      expect(coverageSummary).to.contain('another-file.ts');
 
-        done();
-      }
+      done();
+    }
 
-      // when
-      server.start();
-
+    // when
+    ((server.start() as unknown) as Promise<void>).then(() => {
       // then
       server.on('run_complete', () => {
-        setTimeout(checkOutput, fileReadTimeout);
+        checkOutput();
+        console.log('stop');
       });
-      console.log('stop');
     });
+  });
 
+  describe('Correct config:', () => {
     [
       {
         name: 'untested files are blacklisted from include pattern',
@@ -166,13 +164,13 @@ describe('karma-sabarivka-reporter', () => {
         }
 
         // when
-        server.start();
-
-        // then
-        server.on('run_complete', () => {
-          setTimeout(checkOutput, fileReadTimeout);
+        ((server.start() as unknown) as Promise<void>).then(() => {
+          // then
+          server.on('run_complete', () => {
+            checkOutput();
+            console.log('stop');
+          });
         });
-        console.log('stop');
       });
     });
 
@@ -224,18 +222,18 @@ describe('karma-sabarivka-reporter', () => {
         }
 
         // when
-        server.start();
-
-        // then
-        server.on('run_complete', () => {
-          setTimeout(checkOutput, fileReadTimeout);
+        ((server.start() as unknown) as Promise<void>).then(() => {
+          // then
+          server.on('run_complete', () => {
+            checkOutput();
+            console.log('stop');
+          });
         });
-        console.log('stop');
       });
     });
   });
 
-  describe('incorrect config', () => {
+  describe('Incorrect config:', () => {
     [
       {
         name: 'root config object is null',
