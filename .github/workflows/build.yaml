@@ -6,8 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['8', '13']
-        install-option: ['', '--minimum']
+        node-version: ['8']
+        install-option: ['--minimum']
     name: Node v${{ matrix.node-version }} ${{ matrix.install-option }} 
     steps:
       - uses: actions/checkout@v1
