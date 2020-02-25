@@ -1,0 +1,11 @@
+{
+  "all": true,
+  "check-coverage": true,
+  "extension": [".ts"],
+  "reporter": ["text-summary", "lcov"],
+  "temp-directory": "coverage/.nyc_output",
+  "branches": 100,
+  "lines": 100,
+  "functions": 100,
+  "statements": 100
+}

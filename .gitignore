@@ -1,6 +1,9 @@
 yarn.lock
 dist
 node_modules/
+coverage/
+.nyc_output/
+test/fixtures/outputs/
 .DS_Store
 Thumbs.db
 .idea/

@@ -78,6 +78,7 @@
     "no-map-without-usage": true,
     "no-complex-conditionals": true,
     "prefer-dry-conditionals": true,
-    "no-commented-out-code": true
+    "no-commented-out-code": true,
+    "no-submodule-imports": [true, "predicates"]
   }
 }
