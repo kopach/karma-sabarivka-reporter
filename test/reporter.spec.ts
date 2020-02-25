@@ -233,6 +233,7 @@ describe('karma-sabarivka-reporter', () => {
     });
   });
 
+  // WORKAROUND: This test suite should go after in the end as oterwise tests aren't working
   describe('Incorrect config:', () => {
     [
       {
