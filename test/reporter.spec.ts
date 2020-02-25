@@ -56,67 +56,26 @@ describe('karma-sabarivka-reporter', () => {
     rimraf(OUTPUT_PATH, done);
   });
 
-  describe('incorrect config', () => {
-    [
-      {
-        name: 'root config object is null',
-        config: { coverageReporter: null },
-      },
-      {
-        name: 'config property is null',
-        config: { coverageReporter: { include: null } },
-      },
-      {
-        name: 'config property wit incorect type T',
-        config: { coverageReporter: { include: 2 } },
-      },
-      {
-        name: 'config property wit incorect type T[]',
-        config: { coverageReporter: { include: [2] } },
-      },
-    ].forEach(({ name, config }) => {
-      it(`should throw error with config schema if incorrect config being set: ${name}`, done => {
-        console.log('start1');
-        // given
-        const KarmaCLIOutputFile = join(
-          __dirname,
-          'fixtures',
-          'outputs',
-          `karma-output${generate()}.log`
-        );
-        const server = createServer(config, KarmaCLIOutputFile);
-        const schema = JSON.stringify(
-          require('../dist/public_api.schema.json'),
-          null,
-          2
-        );
-        function checkOutput() {
-          const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
-          expect(CLI_output).to.contain(
-            `Not valid karma-sabarivka-reporter-confiig\nvalid schema is: \n${schema}`
-          );
-          done();
-        }
-
-        // when
-        server.start();
-
-        // then
-        setTimeout(checkOutput, fileReadTimeout);
-        console.log('stop1');
-      });
-    });
-  });
-
   describe('correct config', () => {
     // TODO: move this spec on top of file
     it('should not have untested files included in coverage raport if karma-sabarivka-reporter disabled', done => {
       console.log('start');
       // given
-      const server = createServer(undefined, undefined, false);
+      const coverageReportDir = join(OUTPUT_PATH, `coverage${generate()}`);
+      const server = createServer(
+        {
+          coverageIstanbulReporter: {
+            fixWebpackSourcePaths: true,
+            reports: ['json-summary'],
+            dir: coverageReportDir,
+          },
+        },
+        undefined,
+        false
+      );
       function checkOutput() {
         const coverageSummary = JSON.stringify(
-          readFileSync(`${OUTPUT_PATH}/coverage-summary.json`).toString()
+          readFileSync(`${coverageReportDir}/coverage-summary.json`).toString()
         );
         expect(coverageSummary).to.not.contain('ignored-file.ts');
         expect(coverageSummary).to.contain('example.ts');
@@ -180,10 +139,24 @@ describe('karma-sabarivka-reporter', () => {
       it(`should not have untested files included in coverage raport if: ${name}`, done => {
         console.log('start');
         // given
-        const server = createServer(config, undefined, true);
+        const coverageReportDir = join(OUTPUT_PATH, `coverage${generate()}`);
+        const server = createServer(
+          {
+            ...config,
+            coverageIstanbulReporter: {
+              fixWebpackSourcePaths: true,
+              reports: ['json-summary'],
+              dir: coverageReportDir,
+            },
+          },
+          undefined,
+          true
+        );
         function checkOutput() {
           const coverageSummary = JSON.stringify(
-            readFileSync(`${OUTPUT_PATH}/coverage-summary.json`).toString()
+            readFileSync(
+              `${coverageReportDir}/coverage-summary.json`
+            ).toString()
           );
           expect(coverageSummary).to.not.contain('ignored-file.ts');
           expect(coverageSummary).to.contain('example.ts');
@@ -224,10 +197,24 @@ describe('karma-sabarivka-reporter', () => {
       it(`should have untested files included in coverage raport if: ${name}`, done => {
         console.log('start');
         // given
-        const server = createServer(config, undefined, true);
+        const coverageReportDir = join(OUTPUT_PATH, `coverage${generate()}`);
+        const server = createServer(
+          {
+            ...config,
+            coverageIstanbulReporter: {
+              fixWebpackSourcePaths: true,
+              reports: ['json-summary'],
+              dir: coverageReportDir,
+            },
+          },
+          undefined,
+          true
+        );
         function checkOutput() {
           const coverageSummary = JSON.stringify(
-            readFileSync(`${OUTPUT_PATH}/coverage-summary.json`).toString()
+            readFileSync(
+              `${coverageReportDir}/coverage-summary.json`
+            ).toString()
           );
           expect(coverageSummary).to.contain('ignored-file.ts');
           expect(coverageSummary).to.contain('example.ts');
@@ -244,6 +231,56 @@ describe('karma-sabarivka-reporter', () => {
           setTimeout(checkOutput, fileReadTimeout);
         });
         console.log('stop');
+      });
+    });
+  });
+
+  describe('incorrect config', () => {
+    [
+      {
+        name: 'root config object is null',
+        config: { coverageReporter: null },
+      },
+      {
+        name: 'config property is null',
+        config: { coverageReporter: { include: null } },
+      },
+      {
+        name: 'config property wit incorect type T',
+        config: { coverageReporter: { include: 2 } },
+      },
+      {
+        name: 'config property wit incorect type T[]',
+        config: { coverageReporter: { include: [2] } },
+      },
+    ].forEach(({ name, config }) => {
+      it(`should throw error with config schema if incorrect config being set: ${name}`, done => {
+        console.log('start1');
+        // given
+        const KarmaCLIOutputFile = join(
+          OUTPUT_PATH,
+          `karma-output${generate()}.log`
+        );
+        const server = createServer(config, KarmaCLIOutputFile);
+        const schema = JSON.stringify(
+          require('../dist/public_api.schema.json'),
+          null,
+          2
+        );
+        function checkOutput() {
+          const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
+          expect(CLI_output).to.contain(
+            `Not valid karma-sabarivka-reporter-confiig\nvalid schema is: \n${schema}`
+          );
+          done();
+        }
+
+        // when
+        ((server.start() as unknown) as Promise<void>).then(() => {
+          // then
+          checkOutput();
+          console.log('stop1');
+        });
       });
     });
   });
