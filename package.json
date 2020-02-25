@@ -14,18 +14,18 @@
   "version": "2.1.0",
   "main": "dist/index.js",
   "scripts": {
-    "generate-public-api-schema": "make-dir dist && typescript-json-schema src/model.ts PublicAPI --out dist/public_api.schema.json",
-    "generate-public-api-schema:watch": "onchange --initial 'src/model.ts' -- npm run generate-public-api-schema",
     "prebuild": "npm run generate-public-api-schema",
     "build": "tsc",
     "build:watch": "concurrently --kill-others --prefix '{name}:' --names 'TS,MODEL' --prefix-colors 'magenta,blue' \"npm run build -- --watch\" \"npm run generate-public-api-schema:watch\"",
+    "generate-public-api-schema": "make-dir dist && typescript-json-schema src/model.ts PublicAPI --out dist/public_api.schema.json",
+    "generate-public-api-schema:watch": "onchange --initial 'src/model.ts' -- npm run generate-public-api-schema",
     "lint": "tslint --project tsconfig.json src/**/*.ts",
     "lint-package.json": "prettier-package-json --write",
     "lint:fix": "npm run lint -- --fix",
+    "tdd": "concurrently --kill-others \"npm run test:watch\" \"live-server --watch=coverage --open=coverage --quiet\"",
     "pretest": "npm run build",
     "test": "nyc mocha --exit --require ts-node/register **/*.spec.ts",
-    "test:watch": "onchange --initial 'test/*.spec.ts' 'src/*.ts' -- npm run test",
-    "tdd": "concurrently --kill-others \"npm run test:watch\" \"live-server --watch=coverage --open=coverage --quiet\""
+    "test:watch": "onchange --initial 'test/*.spec.ts' 'src/*.ts' -- npm run test"
   },
   "dependencies": {
     "globby": "^11.0.0",
