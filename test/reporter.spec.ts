@@ -53,7 +53,6 @@ describe('karma-sabarivka-reporter', () => {
   });
 
   it('should not have untested files included in coverage raport if karma-sabarivka-reporter disabled', done => {
-    console.log('start');
     // given
     const coverageReportDir = join(OUTPUT_PATH, `coverage${generate()}`);
     const server = createServer(
@@ -83,7 +82,6 @@ describe('karma-sabarivka-reporter', () => {
       // then
       server.on('run_complete', () => {
         checkOutput();
-        console.log('stop');
       });
     });
   });
@@ -132,7 +130,6 @@ describe('karma-sabarivka-reporter', () => {
       },
     ].forEach(({ name, config }) => {
       it(`should not have untested files included in coverage raport if: ${name}`, done => {
-        console.log('start');
         // given
         const coverageReportDir = join(OUTPUT_PATH, `coverage${generate()}`);
         const server = createServer(
@@ -165,7 +162,6 @@ describe('karma-sabarivka-reporter', () => {
           // then
           server.on('run_complete', () => {
             checkOutput();
-            console.log('stop');
           });
         });
       });
@@ -190,7 +186,6 @@ describe('karma-sabarivka-reporter', () => {
       },
     ].forEach(({ name, config }) => {
       it(`should have untested files included in coverage raport if: ${name}`, done => {
-        console.log('start');
         // given
         const coverageReportDir = join(OUTPUT_PATH, `coverage${generate()}`);
         const server = createServer(
@@ -223,7 +218,6 @@ describe('karma-sabarivka-reporter', () => {
           // then
           server.on('run_complete', () => {
             checkOutput();
-            console.log('stop');
           });
         });
       });
@@ -251,7 +245,6 @@ describe('karma-sabarivka-reporter', () => {
       },
     ].forEach(({ name, config }) => {
       it(`should throw error with config schema if incorrect config being set: ${name}`, done => {
-        console.log('start1');
         // given
         const KarmaCLIOutputFile = join(
           OUTPUT_PATH,
@@ -275,7 +268,6 @@ describe('karma-sabarivka-reporter', () => {
         ((server.start() as unknown) as Promise<void>).then(() => {
           // then
           checkOutput();
-          console.log('stop1');
         });
       });
     });
