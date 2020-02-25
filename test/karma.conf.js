@@ -60,11 +60,5 @@ module.exports = function(config) {
       stats: 'errors-only',
       logLevel: 'silent',
     },
-
-    coverageIstanbulReporter: {
-      fixWebpackSourcePaths: true,
-      reports: ['json-summary'],
-      dir: path.join(__dirname, 'fixtures', 'outputs'), // TODO: make this unique
-    },
   });
 };

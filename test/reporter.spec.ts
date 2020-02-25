@@ -17,35 +17,33 @@ function createServer(
   const configFile = join(__dirname, '/karma.conf.js');
 
   return new Server(
-    Object.assign(
-      {
-        configFile, // TODO: make import instead of file path
-        plugins: [
-          'karma-mocha',
-          'karma-chrome-launcher',
-          'karma-phantomjs-launcher',
-          'karma-webpack',
-          'karma-sourcemap-loader',
-          'karma-coverage-istanbul-reporter',
-          ...(isSabarivkaReporterEnabled ? [karmaSabarivkaReporter] : []),
-        ],
-        reporters: [
-          'coverage-istanbul',
-          ...(isSabarivkaReporterEnabled ? ['sabarivka'] : []),
-        ],
-        ...(isSabarivkaReporterEnabled
-          ? {
-              loggers: [
-                {
-                  type: 'file',
-                  filename: cliOutputFilename,
-                },
-              ],
-            }
-          : {}),
-      },
-      config
-    ),
+    {
+      configFile, // TODO: make import instead of file path
+      plugins: [
+        'karma-mocha',
+        'karma-chrome-launcher',
+        'karma-phantomjs-launcher',
+        'karma-webpack',
+        'karma-sourcemap-loader',
+        'karma-coverage-istanbul-reporter',
+        ...(isSabarivkaReporterEnabled ? [karmaSabarivkaReporter] : []),
+      ],
+      reporters: [
+        'coverage-istanbul',
+        ...(isSabarivkaReporterEnabled ? ['sabarivka'] : []),
+      ],
+      ...(isSabarivkaReporterEnabled
+        ? {
+            loggers: [
+              {
+                type: 'file',
+                filename: cliOutputFilename,
+              },
+            ],
+          }
+        : {}),
+      ...config,
+    },
     () => {} // DO NOT REMOVE: won't work without this empty callback. TODO: investigate this
   );
 }
@@ -183,14 +181,14 @@ describe('karma-sabarivka-reporter', () => {
           },
         },
       },
-      // { // TODO: investigate this. Doen'st work for some rerason
-      //   name: 'untested files are covered by include string pattern',
-      //   config: {
-      //     coverageReporter: {
-      //       include: '**/**/*.ts',
-      //     },
-      //   },
-      // },
+      {
+        name: 'untested files are covered by include string pattern',
+        config: {
+          coverageReporter: {
+            include: '**/**/ignored-file.ts',
+          },
+        },
+      },
     ].forEach(({ name, config }) => {
       it(`should have untested files included in coverage raport if: ${name}`, done => {
         console.log('start');
