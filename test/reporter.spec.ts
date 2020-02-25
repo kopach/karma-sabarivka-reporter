@@ -1,16 +1,13 @@
 /* tslint:disable */
+import { readFileSync } from 'fs';
+import { join } from 'path';
+import { expect } from 'chai';
+import { Server } from 'karma';
+import * as rimraf from 'rimraf';
+import * as karmaSabarivkaReporter from '../src';
+import { generate } from 'shortid';
 
-const fs = require('fs');
-const path = require('path');
-const { expect } = require('chai');
-const karma = require('karma');
-const rimraf = require('rimraf');
-const karmaSabarivkaReporter = require('../dist');
-const shortid = require('shortid');
-const util = require('util');
-
-const OUTPUT_PATH = path.join(__dirname, 'fixtures', 'outputs');
-const readFileAsync = util.promisify(fs.readFile);
+const OUTPUT_PATH = join(__dirname, 'fixtures', 'outputs');
 const fileReadTimeout = 300; // Hacky workaround to make sure the output file has been written
 
 function createServer(
@@ -18,9 +15,9 @@ function createServer(
   cliOutputFilename = 'karma-output.log',
   isSabarivkaReporterEnabled = true
 ) {
-  const configFile = path.join(__dirname, '/karma.conf.js');
+  const configFile = join(__dirname, '/karma.conf.js');
 
-  return new karma.Server(
+  return new Server(
     Object.assign(
       {
         configFile, // TODO: make import instead of file path
@@ -55,11 +52,11 @@ function createServer(
 }
 
 describe('karma-sabarivka-reporter', () => {
-  afterEach((done) => {
+  afterEach(done => {
     rimraf(OUTPUT_PATH, done);
   });
 
-  describe.only('incorrect config', () => {
+  describe('incorrect config', () => {
     [
       {
         name: 'root config object is null',
@@ -81,11 +78,11 @@ describe('karma-sabarivka-reporter', () => {
       it(`should throw error with config schema if incorrect config being set: ${name}`, done => {
         console.log('start1');
         // given
-        const KarmaCLIOutputFile = path.join(
+        const KarmaCLIOutputFile = join(
           __dirname,
           'fixtures',
           'outputs',
-          `karma-output${shortid.generate()}.log`
+          `karma-output${generate()}.log`
         );
         const server = createServer(config, KarmaCLIOutputFile);
         const schema = JSON.stringify(
@@ -94,7 +91,7 @@ describe('karma-sabarivka-reporter', () => {
           2
         );
         function checkOutput() {
-          const CLI_output = fs.readFileSync(KarmaCLIOutputFile).toString();
+          const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
           expect(CLI_output).to.contain(
             `Not valid karma-sabarivka-reporter-confiig\nvalid schema is: \n${schema}`
           );
@@ -111,23 +108,23 @@ describe('karma-sabarivka-reporter', () => {
     });
   });
 
-  describe.only('correct config', () => {
+  describe('correct config', () => {
     it('should not throw error if correct config being set', done => {
       console.log('start');
       // TODO: remove this
       // given
-      const KarmaCLIOutputFile = path.join(
+      const KarmaCLIOutputFile = join(
         __dirname,
         'fixtures',
         'outputs',
-        `karma-output${shortid.generate()}.log`
+        `karma-output${generate()}.log`
       );
       const server = createServer(
         { coverageReporter: { include: '' } },
         KarmaCLIOutputFile
       );
       function checkOutput() {
-        const CLI_output = fs.readFileSync(KarmaCLIOutputFile).toString();
+        const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
         expect(CLI_output).not.to.contain(
           'Not valid karma-sabarivka-reporter-confiig'
         );
@@ -151,7 +148,7 @@ describe('karma-sabarivka-reporter', () => {
       const server = createServer(undefined, undefined, false);
       function checkOutput() {
         const coverageSummary = JSON.stringify(
-          JSON.parse(fs.readFileSync(`${OUTPUT_PATH}/coverage-summary.json`))
+          readFileSync(`${OUTPUT_PATH}/coverage-summary.json`).toString()
         );
         expect(coverageSummary).to.not.contain('ignored-file.ts');
         expect(coverageSummary).to.contain('example.ts');
@@ -180,7 +177,7 @@ describe('karma-sabarivka-reporter', () => {
       );
       function checkOutput() {
         const coverageSummary = JSON.stringify(
-          JSON.parse(fs.readFileSync(`${OUTPUT_PATH}/coverage-summary.json`))
+          readFileSync(`${OUTPUT_PATH}/coverage-summary.json`).toString()
         );
         expect(coverageSummary).to.not.contain('ignored-file.ts');
         expect(coverageSummary).to.contain('example.ts');
@@ -209,7 +206,7 @@ describe('karma-sabarivka-reporter', () => {
       );
       function checkOutput() {
         const coverageSummary = JSON.stringify(
-          JSON.parse(fs.readFileSync(`${OUTPUT_PATH}/coverage-summary.json`))
+          readFileSync(`${OUTPUT_PATH}/coverage-summary.json`).toString()
         );
         expect(coverageSummary).to.not.contain('ignored-file.ts');
         expect(coverageSummary).to.contain('example.ts');
@@ -242,7 +239,7 @@ describe('karma-sabarivka-reporter', () => {
       );
       function checkOutput() {
         const coverageSummary = JSON.stringify(
-          JSON.parse(fs.readFileSync(`${OUTPUT_PATH}/coverage-summary.json`))
+          readFileSync(`${OUTPUT_PATH}/coverage-summary.json`).toString()
         );
         expect(coverageSummary).to.not.contain('ignored-file.ts');
         expect(coverageSummary).to.contain('example.ts');

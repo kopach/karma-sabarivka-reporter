@@ -24,7 +24,7 @@
     "lint:fix": "npm run lint -- --fix",
     "tdd": "concurrently --kill-others \"npm run test:watch\" \"live-server --watch=coverage --open=coverage --quiet\"",
     "pretest": "npm run build",
-    "test": "nyc mocha --exit --require ts-node/register **/*.spec.ts",
+    "test": "nyc mocha --exit --require ts-node/register **/*.ts",
     "test:watch": "onchange --initial 'test/*.spec.ts' 'src/*.ts' -- npm run test"
   },
   "dependencies": {
@@ -32,7 +32,7 @@
     "istanbul-lib-instrument": "^4.0.1",
     "predicates": "^2.0.3",
     "shortid": "^2.2.15",
-    "typescript": "^3.7.5",
+    "typescript": "^3.8.2",
     "typescript-json-schema": "^0.42.0"
   },
   "peerDependencies": {
@@ -72,7 +72,6 @@
     "tslint-config-standard": "^9.0.0",
     "tslint-loader": "^3.6.0",
     "tslint-plugin-prettier": "^2.1.0",
-    "typescript": "^3.8.2",
     "webpack": "^4.41.6"
   },
   "keywords": [
