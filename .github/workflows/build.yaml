@@ -18,4 +18,6 @@ jobs:
       - name: build
         run: |
           npm install ${{ matrix.install-option }}
+          npm run lint
           npm run build
+          npm run test
