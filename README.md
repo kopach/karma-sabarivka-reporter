@@ -48,7 +48,7 @@ Plugin works with both: TypeScript (`*.ts`) and JavaScript (`*.js`) files
 
 ## ✨ Features
 
-- Both JavaScript `*.js` and TypeScript `*.js` files support
+- Both JavaScript `*.js` and TypeScript `*.ts` files support
 - Multiple patterns
 - Negated patterns: ['foo*', '!foobar']
 
