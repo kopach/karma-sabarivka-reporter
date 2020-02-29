@@ -29,14 +29,14 @@
 
 ## 🧬 Table of Contents
 
-- [Why?](#-why)
-- [Features](#-features)
-- [Install](#-install)
-- [API](#-api)
-- [Usage](#-usage)
-- [License](#-license)
+- [❓ Why?](#-why-)
+- [✨ Features](#-features-)
+- [💾 Install](#-install-)
+- [👽 API](#-api-)
+- [🔨 Usage](#-usage-)
+- [📄 License](#-license-)
 
-## ❓ Why?
+## ❓ Why? [🔝](#-table-of-contents)
 
 If your project has single entry point for your test files (e.g. `test.(ts|js)` file which gathers all `*.spec.(ts|js))`) - you're probably facing an issue with "fake" test coverage. To have a real picture of test coverage all files with source code should be imported directly into `*.spec.(ts|js))` files. Files with source code, which were not imported in any `*.spec.(ts|js))` files will not be shown in coverage report at all, which creates higher coverage result than it is in reality.
 
@@ -46,13 +46,13 @@ This karma plugin attempts to fix described issue by going through all of the so
 
 Plugin works with both: TypeScript (`*.ts`) and JavaScript (`*.js`) files
 
-## ✨ Features
+## ✨ Features [🔝](#-table-of-contents)
 
 - Both JavaScript `*.js` and TypeScript `*.ts` files support
 - Multiple patterns
 - Negated patterns: ['foo*', '!foobar']
 
-## 💾 Install
+## 💾 Install [🔝](#-table-of-contents)
 
 With [npm](https://npmjs.org/) installed, run
 
@@ -60,15 +60,15 @@ With [npm](https://npmjs.org/) installed, run
 npm install --save-dev karma-sabarivka-reporter
 ```
 
-## 👽 API
+## 👽 API [🔝](#-table-of-contents)
 
 `@param {string[] | string} coverageReporter.include` - Glob pattern, `string` or `array of strings`. Files which should be included into the coverage result.
 
-## 🔨 Usage
+## 🔨 Usage [🔝](#-table-of-contents)
 
 Update `karma.conf.js`
 
-### `include` as array of strings
+### `include` as array of strings [🔝](#-table-of-contents)
 
 ```JavaScript
 reporters: [
@@ -91,7 +91,7 @@ coverageReporter: {
 
 Same result may be achieved with more complex one line glob pattern
 
-### `include` as string
+### `include` as string [🔝](#-table-of-contents)
 
 ```JavaScript
 reporters: [
@@ -104,7 +104,7 @@ coverageReporter: {
 },
 ```
 
-### karma `plugins` section
+### karma `plugins` section [🔝](#-table-of-contents)
 
 If your karma config has `plugins` section, add also `karma-sabarivka-reporter` there. Otherwise — no action is required.
 
@@ -122,6 +122,6 @@ plugins: [
 ],
 ```
 
-## 📄 License
+## 📄 License [🔝](#-table-of-contents)
 
 This software is licensed under the [MIT](https://github.com/kopach/karma-sabarivka-reporter/blob/master/LICENSE)
