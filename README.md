@@ -17,6 +17,8 @@
 [![Travis CI badge](https://travis-ci.com/kopach/karma-sabarivka-reporter.svg?branch=master)](https://travis-ci.com/kopach/karma-sabarivka-reporter/branches)
 [![Snyk Vulnerabilities badge](https://snyk.io/test/github/kopach/karma-sabarivka-reporter/badge.svg)](https://snyk.io/test/github/kopach/karma-sabarivka-reporter)
 
+[![NPM badge](https://nodei.co/npm/karma-sabarivka-reporter.png?compact=true)](https://www.npmjs.com/package/karma-sabarivka-reporter)
+
 </div>
 
 ⭐️ Please, star me on GitHub — it helps!
