@@ -18,7 +18,7 @@ function createServer(
 
   return new Server(
     {
-      configFile, // TODO: make import instead of file path
+      configFile, // NOTE: there should be config file in filesystem for Karma Server to work
       plugins: [
         'karma-mocha',
         'karma-chrome-launcher',
@@ -43,7 +43,7 @@ function createServer(
         : {}),
       ...config,
     },
-    () => {} // DO NOT REMOVE: won't work without this empty callback. TODO: investigate this
+    () => {} // DO NOT REMOVE: won't work without this empty callback.
   );
 }
 
@@ -256,12 +256,15 @@ describe('karma-sabarivka-reporter', () => {
           null,
           2
         );
+
         function checkOutput() {
           const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
-          expect(CLI_output).to.contain(
-            `Not valid karma-sabarivka-reporter-confiig\nvalid schema is: \n${schema}`
-          );
-          done();
+          setTimeout(() => {
+            expect(CLI_output).to.contain(
+              `Not valid karma-sabarivka-reporter-confiig\nvalid schema is: \n${schema}`
+            );
+            done();
+          }, 300);
         }
 
         // when
