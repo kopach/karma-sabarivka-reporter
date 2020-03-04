@@ -3,11 +3,13 @@
     "tslint:latest",
     "tslint:recommended",
     "tslint-config-airbnb",
+    "tslint-no-circular-imports",
     "tslint-clean-code",
     "tslint-plugin-prettier",
     "tslint-config-prettier"
   ],
   "rules": {
+    "newline-before-return": true,
     "prettier": true,
     "no-void-expression": true,
     "typedef": [
