@@ -14,7 +14,7 @@
   "version": "3.0.2",
   "main": "dist/index.js",
   "scripts": {
-    "prebuild": "npm run generate-public-api-schema",
+    "prebuild": "rimraf dist && npm run generate-public-api-schema",
     "build": "tsc",
     "build:watch": "concurrently --kill-others --prefix '{name}:' --names 'TS,MODEL' --prefix-colors 'magenta,blue' \"npm run build -- --watch\" \"npm run generate-public-api-schema:watch\"",
     "generate-public-api-schema": "make-dir dist && typescript-json-schema src/model.ts PublicAPI --out dist/public_api.schema.json",
