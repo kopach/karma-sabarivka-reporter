@@ -43,7 +43,7 @@
     "@types/istanbul-lib-instrument": "^1.7.3",
     "@types/karma": "^4.4.0",
     "@types/mocha": "^7.0.1",
-    "@types/node": "^13.7.4",
+    "@types/node": "^13.9.0",
     "@types/rimraf": "^2.0.3",
     "@types/shortid": "0.0.29",
     "chai": "^4.2.0",
