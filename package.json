@@ -18,7 +18,7 @@
     "build": "tsc",
     "build:watch": "concurrently --kill-others --prefix '{name}:' --names 'TS,MODEL' --prefix-colors 'magenta,blue' \"npm run build -- --watch\" \"npm run generate-public-api-schema:watch\"",
     "generate-public-api-schema": "make-dir dist && typescript-json-schema src/model.ts PublicAPI --out dist/public_api.schema.json",
-    "generate-public-api-schema:watch": "onchange --initial 'src/model.ts' -- npm run generate-public-api-schema",
+    "generate-public-api-schema:watch": "onchange --kill --initial 'src/model.ts' -- npm run generate-public-api-schema",
     "lint": "tslint --project tsconfig.json src/**/*.ts",
     "lint-package.json": "prettier-package-json --write",
     "lint:fix": "npm run lint -- --fix",
@@ -27,7 +27,7 @@
     "test": "nyc mocha --exit --require ts-node/register **/*.ts",
     "test:ci": "npm run test",
     "posttest:ci": "codecov",
-    "test:watch": "onchange --initial 'test/*.spec.ts' 'src/*.ts' -- npm run test"
+    "test:watch": "onchange --kill --initial 'test/*.spec.ts' 'src/*.ts' -- npm run test"
   },
   "dependencies": {
     "globby": "^11.0.0",
