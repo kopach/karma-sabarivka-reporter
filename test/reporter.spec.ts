@@ -158,22 +158,27 @@ describe('karma-sabarivka-reporter', () => {
               `${coverageReportDir}/coverage-summary.json`
             ).toString()
           );
-          setTimeout(() => {
-            expect(coverageSummary).to.not.contain('ignored-file.ts');
-            expect(coverageSummary).to.contain('example.ts');
-            expect(coverageSummary).to.contain('another-file.ts');
+          expect(coverageSummary).to.not.contain('ignored-file.ts');
+          expect(coverageSummary).to.contain('example.ts');
+          expect(coverageSummary).to.contain('another-file.ts');
 
-            done();
-          }, fileReadTimeout);
+          done();
         }
 
         // when
-        ((server.start() as unknown) as Promise<void>).then(() => {
-          // then
-          server.on('run_complete', () => {
-            checkOutput();
-          });
-        });
+        const karmaStart = (server.start() as unknown) as Promise<void>;
+        const karmaServerWithStop = (server as unknown) as {
+          stop: () => Promise<void>;
+        };
+        if (typeof karmaServerWithStop.stop === 'function') {
+          karmaStart.then(() =>
+            server.on('run_complete', () => {
+              karmaServerWithStop.stop().then(() => {
+                checkOutput();
+              });
+            })
+          );
+        }
       });
     });
 
