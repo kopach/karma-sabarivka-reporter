@@ -9,44 +9,6 @@ import { generate } from 'shortid';
 
 const OUTPUT_PATH = join(__dirname, 'fixtures', 'outputs');
 
-function createServer(
-  config = {},
-  cliOutputFilename = 'karma-output.log',
-  isSabarivkaReporterEnabled = true
-) {
-  const configFile = join(__dirname, '/karma.conf.js');
-
-  return new Server(
-    {
-      configFile, // NOTE: there should be config file in filesystem for Karma Server to work
-      plugins: [
-        'karma-mocha',
-        'karma-chrome-launcher',
-        'karma-webpack',
-        'karma-sourcemap-loader',
-        'karma-coverage-istanbul-reporter',
-        ...(isSabarivkaReporterEnabled ? [karmaSabarivkaReporter] : []),
-      ],
-      reporters: [
-        'coverage-istanbul',
-        ...(isSabarivkaReporterEnabled ? ['sabarivka'] : []),
-      ],
-      ...(isSabarivkaReporterEnabled
-        ? {
-            loggers: [
-              {
-                type: 'file',
-                filename: cliOutputFilename,
-              },
-            ],
-          }
-        : {}),
-      ...config,
-    },
-    () => {} // DO NOT REMOVE: won't work without this empty callback.
-  );
-}
-
 describe('karma-sabarivka-reporter', () => {
   afterEach(done => {
     rimraf(OUTPUT_PATH, done);
@@ -66,23 +28,21 @@ describe('karma-sabarivka-reporter', () => {
       undefined,
       false
     );
-    function checkOutput() {
+
+    // when
+    const karmaStart = (server.start() as unknown) as Promise<void>;
+
+    // then
+    checkKarmaSuccessOutput(server, karmaStart, () => {
       const coverageSummary = JSON.stringify(
         readFileSync(`${coverageReportDir}/coverage-summary.json`).toString()
       );
+
       expect(coverageSummary).to.not.contain('ignored-file.ts');
       expect(coverageSummary).to.contain('example.ts');
       expect(coverageSummary).to.contain('another-file.ts');
 
       done();
-    }
-
-    // when
-    ((server.start() as unknown) as Promise<void>).then(() => {
-      // then
-      server.on('run_complete', () => {
-        checkOutput();
-      });
     });
   });
 
@@ -144,7 +104,12 @@ describe('karma-sabarivka-reporter', () => {
           undefined,
           true
         );
-        function checkOutput() {
+
+        // when
+        const karmaStart = (server.start() as unknown) as Promise<void>;
+
+        // then
+        checkKarmaSuccessOutput(server, karmaStart, () => {
           const coverageSummary = JSON.stringify(
             readFileSync(
               `${coverageReportDir}/coverage-summary.json`
@@ -155,14 +120,6 @@ describe('karma-sabarivka-reporter', () => {
           expect(coverageSummary).to.contain('another-file.ts');
 
           done();
-        }
-
-        // when
-        ((server.start() as unknown) as Promise<void>).then(() => {
-          // then
-          server.on('run_complete', () => {
-            checkOutput();
-          });
         });
       });
     });
@@ -200,25 +157,23 @@ describe('karma-sabarivka-reporter', () => {
           undefined,
           true
         );
-        function checkOutput() {
+
+        // when
+        const karmaStart = (server.start() as unknown) as Promise<void>;
+
+        // then
+        checkKarmaSuccessOutput(server, karmaStart, () => {
           const coverageSummary = JSON.stringify(
             readFileSync(
               `${coverageReportDir}/coverage-summary.json`
             ).toString()
           );
+
           expect(coverageSummary).to.contain('ignored-file.ts');
           expect(coverageSummary).to.contain('example.ts');
           expect(coverageSummary).to.contain('another-file.ts');
 
           done();
-        }
-
-        // when
-        ((server.start() as unknown) as Promise<void>).then(() => {
-          // then
-          server.on('run_complete', () => {
-            checkOutput();
-          });
         });
       });
     });
@@ -257,7 +212,11 @@ describe('karma-sabarivka-reporter', () => {
           2
         );
 
-        function checkOutput() {
+        // when
+        const karmaStart = (server.start() as unknown) as Promise<void>;
+
+        // then
+        checkKarmaErrorOutput(server, karmaStart, () => {
           const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
           setTimeout(() => {
             expect(CLI_output).to.contain(
@@ -265,14 +224,84 @@ describe('karma-sabarivka-reporter', () => {
             );
             done();
           }, 300);
-        }
-
-        // when
-        ((server.start() as unknown) as Promise<void>).then(() => {
-          // then
-          checkOutput();
         });
       });
     });
   });
 });
+
+function createServer(
+  config = {},
+  cliOutputFilename = 'karma-output.log',
+  isSabarivkaReporterEnabled = true
+) {
+  const configFile = join(__dirname, '/karma.conf.js');
+
+  return new Server(
+    {
+      configFile, // NOTE: there should be config file in filesystem for Karma Server to work
+      plugins: [
+        'karma-mocha',
+        'karma-chrome-launcher',
+        'karma-webpack',
+        'karma-sourcemap-loader',
+        'karma-coverage-istanbul-reporter',
+        ...(isSabarivkaReporterEnabled ? [karmaSabarivkaReporter] : []),
+      ],
+      reporters: [
+        'coverage-istanbul',
+        ...(isSabarivkaReporterEnabled ? ['sabarivka'] : []),
+      ],
+      ...(isSabarivkaReporterEnabled
+        ? {
+            loggers: [
+              {
+                type: 'file',
+                filename: cliOutputFilename,
+              },
+            ],
+          }
+        : {}),
+      ...config,
+    },
+    () => {}
+  );
+}
+
+function checkKarmaSuccessOutput(
+  karmaServer: Server,
+  karmaStart: Promise<void>,
+  checkOutput: () => void
+) {
+  const karmaServerWithStop = (karmaServer as unknown) as {
+    stop: () => Promise<void>;
+  };
+
+  if (typeof karmaServerWithStop.stop === 'function') {
+    karmaStart.then(() =>
+      karmaServer.on('run_complete', () => {
+        karmaServerWithStop.stop().then(() => {
+          checkOutput();
+        });
+      })
+    );
+  }
+}
+
+function checkKarmaErrorOutput(
+  karmaServer: Server,
+  karmaStart: Promise<void>,
+  checkOutput: () => void
+) {
+  const karmaServerWithStop = (karmaServer as unknown) as {
+    stop: () => Promise<void>;
+  };
+
+  if (typeof karmaServerWithStop.stop === 'function') {
+    karmaStart.then(() =>
+      karmaServerWithStop.stop().then(() => {
+        checkOutput();
+      })
+    );
+  }
+}
