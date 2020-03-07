@@ -9,51 +9,7 @@ import { generate } from 'shortid';
 
 const OUTPUT_PATH = join(__dirname, 'fixtures', 'outputs');
 
-const fileReadTimeout = 300;
-
-function createServer(
-  config = {},
-  cliOutputFilename = 'karma-output.log',
-  isSabarivkaReporterEnabled = true
-) {
-  const configFile = join(__dirname, '/karma.conf.js');
-
-  return new Server(
-    {
-      configFile, // NOTE: there should be config file in filesystem for Karma Server to work
-      plugins: [
-        'karma-mocha',
-        'karma-chrome-launcher',
-        'karma-webpack',
-        'karma-sourcemap-loader',
-        'karma-coverage-istanbul-reporter',
-        ...(isSabarivkaReporterEnabled ? [karmaSabarivkaReporter] : []),
-      ],
-      reporters: [
-        'coverage-istanbul',
-        ...(isSabarivkaReporterEnabled ? ['sabarivka'] : []),
-      ],
-      ...(isSabarivkaReporterEnabled
-        ? {
-            loggers: [
-              {
-                type: 'file',
-                filename: cliOutputFilename,
-              },
-            ],
-          }
-        : {}),
-      ...config,
-    },
-    () => {} // DO NOT REMOVE: won't work without this empty callback.
-  );
-}
-
 describe('karma-sabarivka-reporter', () => {
-  beforeEach(done => {
-    setTimeout(done, fileReadTimeout);
-  });
-
   afterEach(done => {
     rimraf(OUTPUT_PATH, done);
   });
@@ -76,22 +32,19 @@ describe('karma-sabarivka-reporter', () => {
       const coverageSummary = JSON.stringify(
         readFileSync(`${coverageReportDir}/coverage-summary.json`).toString()
       );
-      setTimeout(() => {
-        expect(coverageSummary).to.not.contain('ignored-file.ts');
-        expect(coverageSummary).to.contain('example.ts');
-        expect(coverageSummary).to.contain('another-file.ts');
 
-        done();
-      }, fileReadTimeout);
+      expect(coverageSummary).to.not.contain('ignored-file.ts');
+      expect(coverageSummary).to.contain('example.ts');
+      expect(coverageSummary).to.contain('another-file.ts');
+
+      done();
     }
 
     // when
-    ((server.start() as unknown) as Promise<void>).then(() => {
-      // then
-      server.on('run_complete', () => {
-        checkOutput();
-      });
-    });
+    const karmaStart = (server.start() as unknown) as Promise<void>;
+
+    // then
+    checkExpectations(server, karmaStart, checkOutput);
   });
 
   describe('Correct config:', () => {
@@ -167,18 +120,9 @@ describe('karma-sabarivka-reporter', () => {
 
         // when
         const karmaStart = (server.start() as unknown) as Promise<void>;
-        const karmaServerWithStop = (server as unknown) as {
-          stop: () => Promise<void>;
-        };
-        if (typeof karmaServerWithStop.stop === 'function') {
-          karmaStart.then(() =>
-            server.on('run_complete', () => {
-              karmaServerWithStop.stop().then(() => {
-                checkOutput();
-              });
-            })
-          );
-        }
+
+        // then
+        checkExpectations(server, karmaStart, checkOutput);
       });
     });
 
@@ -221,22 +165,19 @@ describe('karma-sabarivka-reporter', () => {
               `${coverageReportDir}/coverage-summary.json`
             ).toString()
           );
-          setTimeout(() => {
-            expect(coverageSummary).to.contain('ignored-file.ts');
-            expect(coverageSummary).to.contain('example.ts');
-            expect(coverageSummary).to.contain('another-file.ts');
 
-            done();
-          }, fileReadTimeout);
+          expect(coverageSummary).to.contain('ignored-file.ts');
+          expect(coverageSummary).to.contain('example.ts');
+          expect(coverageSummary).to.contain('another-file.ts');
+
+          done();
         }
 
         // when
-        ((server.start() as unknown) as Promise<void>).then(() => {
-          // then
-          server.on('run_complete', () => {
-            checkOutput();
-          });
-        });
+        const karmaStart = (server.start() as unknown) as Promise<void>;
+
+        // then
+        checkExpectations(server, karmaStart, checkOutput);
       });
     });
   });
@@ -293,3 +234,60 @@ describe('karma-sabarivka-reporter', () => {
     });
   });
 });
+
+function createServer(
+  config = {},
+  cliOutputFilename = 'karma-output.log',
+  isSabarivkaReporterEnabled = true
+) {
+  const configFile = join(__dirname, '/karma.conf.js');
+
+  return new Server(
+    {
+      configFile, // NOTE: there should be config file in filesystem for Karma Server to work
+      plugins: [
+        'karma-mocha',
+        'karma-chrome-launcher',
+        'karma-webpack',
+        'karma-sourcemap-loader',
+        'karma-coverage-istanbul-reporter',
+        ...(isSabarivkaReporterEnabled ? [karmaSabarivkaReporter] : []),
+      ],
+      reporters: [
+        'coverage-istanbul',
+        ...(isSabarivkaReporterEnabled ? ['sabarivka'] : []),
+      ],
+      ...(isSabarivkaReporterEnabled
+        ? {
+            loggers: [
+              {
+                type: 'file',
+                filename: cliOutputFilename,
+              },
+            ],
+          }
+        : {}),
+      ...config,
+    },
+    () => {} // DO NOT REMOVE: won't work without this empty callback.
+  );
+}
+
+function checkExpectations(
+  karmaServer: Server,
+  karmaStart: Promise<void>,
+  checkOutput: () => void
+) {
+  const karmaServerWithStop = (karmaServer as unknown) as {
+    stop: () => Promise<void>;
+  };
+  if (typeof karmaServerWithStop.stop === 'function') {
+    karmaStart.then(() =>
+      karmaServer.on('run_complete', () => {
+        karmaServerWithStop.stop().then(() => {
+          checkOutput();
+        });
+      })
+    );
+  }
+}
