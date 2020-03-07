@@ -9,6 +9,8 @@ import { generate } from 'shortid';
 
 const OUTPUT_PATH = join(__dirname, 'fixtures', 'outputs');
 
+const fileReadTimeout = 300;
+
 function createServer(
   config = {},
   cliOutputFilename = 'karma-output.log',
@@ -48,6 +50,10 @@ function createServer(
 }
 
 describe('karma-sabarivka-reporter', () => {
+  beforeEach(done => {
+    setTimeout(done, fileReadTimeout);
+  });
+
   afterEach(done => {
     rimraf(OUTPUT_PATH, done);
   });
@@ -70,11 +76,13 @@ describe('karma-sabarivka-reporter', () => {
       const coverageSummary = JSON.stringify(
         readFileSync(`${coverageReportDir}/coverage-summary.json`).toString()
       );
-      expect(coverageSummary).to.not.contain('ignored-file.ts');
-      expect(coverageSummary).to.contain('example.ts');
-      expect(coverageSummary).to.contain('another-file.ts');
+      setTimeout(() => {
+        expect(coverageSummary).to.not.contain('ignored-file.ts');
+        expect(coverageSummary).to.contain('example.ts');
+        expect(coverageSummary).to.contain('another-file.ts');
 
-      done();
+        done();
+      }, fileReadTimeout);
     }
 
     // when
@@ -150,11 +158,13 @@ describe('karma-sabarivka-reporter', () => {
               `${coverageReportDir}/coverage-summary.json`
             ).toString()
           );
-          expect(coverageSummary).to.not.contain('ignored-file.ts');
-          expect(coverageSummary).to.contain('example.ts');
-          expect(coverageSummary).to.contain('another-file.ts');
+          setTimeout(() => {
+            expect(coverageSummary).to.not.contain('ignored-file.ts');
+            expect(coverageSummary).to.contain('example.ts');
+            expect(coverageSummary).to.contain('another-file.ts');
 
-          done();
+            done();
+          }, fileReadTimeout);
         }
 
         // when
@@ -206,11 +216,13 @@ describe('karma-sabarivka-reporter', () => {
               `${coverageReportDir}/coverage-summary.json`
             ).toString()
           );
-          expect(coverageSummary).to.contain('ignored-file.ts');
-          expect(coverageSummary).to.contain('example.ts');
-          expect(coverageSummary).to.contain('another-file.ts');
+          setTimeout(() => {
+            expect(coverageSummary).to.contain('ignored-file.ts');
+            expect(coverageSummary).to.contain('example.ts');
+            expect(coverageSummary).to.contain('another-file.ts');
 
-          done();
+            done();
+          }, fileReadTimeout);
         }
 
         // when
