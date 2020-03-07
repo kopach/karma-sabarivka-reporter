@@ -28,7 +28,12 @@ describe('karma-sabarivka-reporter', () => {
       undefined,
       false
     );
-    function checkOutput() {
+
+    // when
+    const karmaStart = (server.start() as unknown) as Promise<void>;
+
+    // then
+    checkKarmaSuccessOutput(server, karmaStart, () => {
       const coverageSummary = JSON.stringify(
         readFileSync(`${coverageReportDir}/coverage-summary.json`).toString()
       );
@@ -38,13 +43,7 @@ describe('karma-sabarivka-reporter', () => {
       expect(coverageSummary).to.contain('another-file.ts');
 
       done();
-    }
-
-    // when
-    const karmaStart = (server.start() as unknown) as Promise<void>;
-
-    // then
-    checkExpectations(server, karmaStart, checkOutput);
+    });
   });
 
   describe('Correct config:', () => {
@@ -105,7 +104,12 @@ describe('karma-sabarivka-reporter', () => {
           undefined,
           true
         );
-        function checkOutput() {
+
+        // when
+        const karmaStart = (server.start() as unknown) as Promise<void>;
+
+        // then
+        checkKarmaSuccessOutput(server, karmaStart, () => {
           const coverageSummary = JSON.stringify(
             readFileSync(
               `${coverageReportDir}/coverage-summary.json`
@@ -116,13 +120,7 @@ describe('karma-sabarivka-reporter', () => {
           expect(coverageSummary).to.contain('another-file.ts');
 
           done();
-        }
-
-        // when
-        const karmaStart = (server.start() as unknown) as Promise<void>;
-
-        // then
-        checkExpectations(server, karmaStart, checkOutput);
+        });
       });
     });
 
@@ -159,7 +157,12 @@ describe('karma-sabarivka-reporter', () => {
           undefined,
           true
         );
-        function checkOutput() {
+
+        // when
+        const karmaStart = (server.start() as unknown) as Promise<void>;
+
+        // then
+        checkKarmaSuccessOutput(server, karmaStart, () => {
           const coverageSummary = JSON.stringify(
             readFileSync(
               `${coverageReportDir}/coverage-summary.json`
@@ -171,13 +174,7 @@ describe('karma-sabarivka-reporter', () => {
           expect(coverageSummary).to.contain('another-file.ts');
 
           done();
-        }
-
-        // when
-        const karmaStart = (server.start() as unknown) as Promise<void>;
-
-        // then
-        checkExpectations(server, karmaStart, checkOutput);
+        });
       });
     });
   });
@@ -215,7 +212,11 @@ describe('karma-sabarivka-reporter', () => {
           2
         );
 
-        function checkOutput() {
+        // when
+        const karmaStart = (server.start() as unknown) as Promise<void>;
+
+        // then
+        checkKarmaErrorOutput(server, karmaStart, () => {
           const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
           setTimeout(() => {
             expect(CLI_output).to.contain(
@@ -223,12 +224,6 @@ describe('karma-sabarivka-reporter', () => {
             );
             done();
           }, 300);
-        }
-
-        // when
-        ((server.start() as unknown) as Promise<void>).then(() => {
-          // then
-          checkOutput();
         });
       });
     });
@@ -269,11 +264,11 @@ function createServer(
         : {}),
       ...config,
     },
-    () => {} // DO NOT REMOVE: won't work without this empty callback.
+    () => {}
   );
 }
 
-function checkExpectations(
+function checkKarmaSuccessOutput(
   karmaServer: Server,
   karmaStart: Promise<void>,
   checkOutput: () => void
@@ -281,12 +276,31 @@ function checkExpectations(
   const karmaServerWithStop = (karmaServer as unknown) as {
     stop: () => Promise<void>;
   };
+
   if (typeof karmaServerWithStop.stop === 'function') {
     karmaStart.then(() =>
       karmaServer.on('run_complete', () => {
         karmaServerWithStop.stop().then(() => {
           checkOutput();
         });
+      })
+    );
+  }
+}
+
+function checkKarmaErrorOutput(
+  karmaServer: Server,
+  karmaStart: Promise<void>,
+  checkOutput: () => void
+) {
+  const karmaServerWithStop = (karmaServer as unknown) as {
+    stop: () => Promise<void>;
+  };
+
+  if (typeof karmaServerWithStop.stop === 'function') {
+    karmaStart.then(() =>
+      karmaServerWithStop.stop().then(() => {
+        checkOutput();
       })
     );
   }
