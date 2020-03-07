@@ -9,6 +9,7 @@ script:
 - npm run test:ci
 deploy:
   provider: npm
+  tag: dev
   email: $NPM_EMAIL
   api_key:
     secure: $NPM_API_KEY_SECURE
