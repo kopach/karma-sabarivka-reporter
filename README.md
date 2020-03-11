@@ -1,10 +1,6 @@
-<div align="center"><pre>
-╔═╗╔═╗╔╗ ╔═╗╦═╗╦╦  ╦╦╔═╔═╗
-╚═╗╠═╣╠╩╗╠═╣╠╦╝║╚╗╔╝╠╩╗╠═╣
-╚═╝╩ ╩╚═╝╩ ╩╩╚═╩ ╚╝ ╩ ╩╩ ╩
-</pre></div>
-
 <h1 align="center">
+
+![logo](./assets/logo.png)
 
 [karma-sabarivka-reporter](https://github.com/kopach/karma-sabarivka-reporter)
 
@@ -25,9 +21,13 @@
 
 [karma-sabarivka-reporter](https://github.com/kopach/karma-sabarivka-reporter) – is a Karma plugin which adds untested files to [istanbul](https://github.com/gotwarlost/istanbul) coverage statistic
 
+<h1 align="center">
+
 ![screenshot before](./assets/before.png)
 
 ![screenshot after](./assets/after.png)
+
+</h1>
 
 ## 🧬 Table of Contents
 
