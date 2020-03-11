@@ -1,6 +1,6 @@
 <h1 align="center">
 
-![logo](./assets/logo.png)
+[![logo](./assets/logo.png)](#)
 
 [karma-sabarivka-reporter](https://github.com/kopach/karma-sabarivka-reporter)
 
