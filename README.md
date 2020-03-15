@@ -9,7 +9,7 @@
 <div align="center">
 
 [![Code coverrage badge](https://codecov.io/gh/kopach/karma-sabarivka-reporter/branch/master/graph/badge.svg)](https://codecov.io/gh/kopach/karma-sabarivka-reporter)
-[![Greenkeeper badge](https://badges.greenkeeper.io/kopach/karma-sabarivka-reporter.svg)](https://greenkeeper.io/)
+
 [![Travis CI badge](https://travis-ci.com/kopach/karma-sabarivka-reporter.svg?branch=master)](https://travis-ci.com/kopach/karma-sabarivka-reporter/branches)
 [![Snyk Vulnerabilities badge](https://snyk.io/test/github/kopach/karma-sabarivka-reporter/badge.svg)](https://snyk.io/test/github/kopach/karma-sabarivka-reporter)
 
