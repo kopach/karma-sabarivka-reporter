@@ -25,7 +25,7 @@
     "lint": "tslint --project tsconfig.json src/**/*.ts",
     "lint-package.json": "prettier-package-json --write",
     "lint:fix": "npm run lint -- --fix",
-    "prepublishOnly": "build",
+    "prepublishOnly": "npm run build",
     "release": "np",
     "tdd": "concurrently --kill-others \"npm run test:watch\" \"live-server --watch=coverage/lcov-report --open=coverage/lcov-report --quiet\"",
     "pretest": "npm run build",
