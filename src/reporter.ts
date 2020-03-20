@@ -22,17 +22,9 @@ export const sabarivkaReporter: KarmaReprter = Object.defineProperty(
     karmaConfig: KarmaOptions,
     logger: Logger
   ): void {
-    if (!isIstanbulEnabled(karmaConfig)) {
-      const log: Log = logger.create('[karma-sabarivka-reporter]');
-
-      log.warn(
-        '"coverage-istanbul" is not listed under karma "reporters" config section. No coverage report is being created'
-      );
-
+    if (!isKarmaConfigAppropriate(karmaConfig, logger)) {
       return;
     }
-
-    ensureSabarivkaReporterConfigCorrectness(karmaConfig);
 
     this.onBrowserComplete = getFileIntrumenterFn(karmaConfig);
   },
@@ -41,6 +33,47 @@ export const sabarivkaReporter: KarmaReprter = Object.defineProperty(
     value: ['config', 'logger'],
   }
 );
+
+function isKarmaConfigAppropriate(
+  karmaConfig: ConfigOptions,
+  logger: Logger
+): boolean | never {
+  const log: Log = logger.create('[karma-sabarivka-reporter]');
+
+  return (
+    ensureIstanbulEnabled(karmaConfig, log) &&
+    ensureValidSabarivkaReporterConfig(karmaConfig)
+  );
+}
+
+function ensureIstanbulEnabled(karmaConfig: ConfigOptions, log: Log): boolean {
+  if (!isIstanbulEnabled(karmaConfig)) {
+    log.warn(
+      '"coverage-istanbul" is not listed under karma "reporters" config section. No coverage report is being created'
+    );
+
+    return false;
+  }
+
+  return true;
+}
+
+function ensureValidSabarivkaReporterConfig(
+  karmaConfig: ConfigOptions
+): boolean | never {
+  if (!isValidSabarivkaReporterConfig(karmaConfig)) {
+    const schema: string = JSON.stringify(
+      require('../dist/public_api.schema.json'),
+      null,
+      2
+    );
+    throw new Error(
+      `Not valid karma-sabarivka-reporter-confiig\nvalid schema is: \n${schema}`
+    );
+  }
+
+  return true;
+}
 
 function isIstanbulEnabled(coverageReporterConfig: ConfigOptions): boolean {
   const withIstanbulReporter = (
@@ -52,20 +85,4 @@ function isIstanbulEnabled(coverageReporterConfig: ConfigOptions): boolean {
   return structure({
     reporters: withIstanbulReporter,
   })(coverageReporterConfig);
-}
-
-function ensureSabarivkaReporterConfigCorrectness(
-  coverageReporterConfig: ConfigOptions
-): void | never {
-  if (!isValidSabarivkaReporterConfig(coverageReporterConfig)) {
-    const schema: string = JSON.stringify(
-      require('../dist/public_api.schema.json'),
-      null,
-      2
-    );
-    // TODO: try to reuse logger
-    throw new Error(
-      `Not valid karma-sabarivka-reporter-confiig\nvalid schema is: \n${schema}`
-    );
-  }
 }
