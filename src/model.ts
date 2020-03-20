@@ -1,6 +1,6 @@
 import { InitialCoverage } from 'istanbul-lib-instrument';
 import { arrayOf, or, string, structure } from 'predicates';
-import { Predicate } from 'predicates/types';
+import { ConfigOptions } from 'karma';
 
 // NOTE: this type name is used in package.json `prebuild` script
 export type PublicAPI = {
@@ -9,14 +9,19 @@ export type PublicAPI = {
   };
 };
 
-export const isSabarivkaReporterConfig: Predicate<PublicAPI> = structure({
-  coverageReporter: structure({
-    include: or(string, arrayOf(string)),
-  }),
-});
+export type KarmaOptions = ConfigOptions & PublicAPI;
+
+export const isValidSabarivkaReporterConfig = (
+  value: ConfigOptions
+): value is KarmaOptions =>
+  structure({
+    coverageReporter: structure({
+      include: or(string, arrayOf(string)),
+    }),
+  })(value);
 
 export type KarmaReprter = (
-  coverageReporterConfig: PublicAPI
+  karmaConfig: KarmaOptions
 ) => void & {
   $inject: string[];
 };

@@ -10,8 +10,33 @@ import { generate } from 'shortid';
 const OUTPUT_PATH = join(__dirname, 'fixtures', 'outputs');
 
 describe('karma-sabarivka-reporter', () => {
-  afterEach(done => {
+  beforeEach(done => {
     rimraf(OUTPUT_PATH, done);
+  });
+
+  it("should log warning message if istanbul-reporter isn't listed in `reporters` list", done => {
+    // given
+    const KarmaCLIOutputFile = join(
+      OUTPUT_PATH,
+      `karma-output${generate()}.log`
+    );
+    const server = createServer(
+      { reporters: ['sabarivka'] },
+      KarmaCLIOutputFile
+    );
+
+    // when
+    const karmaStart = (server.start() as unknown) as Promise<void>;
+
+    checkKarmaSuccessOutput(server, karmaStart, () => {
+      const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
+      setTimeout(() => {
+        expect(CLI_output).to.contain(
+          '[WARN] [karma-sabarivka-reporter] - "coverage-istanbul" is not listed under karma "reporters" config section. No coverage report is being created'
+        );
+        done();
+      }, 300);
+    });
   });
 
   it('should not have untested files included in coverage raport if karma-sabarivka-reporter disabled', done => {
