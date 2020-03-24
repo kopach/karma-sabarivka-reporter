@@ -39,16 +39,15 @@ describe('karma-sabarivka-reporter:', () => {
     });
   });
 
-  ['coverage', 'coverage-istanbul'].forEach(_coverageReporter => {
-    describe(`Configured with "${_coverageReporter}" reporter:`, () => {
+  ['coverage', 'coverage-istanbul'].forEach(coverageReporter => {
+    describe(`Configured with "${coverageReporter}" reporter:`, () => {
       it('should not have untested files included in coverage raport if karma-sabarivka-reporter disabled', done => {
         // given
         const coverageReportDir = join(OUTPUT_PATH, `coverage${generate()}`);
         const server = createServer(
           {
-            reporters: [_coverageReporter],
+            reporters: [coverageReporter],
             coverageIstanbulReporter: {
-              fixWebpackSourcePaths: true, // TODO: check need of this
               reports: ['json-summary'],
               dir: coverageReportDir,
             },
@@ -132,9 +131,8 @@ describe('karma-sabarivka-reporter:', () => {
             );
             const server = createServer(
               {
-                reporters: [_coverageReporter, 'sabarivka'],
+                reporters: [coverageReporter, 'sabarivka'],
                 coverageIstanbulReporter: {
-                  fixWebpackSourcePaths: true,
                   reports: ['json-summary'],
                   dir: coverageReportDir,
                 },
@@ -194,9 +192,8 @@ describe('karma-sabarivka-reporter:', () => {
             );
             const server = createServer(
               {
-                reporters: ['sabarivka', _coverageReporter],
+                reporters: ['sabarivka', coverageReporter],
                 coverageIstanbulReporter: {
-                  fixWebpackSourcePaths: true,
                   reports: ['json-summary'],
                   dir: coverageReportDir,
                 },
@@ -259,7 +256,7 @@ describe('karma-sabarivka-reporter:', () => {
             );
             const server = createServer(
               {
-                reporters: [_coverageReporter, 'sabarivka'],
+                reporters: ['sabarivka', coverageReporter],
                 ...config,
               },
               KarmaCLIOutputFile
@@ -298,7 +295,6 @@ describe('karma-sabarivka-reporter:', () => {
           {
             reporters: ['sabarivka', 'coverage'],
             coverageIstanbulReporter: {
-              fixWebpackSourcePaths: true,
               reports: ['json-summary'],
               dir: coverageReportDir,
             },
@@ -339,7 +335,6 @@ describe('karma-sabarivka-reporter:', () => {
           {
             reporters: ['coverage', 'sabarivka'],
             coverageIstanbulReporter: {
-              fixWebpackSourcePaths: true,
               reports: ['json-summary'],
               dir: coverageReportDir,
             },
@@ -382,7 +377,6 @@ describe('karma-sabarivka-reporter:', () => {
           {
             reporters: ['sabarivka', 'coverage-istanbul'],
             coverageIstanbulReporter: {
-              fixWebpackSourcePaths: true,
               reports: ['json-summary'],
               dir: coverageReportDir,
             },
@@ -423,7 +417,6 @@ describe('karma-sabarivka-reporter:', () => {
           {
             reporters: ['coverage-istanbul', 'sabarivka'],
             coverageIstanbulReporter: {
-              fixWebpackSourcePaths: true,
               reports: ['json-summary'],
               dir: coverageReportDir,
             },
