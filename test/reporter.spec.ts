@@ -32,7 +32,7 @@ describe('karma-sabarivka-reporter:', () => {
       const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
       setTimeout(() => {
         expect(CLI_output).to.contain(
-          '[WARN] [karma-sabarivka-reporter] - Neither "coverage-istanbul" nor "coverage" reporter is not listed under karma "reporters" config section. No coverage report is being created'
+          '[WARN] [karma-sabarivka-reporter] - Neither "coverage-istanbul" nor "coverage" reporter is listed under karma "reporters" config section. No coverage report is being created'
         );
         done();
       }, 300);
