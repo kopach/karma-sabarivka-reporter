@@ -49,7 +49,7 @@ function isKarmaConfigAppropriate(
 function ensureIstanbulEnabled(karmaConfig: ConfigOptions, log: Log): boolean {
   if (!isIstanbulEnabled(karmaConfig)) {
     log.warn(
-      '"coverage-istanbul" is not listed under karma "reporters" config section. No coverage report is being created'
+      'Neither "coverage-istanbul" nor "coverage" reporter is not listed under karma "reporters" config section. No coverage report is being created'
     );
 
     return false;
