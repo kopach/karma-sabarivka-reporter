@@ -15,5 +15,4 @@ deploy:
     secure: $NPM_API_KEY_SECURE
   on:
     tags: true
-    repo: kopach/karma-sabarivka-reporter
     branch: master
