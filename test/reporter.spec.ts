@@ -87,7 +87,7 @@ describe('karma-sabarivka-reporter:', () => {
             name: 'untested files are blacklisted from include pattern',
             config: {
               coverageReporter: {
-                include: ['**/**/example.ts', '!**/**/ignored-file.ts'],
+                include: ['test/**/example.ts', '!test/**/ignored-file.ts'],
               },
             },
           },
@@ -95,7 +95,7 @@ describe('karma-sabarivka-reporter:', () => {
             name: 'untested files are not covered by include array pattern',
             config: {
               coverageReporter: {
-                include: ['**/**/example.ts'],
+                include: ['test/**/example.ts'],
               },
             },
           },
@@ -103,7 +103,7 @@ describe('karma-sabarivka-reporter:', () => {
             name: 'untested files are not covered by include string pattern',
             config: {
               coverageReporter: {
-                include: '**/**/example.ts',
+                include: 'test/**/example.ts',
               },
             },
           },
@@ -173,7 +173,7 @@ describe('karma-sabarivka-reporter:', () => {
             name: 'untested files are covered by include array pattern',
             config: {
               coverageReporter: {
-                include: ['**/**/example.ts', '**/**/ignored-file.ts'],
+                include: ['test/**/example.ts', 'test/**/ignored-file.ts'],
               },
             },
           },
@@ -181,7 +181,7 @@ describe('karma-sabarivka-reporter:', () => {
             name: 'untested files are covered by include string pattern',
             config: {
               coverageReporter: {
-                include: '**/**/ignored-file.ts',
+                include: 'test/**/ignored-file.ts',
               },
             },
           },
@@ -303,7 +303,7 @@ describe('karma-sabarivka-reporter:', () => {
               dir: coverageReportDir,
             },
             coverageReporter: {
-              include: '**/**/ignored-file.ts',
+              include: 'test/**/ignored-file.ts',
               type: 'json-summary',
               dir: coverageReportDir,
               subdir: '.',
@@ -344,7 +344,7 @@ describe('karma-sabarivka-reporter:', () => {
               dir: coverageReportDir,
             },
             coverageReporter: {
-              include: '**/**/ignored-file.ts',
+              include: 'test/**/ignored-file.ts',
               type: 'json-summary',
               dir: coverageReportDir,
               subdir: '.',
@@ -387,7 +387,7 @@ describe('karma-sabarivka-reporter:', () => {
               dir: coverageReportDir,
             },
             coverageReporter: {
-              include: '**/**/ignored-file.ts',
+              include: 'test/**/ignored-file.ts',
               type: 'json-summary',
               dir: coverageReportDir,
               subdir: '.',
@@ -428,7 +428,7 @@ describe('karma-sabarivka-reporter:', () => {
               dir: coverageReportDir,
             },
             coverageReporter: {
-              include: '**/**/ignored-file.ts',
+              include: 'test/**/ignored-file.ts',
               type: 'json-summary',
               dir: coverageReportDir,
               subdir: '.',
