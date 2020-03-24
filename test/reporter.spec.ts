@@ -367,6 +367,31 @@ describe('karma-sabarivka-reporter:', () => {
           done();
         });
       });
+
+      it(`should log warning message if karma-sabarivka registered last`, done => {
+        // given
+        const KarmaCLIOutputFile = join(
+          OUTPUT_PATH,
+          `karma-output${generate()}.log`
+        );
+        const server = createServer(
+          { reporters: ['coverage', 'sabarivka'] },
+          KarmaCLIOutputFile
+        );
+
+        // when
+        const karmaStart = (server.start() as unknown) as Promise<void>;
+
+        checkKarmaSuccessOutput(server, karmaStart, () => {
+          const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
+          setTimeout(() => {
+            expect(CLI_output).to.contain(
+              '[WARN] [karma-sabarivka-reporter] - "sabarivka" should go before "coverage" in "reporters" list'
+            );
+            done();
+          }, 300);
+        });
+      });
     });
 
     describe('karma-coverage-istanbul-reporter', () => {

@@ -42,6 +42,7 @@ function isKarmaConfigAppropriate(
 
   return (
     ensureIstanbulEnabled(karmaConfig, log) &&
+    ensureIstanbulConfigCorrect(karmaConfig, log) &&
     ensureValidSabarivkaReporterConfig(karmaConfig)
   );
 }
@@ -56,6 +57,44 @@ function ensureIstanbulEnabled(karmaConfig: ConfigOptions, log: Log): boolean {
   }
 
   return true;
+}
+
+function ensureIstanbulConfigCorrect(
+  karmaConfig: ConfigOptions,
+  log: Log
+): boolean {
+  if (
+    isKarmaCoverageReporter(karmaConfig) &&
+    !isKarmaCoverageReporterRegisteredCorrectly(karmaConfig)
+  ) {
+    log.warn('"sabarivka" should go before "coverage" in "reporters" list');
+
+    return false;
+  }
+
+  return true;
+}
+
+function isKarmaCoverageReporter(karmaConfig: ConfigOptions): boolean {
+  const withKarmaCoverageReporter = (
+    reporters: ConfigOptions['reporters']
+  ): boolean => !!reporters && isIn(reporters, 'coverage');
+
+  return structure({
+    reporters: withKarmaCoverageReporter,
+  })(karmaConfig);
+}
+
+function isKarmaCoverageReporterRegisteredCorrectly(
+  karmaConfig: ConfigOptions
+): boolean {
+  const withKarmaCoverageReporter = (
+    reporters: ConfigOptions['reporters'] = []
+  ): boolean => reporters.indexOf('sabarivka') < reporters.indexOf('coverage');
+
+  return structure({
+    reporters: withKarmaCoverageReporter,
+  })(karmaConfig);
 }
 
 function ensureValidSabarivkaReporterConfig(
