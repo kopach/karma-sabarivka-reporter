@@ -79,7 +79,10 @@ function isIstanbulEnabled(coverageReporterConfig: ConfigOptions): boolean {
   const withIstanbulReporter = (
     reporters: ConfigOptions['reporters']
   ): boolean => {
-    return !!reporters && (isIn(reporters, 'coverage') || isIn(reporters, 'coverage-istanbul'));
+    return (
+      !!reporters &&
+      (isIn(reporters, 'coverage') || isIn(reporters, 'coverage-istanbul'))
+    );
   };
 
   return structure({
