@@ -288,6 +288,176 @@ describe('karma-sabarivka-reporter:', () => {
       });
     });
   });
+
+  describe('Reporters order:', () => {
+    describe('karma-coverage', () => {
+      it(`should work with "sabarivka" registered first`, done => {
+        // given
+        const coverageReportDir = join(OUTPUT_PATH, `coverage${generate()}`);
+        const server = createServer(
+          {
+            reporters: ['sabarivka', 'coverage'],
+            coverageIstanbulReporter: {
+              fixWebpackSourcePaths: true,
+              reports: ['json-summary'],
+              dir: coverageReportDir,
+            },
+            coverageReporter: {
+              include: '**/**/ignored-file.ts',
+              type: 'json-summary',
+              dir: coverageReportDir,
+              subdir: '.',
+            },
+          },
+          undefined,
+          true
+        );
+
+        // when
+        const karmaStart = (server.start() as unknown) as Promise<void>;
+
+        // then
+        checkKarmaSuccessOutput(server, karmaStart, () => {
+          const coverageSummary = JSON.stringify(
+            readFileSync(
+              `${coverageReportDir}/coverage-summary.json`
+            ).toString()
+          );
+
+          expect(coverageSummary).to.contain('ignored-file.ts');
+          expect(coverageSummary).to.contain('example.ts');
+          expect(coverageSummary).to.contain('another-file.ts');
+
+          done();
+        });
+      });
+
+      it(`should not work with "sabarivka" registered last`, done => {
+        // given
+        const coverageReportDir = join(OUTPUT_PATH, `coverage${generate()}`);
+        const server = createServer(
+          {
+            reporters: ['coverage', 'sabarivka'],
+            coverageIstanbulReporter: {
+              fixWebpackSourcePaths: true,
+              reports: ['json-summary'],
+              dir: coverageReportDir,
+            },
+            coverageReporter: {
+              include: '**/**/ignored-file.ts',
+              type: 'json-summary',
+              dir: coverageReportDir,
+              subdir: '.',
+            },
+          },
+          undefined,
+          true
+        );
+
+        // when
+        const karmaStart = (server.start() as unknown) as Promise<void>;
+
+        // then
+        checkKarmaSuccessOutput(server, karmaStart, () => {
+          const coverageSummary = JSON.stringify(
+            readFileSync(
+              `${coverageReportDir}/coverage-summary.json`
+            ).toString()
+          );
+
+          expect(coverageSummary).not.to.contain('ignored-file.ts');
+          expect(coverageSummary).to.contain('example.ts');
+          expect(coverageSummary).to.contain('another-file.ts');
+
+          done();
+        });
+      });
+    });
+
+    describe('karma-coverage-istanbul-reporter', () => {
+      it(`should work with "sabarivka" registered first`, done => {
+        // given
+        const coverageReportDir = join(OUTPUT_PATH, `coverage${generate()}`);
+        const server = createServer(
+          {
+            reporters: ['sabarivka', 'coverage-istanbul'],
+            coverageIstanbulReporter: {
+              fixWebpackSourcePaths: true,
+              reports: ['json-summary'],
+              dir: coverageReportDir,
+            },
+            coverageReporter: {
+              include: '**/**/ignored-file.ts',
+              type: 'json-summary',
+              dir: coverageReportDir,
+              subdir: '.',
+            },
+          },
+          undefined,
+          true
+        );
+
+        // when
+        const karmaStart = (server.start() as unknown) as Promise<void>;
+
+        // then
+        checkKarmaSuccessOutput(server, karmaStart, () => {
+          const coverageSummary = JSON.stringify(
+            readFileSync(
+              `${coverageReportDir}/coverage-summary.json`
+            ).toString()
+          );
+
+          expect(coverageSummary).to.contain('ignored-file.ts');
+          expect(coverageSummary).to.contain('example.ts');
+          expect(coverageSummary).to.contain('another-file.ts');
+
+          done();
+        });
+      });
+
+      it(`should work with "sabarivka" registered last`, done => {
+        // given
+        const coverageReportDir = join(OUTPUT_PATH, `coverage${generate()}`);
+        const server = createServer(
+          {
+            reporters: ['coverage-istanbul', 'sabarivka'],
+            coverageIstanbulReporter: {
+              fixWebpackSourcePaths: true,
+              reports: ['json-summary'],
+              dir: coverageReportDir,
+            },
+            coverageReporter: {
+              include: '**/**/ignored-file.ts',
+              type: 'json-summary',
+              dir: coverageReportDir,
+              subdir: '.',
+            },
+          },
+          undefined,
+          true
+        );
+
+        // when
+        const karmaStart = (server.start() as unknown) as Promise<void>;
+
+        // then
+        checkKarmaSuccessOutput(server, karmaStart, () => {
+          const coverageSummary = JSON.stringify(
+            readFileSync(
+              `${coverageReportDir}/coverage-summary.json`
+            ).toString()
+          );
+
+          expect(coverageSummary).to.contain('ignored-file.ts');
+          expect(coverageSummary).to.contain('example.ts');
+          expect(coverageSummary).to.contain('another-file.ts');
+
+          done();
+        });
+      });
+    });
+  });
 });
 
 function createServer(
