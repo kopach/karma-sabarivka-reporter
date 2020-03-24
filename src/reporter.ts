@@ -42,6 +42,7 @@ function isKarmaConfigAppropriate(
 
   return (
     ensureIstanbulEnabled(karmaConfig, log) &&
+    ensureIstanbulConfigCorrect(karmaConfig, log) &&
     ensureValidSabarivkaReporterConfig(karmaConfig)
   );
 }
@@ -49,13 +50,51 @@ function isKarmaConfigAppropriate(
 function ensureIstanbulEnabled(karmaConfig: ConfigOptions, log: Log): boolean {
   if (!isIstanbulEnabled(karmaConfig)) {
     log.warn(
-      '"coverage-istanbul" is not listed under karma "reporters" config section. No coverage report is being created'
+      'Neither "coverage-istanbul" nor "coverage" reporter is listed under karma "reporters" config section. No coverage report is being created'
     );
 
     return false;
   }
 
   return true;
+}
+
+function ensureIstanbulConfigCorrect(
+  karmaConfig: ConfigOptions,
+  log: Log
+): boolean {
+  if (
+    isKarmaCoverageReporter(karmaConfig) &&
+    !isKarmaCoverageReporterRegisteredCorrectly(karmaConfig)
+  ) {
+    log.warn('"sabarivka" should go before "coverage" in "reporters" list');
+
+    return false;
+  }
+
+  return true;
+}
+
+function isKarmaCoverageReporter(karmaConfig: ConfigOptions): boolean {
+  const withKarmaCoverageReporter = (
+    reporters: ConfigOptions['reporters']
+  ): boolean => !!reporters && isIn(reporters, 'coverage');
+
+  return structure({
+    reporters: withKarmaCoverageReporter,
+  })(karmaConfig);
+}
+
+function isKarmaCoverageReporterRegisteredCorrectly(
+  karmaConfig: ConfigOptions
+): boolean {
+  const withKarmaCoverageReporter = (
+    reporters: Required<ConfigOptions>['reporters']
+  ): boolean => reporters.indexOf('sabarivka') < reporters.indexOf('coverage');
+
+  return structure({
+    reporters: withKarmaCoverageReporter,
+  })(karmaConfig);
 }
 
 function ensureValidSabarivkaReporterConfig(
@@ -79,7 +118,10 @@ function isIstanbulEnabled(coverageReporterConfig: ConfigOptions): boolean {
   const withIstanbulReporter = (
     reporters: ConfigOptions['reporters']
   ): boolean => {
-    return !!reporters && (isIn(reporters, 'coverage') || isIn(reporters, 'coverage-istanbul'));
+    return (
+      !!reporters &&
+      (isIn(reporters, 'coverage') || isIn(reporters, 'coverage-istanbul'))
+    );
   };
 
   return structure({
