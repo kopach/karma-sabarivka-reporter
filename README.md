@@ -49,6 +49,7 @@ Plugin works with both: TypeScript (`*.ts`) and JavaScript (`*.js`) files
 
 ## ✨ Features [🔝](#-table-of-contents)
 
+- Both [karma-coverage-istanbul-reporter](https://www.npmjs.com/package/karma-coverage-istanbul-reporter) and [karma-coverage](https://www.npmjs.com/package/karma-coverage) supported
 - Both JavaScript `*.js` and TypeScript `*.ts` files support
 - Multiple patterns
 - Negated patterns: ['foo*', '!foobar']
@@ -67,6 +68,8 @@ npm install --save-dev karma-sabarivka-reporter
 
 ## 🔨 Usage [🔝](#-table-of-contents)
 
+**Important Note:** if used with [karma-coverage](https://www.npmjs.com/package/karma-coverage), `'sabarivka'` should go before `'coverage'` in `reporters` list
+
 Update `karma.conf.js`
 
 ### `include` as array of strings [🔝](#-table-of-contents)
@@ -75,6 +78,7 @@ Update `karma.conf.js`
 reporters: [
   // ...
   'sabarivka'
+  // 'coverage-istanbul' or 'coverage' (reporters order is important for 'coverage' reporter)
   // ...
 ],
 coverageReporter: {
@@ -98,6 +102,7 @@ Same result may be achieved with more complex one line glob pattern
 reporters: [
   // ...
   'sabarivka'
+  // 'coverage-istanbul' or 'coverage' (reporters order is important for 'coverage' reporter)
   // ...
 ],
 coverageReporter: {
