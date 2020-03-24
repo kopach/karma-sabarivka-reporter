@@ -89,7 +89,7 @@ function isKarmaCoverageReporterRegisteredCorrectly(
   karmaConfig: ConfigOptions
 ): boolean {
   const withKarmaCoverageReporter = (
-    reporters: ConfigOptions['reporters'] = []
+    reporters: Required<ConfigOptions>['reporters']
   ): boolean => reporters.indexOf('sabarivka') < reporters.indexOf('coverage');
 
   return structure({
