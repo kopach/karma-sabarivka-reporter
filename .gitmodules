@@ -1,0 +1,3 @@
+[submodule "doc/adr/templates"]
+	path = doc/adr/templates
+	url = https://github.com/kopach/adr-templates.git
