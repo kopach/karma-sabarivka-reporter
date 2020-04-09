@@ -1,4 +1,4 @@
-# 2. High test coverage thresholds
+# 3. High test coverage thresholds
 
 Date: 2020-04-09
 

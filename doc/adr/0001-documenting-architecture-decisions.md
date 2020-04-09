@@ -1,4 +1,4 @@
-# 0. Documenting architecture decisions
+# 1. Documenting architecture decisions
 
 Date: 2020-04-05
 
