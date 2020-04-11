@@ -40,11 +40,9 @@
 
 ## ❓ Why? [🔝](#-table-of-contents)
 
-If your project has single entry point for your test files (e.g. `test.(ts|js)` file which gathers all `*.spec.(ts|js))`) - you're probably facing an issue with "fake" test coverage. To have a real picture of test coverage all files with source code should be imported directly into `*.spec.(ts|js))` files. Files with source code, which were not imported in any `*.spec.(ts|js))` files will not be shown in coverage report at all, which creates higher coverage result than it is in reality.
+With `karma`, to test source code – you need to include only `*.spec.(ts|js)` files into test config. Then those spec files will import corresponding source code files. This leads to an issue with "fake" test coverage, as if some source code file would be omitted by all `*.spec.(ts|js))` files – this source code file won't be shown in coverage report at all.
 
-This plugin will be at least useful for all Angular 2-8 projects generated using angular-cli.
-
-This karma plugin attempts to fix described issue by going through all of the source files and including them explicitly into coverage result.
+`karma-sabarivka-reporter` plugin fixes described issue by going through all the source files and including them explicitly into coverage result.
 
 Plugin works with both: TypeScript (`*.ts`) and JavaScript (`*.js`) files
 
@@ -113,11 +111,11 @@ coverageReporter: {
 
 ### karma `plugins` section [🔝](#-table-of-contents)
 
-If your karma config has `plugins` section, add also `karma-sabarivka-reporter` there. Otherwise — no action is required.
+If your karma config has `plugins` section, add also `karma-sabarivka-reporter` there, otherwise — no action is required.
 
 Karma's documentation:
 > By default, Karma loads all sibling NPM modules which have a name starting with karma-\*.\
-You can also explicitly list plugins you want to load via the plugins configuration setting. The configuration value can either be a string (module name), which will be required by Karma, or an object (inlined plugin).
+You can also explicitly list plugins you want to load via the `plugins` configuration setting. The configuration value can either be a string (module name), which will be required by Karma, or an object (inlined plugin).
 
 [See here more info on how karma plugins loading works](https://karma-runner.github.io/4.0/config/plugins.html)
 
