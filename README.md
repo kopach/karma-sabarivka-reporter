@@ -12,6 +12,7 @@
 [![Travis CI badge](https://travis-ci.com/kopach/karma-sabarivka-reporter.svg?branch=master)](https://travis-ci.com/kopach/karma-sabarivka-reporter/branches)
 [![Snyk Vulnerabilities badge](https://snyk.io/test/github/kopach/karma-sabarivka-reporter/badge.svg)](https://snyk.io/test/github/kopach/karma-sabarivka-reporter)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f7e2f85327eeb6b52439/maintainability)](https://codeclimate.com/github/kopach/karma-sabarivka-reporter/maintainability)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/kopach/karma-sabarivka-reporter.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/kopach/karma-sabarivka-reporter/context:javascript)
 
 [![NPM badge](https://nodei.co/npm/karma-sabarivka-reporter.png?compact=true)](https://www.npmjs.com/package/karma-sabarivka-reporter)
 
