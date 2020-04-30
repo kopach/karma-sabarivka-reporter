@@ -33,13 +33,16 @@
     "test": "nyc mocha --exit --require ts-node/register **/*.ts",
     "test:ci": "npm run test",
     "posttest:ci": "codecov",
-    "test:watch": "onchange --kill --initial 'test/*.spec.ts' 'src/*.ts' -- npm run test"
+    "test:watch": "onchange --kill --initial 'test/*.spec.ts' 'src/*.ts' -- npm run test",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "globby": "^11.0.0",
     "istanbul-lib-instrument": "^4.0.1",
     "predicates": "^2.0.3",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "snyk": "^1.316.1"
   },
   "peerDependencies": {
     "karma": ">=0.9"
@@ -98,5 +101,6 @@
     "karma-plugin",
     "karma-reporter",
     "sabarivka"
-  ]
+  ],
+  "snyk": true
 }
