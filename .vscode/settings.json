@@ -1,0 +1,12 @@
+{
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#832561",
+        "statusBarItem.hoverBackground": "#ab307e",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBar.border": "#832561"
+    },
+    "peacock.color": "#832561",
+    "adr.project.directory": "doc/adr",
+    "adr.templates.directory": "doc/adr/templates",
+    "adr.templates.repo": "git@github.com:kopach/adr-templates.git"
+}

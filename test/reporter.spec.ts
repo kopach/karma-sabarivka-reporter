@@ -1,41 +1,46 @@
 /* tslint:disable */
-import { readFileSync } from 'fs';
-import { join } from 'path';
+// @ts-ignore // TODO: remove this
+
+// TODO: try to move to test.ts
+import { mockFs } from './utils/in-memory-fs';
+const vol = mockFs();
+const virtualDir = '/';
+// vol.mkdirSync(virtualDir);
+
+import { readFileSync, mkdirSync } from 'fs';
+import { join, resolve } from 'path';
 import { expect } from 'chai';
 import { Server } from 'karma';
 import * as rimraf from 'rimraf';
 import * as karmaSabarivkaReporter from '../src';
 import { generate } from 'shortid';
 
-const OUTPUT_PATH = join(__dirname, 'fixtures', 'outputs');
+const OUTPUT_PATH = virtualDir;
+
+afterEach(() => {
+  vol.reset();
+});
 
 describe('karma-sabarivka-reporter:', () => {
-  beforeEach(done => {
-    rimraf(OUTPUT_PATH, done);
-  });
-
   it(`should log warning message if non of required reporters are listed in "reporters" list`, done => {
     // given
     const KarmaCLIOutputFile = join(
       OUTPUT_PATH,
       `karma-output${generate()}.log`
     );
+
     const server = createServer(
       { reporters: ['sabarivka'] },
       KarmaCLIOutputFile
     );
-
     // when
     const karmaStart = (server.start() as unknown) as Promise<void>;
-
     checkKarmaSuccessOutput(server, karmaStart, () => {
       const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
-      setTimeout(() => {
-        expect(CLI_output).to.contain(
-          '[WARN] [karma-sabarivka-reporter] - Neither "coverage-istanbul" nor "coverage" reporter is listed under karma "reporters" config section. No coverage report is being created'
-        );
-        done();
-      }, 300);
+      expect(CLI_output).to.contain(
+        '[WARN] [karma-sabarivka-reporter] - Neither "coverage-istanbul" nor "coverage" reporter is listed under karma "reporters" config section. No coverage report is being created'
+      );
+      done();
     });
   });
 
@@ -254,6 +259,7 @@ describe('karma-sabarivka-reporter:', () => {
               OUTPUT_PATH,
               `karma-output${generate()}.log`
             );
+
             const server = createServer(
               {
                 reporters: ['sabarivka', coverageReporter],
@@ -273,12 +279,10 @@ describe('karma-sabarivka-reporter:', () => {
             // then
             checkKarmaErrorOutput(server, karmaStart, () => {
               const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
-              setTimeout(() => {
-                expect(CLI_output).to.contain(
-                  `Not valid karma-sabarivka-reporter-confiig\nvalid schema is: \n${schema}`
-                );
-                done();
-              }, 300);
+              expect(CLI_output).to.contain(
+                `Not valid karma-sabarivka-reporter-confiig\nvalid schema is: \n${schema}`
+              );
+              done();
             });
           });
         });
@@ -374,6 +378,7 @@ describe('karma-sabarivka-reporter:', () => {
           OUTPUT_PATH,
           `karma-output${generate()}.log`
         );
+
         const server = createServer(
           { reporters: ['coverage', 'sabarivka'] },
           KarmaCLIOutputFile
@@ -384,12 +389,10 @@ describe('karma-sabarivka-reporter:', () => {
 
         checkKarmaSuccessOutput(server, karmaStart, () => {
           const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
-          setTimeout(() => {
-            expect(CLI_output).to.contain(
-              '[WARN] [karma-sabarivka-reporter] - "sabarivka" should go before "coverage" in "reporters" list'
-            );
-            done();
-          }, 300);
+          expect(CLI_output).to.contain(
+            '[WARN] [karma-sabarivka-reporter] - "sabarivka" should go before "coverage" in "reporters" list'
+          );
+          done();
         });
       });
     });
