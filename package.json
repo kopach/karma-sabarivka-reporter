@@ -42,7 +42,7 @@
     "istanbul-lib-instrument": "^4.0.1",
     "predicates": "^2.0.3",
     "typescript": "^3.8.3",
-    "snyk": "^1.316.2"
+    "snyk": "^1.317.0"
   },
   "peerDependencies": {
     "karma": ">=0.9"
