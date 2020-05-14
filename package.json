@@ -11,7 +11,7 @@
   "bugs": {
     "url": "https://github.com/kopach/karma-sabarivka-reporter/issues"
   },
-  "version": "3.2.1",
+  "version": "3.2.2",
   "main": "dist/index.js",
   "files": [
     "dist/*"
