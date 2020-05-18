@@ -23,26 +23,27 @@
     "build:watch": "concurrently --kill-others --prefix '{name}:' --names 'TS,MODEL' --prefix-colors 'magenta,blue' \"npm run build -- --watch\" \"npm run generate-public-api-schema:watch\"",
     "generate-public-api-schema": "make-dir dist && typescript-json-schema src/model.ts PublicAPI --out dist/public_api.schema.json",
     "generate-public-api-schema:watch": "onchange --kill --initial 'src/model.ts' -- npm run generate-public-api-schema",
+    "postinstall": "patch-package",
     "lint": "tslint --project tsconfig.json src/**/*.ts",
     "lint-package.json": "prettier-package-json --write",
     "lint:fix": "npm run lint -- --fix",
+    "prepare": "npm run snyk-protect",
     "prepublishOnly": "npm run build",
     "release": "np --no-2fa",
+    "snyk-protect": "snyk protect",
     "tdd": "concurrently --kill-others \"npm run test:watch\" \"live-server --watch=coverage/lcov-report --open=coverage/lcov-report --quiet\"",
     "pretest": "npm run build",
     "test": "nyc mocha --exit --require ts-node/register ./test/test.ts",
     "test:ci": "npm run test",
     "posttest:ci": "codecov",
-    "test:watch": "onchange --kill --initial 'test/*.spec.ts' 'src/*.ts' -- npm run test",
-    "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
+    "test:watch": "onchange --kill --initial 'test/*.spec.ts' 'src/*.ts' -- npm run test"
   },
   "dependencies": {
     "globby": "^11.0.0",
     "istanbul-lib-instrument": "^4.0.3",
     "predicates": "^2.0.3",
-    "typescript": "^3.8.3",
-    "snyk": "^1.320.2"
+    "snyk": "^1.320.2",
+    "typescript": "^3.8.3"
   },
   "peerDependencies": {
     "karma": ">=0.9"
@@ -77,6 +78,7 @@
     "np": "https://github.com/pixelastic/np/tarball/c3ab2e3b053c7da0ce40a572ca1616273ac080f8",
     "nyc": "^15.0.0",
     "onchange": "^6.1.0",
+    "patch-package": "^6.2.2",
     "prettier": "^1.19.1",
     "puppeteer": "^2.1.1",
     "rimraf": "^3.0.2",

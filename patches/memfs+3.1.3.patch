@@ -1,0 +1,13 @@
+diff --git a/node_modules/memfs/lib/volume.js b/node_modules/memfs/lib/volume.js
+index d724bee..10904a4 100644
+--- a/node_modules/memfs/lib/volume.js
++++ b/node_modules/memfs/lib/volume.js
+@@ -973,7 +973,7 @@ var Volume = /** @class */ (function () {
+     };
+     Volume.prototype.write = function (fd, a, b, c, d, e) {
+         var _this = this;
+-        validateFd(fd);
++        // validateFd(fd);
+         var offset;
+         var length;
+         var position;
