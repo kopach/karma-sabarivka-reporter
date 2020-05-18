@@ -4,8 +4,6 @@ node_js:
 - 12
 - 13
 script:
-- npm run lint
-- npm run build
 - npm run test:ci
 deploy:
   provider: npm
