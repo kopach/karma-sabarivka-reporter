@@ -43,6 +43,8 @@
     "predicates": "2.0.3",
     "typescript": "3.9.4",
     "snyk": "1.330.2"
+    "typescript": "3.9.4",
+    "snyk": "1.332.0"
   },
   "peerDependencies": {
     "karma": ">=0.9"
