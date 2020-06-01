@@ -2,7 +2,7 @@
   "name": "karma-sabarivka-reporter",
   "description": "A Karma plugin. Adds untested files to istanbul coverage statistic",
   "license": "MIT",
-  "author": "Ihor Kopach <i40r@outlook.com> (https://github.com/kopach)",
+  "author": "Ihor Kopach (https://kopach.dev)",
   "homepage": "https://github.com/kopach/karma-sabarivka-reporter",
   "repository": {
     "type": "git",
