@@ -53,3 +53,11 @@ after_success:
       --header "Content-Type: application/json" \
       --data "{\"values\":[{\"line\":\"build\",\"value\":\"${duration_build}\"},{\"line\":\"test\",\"value\":\"${duration_test}\"},{\"line\":\"lint\",\"value\":\"${duration_lint}\"}],\"sha\":\"$(git rev-parse HEAD)\"}" \
       https://seriesci.com/api/kopach/karma-sabarivka-reporter/time/many
+
+  - echo "post number of dependencies to seriesci"
+  - |
+    (npm ls --depth=0 --prod --parseable --silent || true) | grep node_modules | wc -l | xargs -I {} curl \
+    --header "Authorization: Token ${SERIESCI_TOKEN}" \
+    --data-urlencode value="{}" \
+    --data sha="${TRAVIS_COMMIT}" \
+    https://seriesci.com/api/repos/kopach/karma-sabarivka-reporter/dependencies/combined
