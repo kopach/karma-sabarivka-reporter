@@ -1,18 +1,55 @@
 language: node_js
 node_js:
-- 11
-- 12
-- 13
+  - 11
+  - 12
+  - 13
 script:
-- npm run lint
-- npm run build
-- npm run test:ci
-deploy:
-  provider: npm
-  tag: dev
-  email: $NPM_EMAIL
-  api_key:
-    secure: $NPM_API_KEY_SECURE
-  on:
-    tags: true
-    branch: master
+  - |
+    start_lint=$(date +%s)
+    npm run lint
+    duration_lint=$(echo "$(date +%s) - $start_lint" | bc)
+    echo "Lint time: ${duration_lint}s"
+    echo "${duration_lint}s" > lint-execution-time.log
+
+  - |
+    start_build=$(date +%s)
+    npm run build
+    duration_build=$(echo "$(date +%s) - $start_build" | bc)
+    echo "Build time ${duration_build}s"
+    echo "${duration_build}s" > build-execution-time.log
+
+  - |
+    start_test=$(date +%s)
+    npm run test:ci
+    duration_test=$(echo "$(date +%s) - $start_test" | bc)
+    echo "Test time ${duration_test}s"
+    echo "${duration_test}s" > test-execution-time.log
+
+after_success:
+  - echo "post code coverage to seriesci"
+  - |
+    echo $(npx lcov-total coverage/lcov.info)% | xargs -I {} curl \
+      --header "Authorization: Token ${SERIESCI_TOKEN}" \
+      --data-urlencode value="{}" \
+      --data sha="${TRAVIS_COMMIT}" \
+      https://seriesci.com/api/repos/kopach/karma-sabarivka-reporter/coverage/combined
+
+  - echo "post bundle size to seriesci"
+  - |
+    npm run build
+    du -sh dist/ | awk '{print $1}' | xargs -I {} curl \
+      --header "Authorization: Token ${SERIESCI_TOKEN}" \
+      --data-urlencode value="{}" \
+      --data sha="${TRAVIS_COMMIT}" \
+      https://seriesci.com/api/repos/kopach/karma-sabarivka-reporter/bundlesize/combined
+
+  - echo "post lint & build & test execution time to seriesci"
+  - |
+    duration_build=$(cat build-execution-time.log)
+    duration_test=$(cat test-execution-time.log)
+    duration_lint=$(cat lint-execution-time.log)
+    curl \
+      --header "Authorization: Token c698677f-ebb7-44f8-9d72-47a73b7e2121" \
+      --header "Content-Type: application/json" \
+      --data "{\"values\":[{\"line\":\"build\",\"value\":\"${duration_build}\"},{\"line\":\"test\",\"value\":\"${duration_test}\"},{\"line\":\"lint\",\"value\":\"${duration_lint}\"}],\"sha\":\"$(git rev-parse HEAD)\"}" \
+      https://seriesci.com/api/kopach/karma-sabarivka-reporter/time/many
