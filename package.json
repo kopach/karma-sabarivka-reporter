@@ -19,7 +19,7 @@
   "scripts": {
     "adr:update": "adr update",
     "prebuild": "rimraf dist && npm run generate-public-api-schema",
-    "build": "tsc",
+    "build": "tsc --sourceMap false",
     "build:watch": "concurrently --kill-others --prefix '{name}:' --names 'TS,MODEL' --prefix-colors 'magenta,blue' \"npm run build -- --watch\" \"npm run generate-public-api-schema:watch\"",
     "generate-public-api-schema": "make-dir dist && typescript-json-schema src/model.ts PublicAPI --out dist/public_api.schema.json",
     "generate-public-api-schema:watch": "onchange --kill --initial 'src/model.ts' -- npm run generate-public-api-schema",
