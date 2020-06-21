@@ -34,4 +34,10 @@ if [ "$TRAVIS_BRANCH" = "master" ]; then
         --data sha="${TRAVIS_COMMIT}" \
         https://seriesci.com/api/repos/kopach/karma-sabarivka-reporter/dependencies/combined
 
+    echo "post number of lines of code to seriesci"
+    npx cloc src --csv | grep 'SUM.*' -o | cut -d, -f 4 | xargs -I {} curl \
+        --header "Authorization: Token ${SERIESCI_TOKEN}" \
+        --data-urlencode value="{}" \
+        --data sha="${TRAVIS_COMMIT}" \
+        https://seriesci.com/api/repos/kopach/karma-sabarivka-reporter/lines-of-code/combined
 fi
