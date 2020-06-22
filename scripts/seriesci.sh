@@ -3,7 +3,7 @@
 echo "TRAVIS_BRANCH= $TRAVIS_BRANCH"
 
 echo "post code coverage to seriesci"
-echo $(npx lcov-total coverage/lcov.info)% | xargs -I {} curl \
+echo "$(npx lcov-total coverage/lcov.info)%" | xargs -I {} curl \
     --header "Authorization: Token ${SERIESCI_TOKEN}" \
     --data-urlencode value="{}" \
     --data sha="${TRAVIS_COMMIT}" \
@@ -27,7 +27,7 @@ curl \
     https://seriesci.com/api/kopach/karma-sabarivka-reporter/time/many
 
 echo "post number of dependencies to seriesci"
-(npm ls --depth=0 --prod --parseable --silent || true) | grep node_modules | wc -l | xargs -I {} curl \
+(npm ls --depth=0 --prod --parseable --silent || true) | grep -c node_modules | xargs -I {} curl \
     --header "Authorization: Token ${SERIESCI_TOKEN}" \
     --data-urlencode value="{}" \
     --data sha="${TRAVIS_COMMIT}" \
