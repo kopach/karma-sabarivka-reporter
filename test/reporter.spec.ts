@@ -30,12 +30,10 @@ describe('karma-sabarivka-reporter:', () => {
 
     checkKarmaSuccessOutput(server, karmaStart, () => {
       const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
-      setTimeout(() => {
-        expect(CLI_output).to.contain(
-          '[WARN] [karma-sabarivka-reporter] - Neither "coverage-istanbul" nor "coverage" reporter is listed under karma "reporters" config section. No coverage report is being created'
-        );
-        done();
-      }, 300);
+      expect(CLI_output).to.contain(
+        '[WARN] [karma-sabarivka-reporter] - Neither "coverage-istanbul" nor "coverage" reporter is listed under karma "reporters" config section. No coverage report is being created'
+      );
+      done();
     });
   });
 
@@ -273,12 +271,10 @@ describe('karma-sabarivka-reporter:', () => {
             // then
             checkKarmaErrorOutput(server, karmaStart, () => {
               const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
-              setTimeout(() => {
-                expect(CLI_output).to.contain(
-                  `Not valid karma-sabarivka-reporter-confiig\nvalid schema is: \n${schema}`
-                );
-                done();
-              }, 300);
+              expect(CLI_output).to.contain(
+                `Not valid karma-sabarivka-reporter-confiig\nvalid schema is: \n${schema}`
+              );
+              done();
             });
           });
         });
@@ -384,12 +380,10 @@ describe('karma-sabarivka-reporter:', () => {
 
         checkKarmaSuccessOutput(server, karmaStart, () => {
           const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
-          setTimeout(() => {
-            expect(CLI_output).to.contain(
-              '[WARN] [karma-sabarivka-reporter] - "sabarivka" should go before "coverage" in "reporters" list'
-            );
-            done();
-          }, 300);
+          expect(CLI_output).to.contain(
+            '[WARN] [karma-sabarivka-reporter] - "sabarivka" should go before "coverage" in "reporters" list'
+          );
+          done();
         });
       });
     });
@@ -545,7 +539,7 @@ function checkKarmaErrorOutput(
   if (typeof karmaServerWithStop.stop === 'function') {
     karmaStart.then(() =>
       karmaServerWithStop.stop().then(() => {
-        checkOutput();
+        setTimeout(checkOutput, 50);
       })
     );
   }
