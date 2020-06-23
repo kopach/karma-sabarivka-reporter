@@ -1,16 +1,12 @@
 language: node_js
 node_js:
-- 11
-- 12
-- 13
+  - 11
+  - 12
+  - 13
 script:
-- npm run test:ci
-deploy:
-  provider: npm
-  tag: dev
-  email: $NPM_EMAIL
-  api_key:
-    secure: $NPM_API_KEY_SECURE
-  on:
-    tags: true
-    branch: master
+  - ./scripts/npm_run_time.sh lint
+  - ./scripts/npm_run_time.sh build
+  - ./scripts/npm_run_time.sh test:ci
+
+after_success:
+  - scripts/seriesci.sh

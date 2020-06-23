@@ -548,7 +548,7 @@ function checkKarmaErrorOutput(
   if (typeof karmaServerWithStop.stop === 'function') {
     karmaStart.then(() =>
       karmaServerWithStop.stop().then(() => {
-        checkOutput();
+        setTimeout(checkOutput, 50);
       })
     );
   }

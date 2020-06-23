@@ -1,6 +1,7 @@
 {
   "all": true,
   "check-coverage": true,
+  "include": ["src/**"],
   "extension": [".ts"],
   "reporter": ["lcov"],
   "temp-directory": "coverage/.nyc_output",

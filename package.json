@@ -2,7 +2,7 @@
   "name": "karma-sabarivka-reporter",
   "description": "A Karma plugin. Adds untested files to istanbul coverage statistic",
   "license": "MIT",
-  "author": "Ihor Kopach <i40r@outlook.com> (https://github.com/kopach)",
+  "author": "Ihor Kopach (https://kopach.dev)",
   "homepage": "https://github.com/kopach/karma-sabarivka-reporter",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   "scripts": {
     "adr:update": "adr update",
     "prebuild": "rimraf dist && npm run generate-public-api-schema",
-    "build": "tsc",
+    "build": "tsc --sourceMap false",
     "build:watch": "concurrently --kill-others --prefix '{name}:' --names 'TS,MODEL' --prefix-colors 'magenta,blue' \"npm run build -- --watch\" \"npm run generate-public-api-schema:watch\"",
     "generate-public-api-schema": "make-dir dist && typescript-json-schema src/model.ts PublicAPI --out dist/public_api.schema.json",
     "generate-public-api-schema:watch": "onchange --kill --initial 'src/model.ts' -- npm run generate-public-api-schema",
@@ -30,10 +30,11 @@
     "prepare": "npm run snyk-protect",
     "prepublishOnly": "npm run build",
     "release": "np --no-2fa",
+    "postshrinkwrap": "lockfix",
     "snyk-protect": "snyk protect",
     "tdd": "concurrently --kill-others \"npm run test:watch\" \"live-server --watch=coverage/lcov-report --open=coverage/lcov-report --quiet\"",
-    "pretest": "npm run build",
-    "test": "nyc mocha --exit --require ts-node/register ./test/test.ts",
+    "pretest": "npm run generate-public-api-schema",
+    "test": "nyc mocha --config test/.mocharc.json --exit --require ts-node/register **/*.ts",
     "test:ci": "npm run test",
     "posttest:ci": "codecov",
     "test:watch": "onchange --kill --initial 'test/*.spec.ts' 'src/*.ts' -- npm run test"

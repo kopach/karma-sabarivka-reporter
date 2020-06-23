@@ -82,3 +82,85 @@ patch:
         patched: '2020-05-03T19:10:18.783Z'
     - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
         patched: '2020-05-08T21:20:27.435Z'
+    - istanbul-lib-instrument > @babel/core > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/generator > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/traverse > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/template > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/template > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-module-imports > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/template > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-member-expression-to-functions > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/helper-optimise-call-expression > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-simple-access > @babel/template > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
+    - istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-27T10:07:38.719Z'
