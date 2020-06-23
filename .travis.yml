@@ -4,26 +4,9 @@ node_js:
   - 12
   - 13
 script:
-  - |
-    start_lint=$(date +%s)
-    npm run lint
-    duration_lint=$(echo "$(date +%s) - $start_lint" | bc)
-    echo "Lint time: ${duration_lint}s"
-    echo "${duration_lint}s" > lint-execution-time.log
-
-  - |
-    start_build=$(date +%s)
-    npm run build
-    duration_build=$(echo "$(date +%s) - $start_build" | bc)
-    echo "Build time ${duration_build}s"
-    echo "${duration_build}s" > build-execution-time.log
-
-  - |
-    start_test=$(date +%s)
-    npm run test:ci
-    duration_test=$(echo "$(date +%s) - $start_test" | bc)
-    echo "Test time ${duration_test}s"
-    echo "${duration_test}s" > test-execution-time.log
+  - duration_lint=$(./scripts/npm_run_time.sh lint)
+  - duration_build=$(./scripts/npm_run_time.sh build)
+  - duration_test=$(./scripts/npm_run_time.sh test:ci)
 
 after_success:
-  - scripts/seriesci.sh
+  - scripts/seriesci.sh $duration_lint $duration_build $duration_test
