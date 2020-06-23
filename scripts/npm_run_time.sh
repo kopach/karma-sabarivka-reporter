@@ -8,6 +8,8 @@ cmd="npm run ${script_name}"
 $cmd
 cmdExitCode=$(echo $? |  bc -l)
 
+echo "${script_name} exit code: ${cmdExitCode}"
+
 if [ $cmdExitCode -ne 0 ]; then
     exit $?
 else
