@@ -4,9 +4,9 @@ node_js:
   - 12
   - 13
 script:
-  - duration_lint=$(./scripts/npm_run_time.sh lint)
-  - duration_build=$(./scripts/npm_run_time.sh build)
-  - duration_test=$(./scripts/npm_run_time.sh test:ci)
+  - ./scripts/npm_run_time.sh lint
+  - ./scripts/npm_run_time.sh build
+  - ./scripts/npm_run_time.sh test:ci
 
 after_success:
-  - scripts/seriesci.sh $duration_lint $duration_build $duration_test
+  - scripts/seriesci.sh

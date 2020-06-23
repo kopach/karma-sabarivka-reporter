@@ -13,5 +13,5 @@ if [ $cmdExitCode -ne 0 ]; then
 else
     duration=$(echo "$(date +%s) - $startTime" | bc)
     echo "${script_name} time: ${duration}s"
-    echo "${duration}"
+    echo "${duration}s" > ${script_name}-execution-time.log
 fi
