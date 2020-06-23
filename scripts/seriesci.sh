@@ -18,7 +18,7 @@ du -sh dist/ | awk '{print $1}' | xargs -I {} curl \
 
 echo "post lint & build & test execution time to seriesci"
 duration_build=$(cat build-execution-time.log)
-duration_test=$(cat test-execution-time.log)
+duration_test=$(cat test:ci-execution-time.log)
 duration_lint=$(cat lint-execution-time.log)
 curl \
     --header "Authorization: Token c698677f-ebb7-44f8-9d72-47a73b7e2121" \
