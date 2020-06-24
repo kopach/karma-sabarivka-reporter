@@ -21,6 +21,7 @@
     "prebuild": "rimraf dist && npm run generate-public-api-schema",
     "build": "tsc --sourceMap false",
     "build:watch": "concurrently --kill-others --prefix '{name}:' --names 'TS,MODEL' --prefix-colors 'magenta,blue' \"npm run build -- --watch\" \"npm run generate-public-api-schema:watch\"",
+    "commit": "git-cz",
     "generate-public-api-schema": "make-dir dist && typescript-json-schema src/model.ts PublicAPI --out dist/public_api.schema.json",
     "generate-public-api-schema:watch": "onchange --kill --initial 'src/model.ts' -- npm run generate-public-api-schema",
     "lint": "tslint --project tsconfig.json src/**/*.ts",
@@ -37,6 +38,11 @@
     "test:ci": "npm run test",
     "posttest:ci": "codecov",
     "test:watch": "onchange --kill --initial 'test/*.spec.ts' 'src/*.ts' -- npm run test"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "dependencies": {
     "globby": "11.0.1",
@@ -59,7 +65,9 @@
     "adr": "1.1.4",
     "chai": "4.2.0",
     "codecov": "3.7.0",
+    "commitizen": "4.1.2",
     "concurrently": "5.2.0",
+    "cz-conventional-changelog": "3.2.0",
     "istanbul-instrumenter-loader": "3.0.1",
     "karma": "5.1.0",
     "karma-chrome-launcher": "3.1.0",
