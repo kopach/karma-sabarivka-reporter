@@ -68,6 +68,7 @@
     "commitizen": "4.1.2",
     "concurrently": "5.2.0",
     "cz-conventional-changelog": "3.2.0",
+    "husky": "4.2.5",
     "istanbul-instrumenter-loader": "3.0.1",
     "karma": "5.1.0",
     "karma-chrome-launcher": "3.1.0",
@@ -114,5 +115,10 @@
     "karma-reporter",
     "sabarivka"
   ],
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
+    }
+  },
   "snyk": true
 }
