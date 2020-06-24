@@ -55,6 +55,8 @@
     "karma": ">=0.9"
   },
   "devDependencies": {
+    "@commitlint/cli": "9.0.1",
+    "@commitlint/config-conventional": "9.0.1",
     "@types/chai": "4.2.11",
     "@types/istanbul-lib-instrument": "1.7.4",
     "@types/karma": "5.0.0",
@@ -115,10 +117,5 @@
     "karma-reporter",
     "sabarivka"
   ],
-  "husky": {
-    "hooks": {
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
-    }
-  },
   "snyk": true
 }
