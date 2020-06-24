@@ -4,6 +4,7 @@ node_js:
   - 12
   - 13
 script:
+  - commitlint-travis
   - ./scripts/npm_run_time.sh lint
   - ./scripts/npm_run_time.sh build
   - ./scripts/npm_run_time.sh test:ci
