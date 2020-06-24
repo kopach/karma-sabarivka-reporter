@@ -4,14 +4,12 @@
 // TODO: try to move to test.ts
 import { mockFs } from './utils/in-memory-fs';
 const vol = mockFs();
-const virtualDir = '/';
-// vol.mkdirSync(virtualDir);
+const virtualDir = '/virtual/';
 
-import { readFileSync, mkdirSync } from 'fs';
-import { join, resolve } from 'path';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 import { expect } from 'chai';
 import { Server } from 'karma';
-import * as rimraf from 'rimraf';
 import * as karmaSabarivkaReporter from '../src';
 import { generate } from 'shortid';
 

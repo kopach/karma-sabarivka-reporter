@@ -8,11 +8,11 @@ const fse = require('fs-extra');
 const gfs = require('graceful-fs');
 
 const { ufs } = require('unionfs');
-import { createFsFromVolume, vol, fs as memfs } from 'memfs';
+import { createFsFromVolume, vol } from 'memfs';
 const { patchFs, patchRequire } = require('fs-monkey');
 
 import { spyFs } from './spy-fs';
-const { sfsFS, sfsFSE } = spyFs(vol);
+const { sfsFS } = spyFs(vol);
 
 export const mockFs = () => {
   ufs

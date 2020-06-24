@@ -17,7 +17,7 @@ type Logger = {
 };
 
 export const sabarivkaReporter: KarmaReprter = Object.defineProperty(
-  function (
+  function(
     this: { onBrowserComplete: (...args: InstrumenterFnArgs) => void },
     karmaConfig: KarmaOptions,
     logger: Logger
