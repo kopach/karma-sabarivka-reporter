@@ -3,8 +3,11 @@ node_js:
   - 11
   - 12
   - 13
-script:
+
+before_script:
   - commitlint-travis
+
+script:
   - ./scripts/npm_run_time.sh lint
   - ./scripts/npm_run_time.sh build
   - ./scripts/npm_run_time.sh test:ci
