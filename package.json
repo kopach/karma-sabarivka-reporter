@@ -56,9 +56,9 @@
     "karma": ">=0.9"
   },
   "devDependencies": {
-    "@commitlint/cli": "9.0.1",
-    "@commitlint/config-conventional": "9.0.1",
-    "@commitlint/travis-cli": "9.0.1",
+    "@commitlint/cli": "9.1.1",
+    "@commitlint/config-conventional": "9.1.1",
+    "@commitlint/travis-cli": "9.1.1",
     "@types/chai": "4.2.11",
     "@types/istanbul-lib-instrument": "1.7.4",
     "@types/karma": "5.0.0",
