@@ -79,7 +79,7 @@
     "karma-coverage": "2.0.3",
     "karma-coverage-istanbul-reporter": "3.0.3",
     "karma-mocha": "2.0.1",
-    "karma-sourcemap-loader": "0.3.7",
+    "karma-sourcemap-loader": "0.3.8",
     "karma-webpack": "4.0.2",
     "lcov-total": "1.0.5",
     "live-server": "1.2.1",
