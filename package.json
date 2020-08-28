@@ -49,7 +49,7 @@
     "globby": "11.0.1",
     "istanbul-lib-instrument": "4.0.3",
     "predicates": "2.0.3",
-    "snyk": "1.385.2",
+    "snyk": "1.386.0",
     "typescript": "4.0.2"
   },
   "peerDependencies": {
