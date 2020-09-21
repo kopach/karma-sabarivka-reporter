@@ -27,9 +27,11 @@ function getListOfFilesToCover(coverageReporterConfig: PublicAPI): string[] {
 
 function addFileListToCoverageData(
   filesToCover: string[],
-  coverage: CoverageData
+  coverage?: CoverageData
 ): void {
   filesToCover.forEach((filePath: string): void => {
+    if (!coverage) return;
+
     const fullFilePath: string = path.resolve(process.cwd(), filePath);
 
     if (!coverage[fullFilePath]) {

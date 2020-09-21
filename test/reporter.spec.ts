@@ -78,6 +78,48 @@ describe('karma-sabarivka-reporter:', () => {
         });
       });
 
+      it('should not break Karma process on thrown exception in tests', done => {
+        // given
+        const config= {
+          coverageReporter: {
+            include: 'test/**/ignored-file.ts',
+          },
+        };
+        const coverageReportDir = join(
+          OUTPUT_PATH,
+          `coverage${generate()}`
+        );
+        const server = createServer(
+          {
+            reporters: ['sabarivka', coverageReporter],
+            coverageIstanbulReporter: {
+              reports: ['json-summary'],
+              dir: coverageReportDir,
+            },
+            coverageReporter: {
+              ...config.coverageReporter,
+              type: 'json-summary',
+              dir: coverageReportDir,
+              subdir: '.',
+            },
+            files: [
+              'fixtures/typescript/test/test-error.spec.ts',
+            ],
+            preprocessors: {
+              'fixtures/typescript/test/test-error.spec.ts': ['webpack', 'sourcemap'],
+            },
+          },
+          undefined,
+          true
+        );
+
+        // when
+        const karmaStart = (server.start() as unknown) as Promise<void>;
+
+        // then
+        checkKarmaSuccessOutput(server, karmaStart, done);
+      });
+
       describe('Correct config:', () => {
         [
           {
