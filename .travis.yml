@@ -10,7 +10,8 @@ before_script:
 script:
   - ./scripts/npm_run_time.sh lint
   - ./scripts/npm_run_time.sh build
-  - ./scripts/npm_run_time.sh test:ci
+  - ./scripts/npm_run_time.sh test
+  - npm run upload-code-coverage
 
 after_success:
   - scripts/seriesci.sh
