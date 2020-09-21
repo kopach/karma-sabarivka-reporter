@@ -27,11 +27,9 @@
     "lint": "tslint --project tsconfig.json src/**/*.ts",
     "lint-package.json": "prettier-package-json --write",
     "lint:fix": "npm run lint -- --fix",
-    "prepare": "npm run snyk-protect",
     "prepublishOnly": "npm run build",
     "release": "HUSKY_SKIP_HOOKS=1 np --no-2fa",
     "postshrinkwrap": "HUSKY_SKIP_HOOKS=1 lockfix",
-    "snyk-protect": "snyk protect",
     "tdd": "concurrently --kill-others \"npm run test:watch\" \"live-server --watch=coverage/lcov-report --open=coverage/lcov-report --quiet\"",
     "pretest": "npm run generate-public-api-schema",
     "test": "nyc mocha --config test/.mocharc.json **/*.ts",
@@ -49,7 +47,6 @@
     "globby": "11.0.1",
     "istanbul-lib-instrument": "4.0.3",
     "predicates": "2.0.3",
-    "snyk": "1.399.0",
     "typescript": "4.0.3"
   },
   "peerDependencies": {
@@ -117,6 +114,5 @@
     "karma-plugin",
     "karma-reporter",
     "sabarivka"
-  ],
-  "snyk": true
+  ]
 }
