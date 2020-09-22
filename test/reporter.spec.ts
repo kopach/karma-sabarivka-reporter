@@ -14,7 +14,7 @@ describe('karma-sabarivka-reporter:', () => {
     rimraf(OUTPUT_PATH, done);
   });
 
-  it(`should log warning message if non of required reporters are listed in "reporters" list`, done => {
+  it(`should log warning message if non of required reporters listed in "reporters" list`, done => {
     // given
     const KarmaCLIOutputFile = join(
       OUTPUT_PATH,
@@ -31,7 +31,7 @@ describe('karma-sabarivka-reporter:', () => {
     checkKarmaSuccessOutput(server, karmaStart, () => {
       const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
       expect(CLI_output).to.contain(
-        '[WARN] [karma-sabarivka-reporter] - Neither "coverage-istanbul" nor "coverage" reporter is listed under karma "reporters" config section. No coverage report is being created'
+        '[WARN] [karma-sabarivka-reporter] - Neither "coverage-istanbul" nor "coverage" reporter listed under karma "reporters" config section. No coverage report created'
       );
       done();
     });
@@ -39,7 +39,7 @@ describe('karma-sabarivka-reporter:', () => {
 
   ['coverage', 'coverage-istanbul'].forEach(coverageReporter => {
     describe(`Configured with "${coverageReporter}" reporter:`, () => {
-      it('should not have untested files included in coverage raport if karma-sabarivka-reporter disabled', done => {
+      it('should not have untested files included in coverage report if karma-sabarivka-reporter disabled', done => {
         // given
         const coverageReportDir = join(OUTPUT_PATH, `coverage${generate()}`);
         const server = createServer(
@@ -78,10 +78,52 @@ describe('karma-sabarivka-reporter:', () => {
         });
       });
 
+      it('should not break Karma process on thrown exception in tests', done => {
+        // given
+        const config= {
+          coverageReporter: {
+            include: 'test/**/ignored-file.ts',
+          },
+        };
+        const coverageReportDir = join(
+          OUTPUT_PATH,
+          `coverage${generate()}`
+        );
+        const server = createServer(
+          {
+            reporters: ['sabarivka', coverageReporter],
+            coverageIstanbulReporter: {
+              reports: ['json-summary'],
+              dir: coverageReportDir,
+            },
+            coverageReporter: {
+              ...config.coverageReporter,
+              type: 'json-summary',
+              dir: coverageReportDir,
+              subdir: '.',
+            },
+            files: [
+              'fixtures/typescript/test/test-error.spec.ts',
+            ],
+            preprocessors: {
+              'fixtures/typescript/test/test-error.spec.ts': ['webpack', 'sourcemap'],
+            },
+          },
+          undefined,
+          true
+        );
+
+        // when
+        const karmaStart = (server.start() as unknown) as Promise<void>;
+
+        // then
+        checkKarmaSuccessOutput(server, karmaStart, done);
+      });
+
       describe('Correct config:', () => {
         [
           {
-            name: 'untested files are blacklisted from include pattern',
+            name: 'untested files blacklisted from include pattern',
             config: {
               coverageReporter: {
                 include: ['test/**/example.ts', '!test/**/ignored-file.ts'],
@@ -121,7 +163,7 @@ describe('karma-sabarivka-reporter:', () => {
             },
           },
         ].forEach(({ name, config }) => {
-          it(`should not have untested files included in coverage raport if: ${name}`, done => {
+          it(`should not have untested files included in coverage report if: ${name}`, done => {
             // given
             const coverageReportDir = join(
               OUTPUT_PATH,
@@ -166,7 +208,7 @@ describe('karma-sabarivka-reporter:', () => {
 
         [
           {
-            name: 'untested files are covered by include array pattern',
+            name: 'untested files covered by include array pattern',
             config: {
               coverageReporter: {
                 include: ['test/**/example.ts', 'test/**/ignored-file.ts'],
@@ -174,7 +216,7 @@ describe('karma-sabarivka-reporter:', () => {
             },
           },
           {
-            name: 'untested files are covered by include string pattern',
+            name: 'untested files covered by include string pattern',
             config: {
               coverageReporter: {
                 include: 'test/**/ignored-file.ts',
@@ -182,7 +224,7 @@ describe('karma-sabarivka-reporter:', () => {
             },
           },
         ].forEach(({ name, config }) => {
-          it(`should have untested files included in coverage raport if: ${name}`, done => {
+          it(`should have untested files included in coverage report if: ${name}`, done => {
             // given
             const coverageReportDir = join(
               OUTPUT_PATH,
@@ -246,7 +288,7 @@ describe('karma-sabarivka-reporter:', () => {
             config: { coverageReporter: { include: [2] } },
           },
         ].forEach(({ name, config }) => {
-          it(`should throw error with config schema if incorrect config being set: ${name}`, done => {
+          it(`should throw error with config schema if incorrect config set: ${name}`, done => {
             // given
             const KarmaCLIOutputFile = join(
               OUTPUT_PATH,
