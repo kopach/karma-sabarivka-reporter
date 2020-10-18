@@ -23,7 +23,7 @@ export const isValidSabarivkaReporterConfig = (
 export type KarmaReporter = (
   karmaConfig: KarmaOptions
 ) => void & {
-  $inject: string[];
+  $inject: { value: string[] };
 };
 
 export type CoverageData = InitialCoverage['coverageData'];
