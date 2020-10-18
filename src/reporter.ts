@@ -18,7 +18,10 @@ type Logger = {
 
 export const sabarivkaReporter: KarmaReporter = Object.defineProperty(
   function (
-    this: { onBrowserComplete: (...args: InstrumenterFnArgs) => void },
+    this: {
+      onBrowserComplete: (...args: InstrumenterFnArgs) => void;
+      adapters: unknown[];
+    },
     karmaConfig: KarmaOptions,
     logger: Logger
   ): void {
@@ -27,6 +30,7 @@ export const sabarivkaReporter: KarmaReporter = Object.defineProperty(
     }
 
     this.onBrowserComplete = getFileInstrumenterFn(karmaConfig);
+    this.adapters = [];
   },
   '$inject',
   {
