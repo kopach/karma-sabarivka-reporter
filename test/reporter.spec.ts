@@ -280,11 +280,11 @@ describe('karma-sabarivka-reporter:', () => {
             config: { coverageReporter: { include: null } },
           },
           {
-            name: 'config property wit incorect type T',
+            name: 'config property wit incorrect type T',
             config: { coverageReporter: { include: 2 } },
           },
           {
-            name: 'config property wit incorect type T[]',
+            name: 'config property wit incorrect type T[]',
             config: { coverageReporter: { include: [2] } },
           },
         ].forEach(({ name, config }) => {
@@ -314,7 +314,7 @@ describe('karma-sabarivka-reporter:', () => {
             checkKarmaErrorOutput(server, karmaStart, () => {
               const CLI_output = readFileSync(KarmaCLIOutputFile).toString();
               expect(CLI_output).to.contain(
-                `Not valid karma-sabarivka-reporter-confiig\nvalid schema is: \n${schema}`
+                `Not valid karma-sabarivka-reporter-config\nvalid schema is: \n${schema}`
               );
               done();
             });

@@ -2,7 +2,7 @@ import { InitialCoverage } from 'istanbul-lib-instrument';
 import { arrayOf, or, string, structure } from 'predicates';
 import { ConfigOptions } from 'karma';
 
-// NOTE: this type name is used in package.json `prebuild` script
+// NOTE: this name used in package.json `prebuild` script
 export type PublicAPI = {
   coverageReporter: {
     include: string[] | string;
@@ -20,7 +20,7 @@ export const isValidSabarivkaReporterConfig = (
     }),
   })(value);
 
-export type KarmaReprter = (
+export type KarmaReporter = (
   karmaConfig: KarmaOptions
 ) => void & {
   $inject: string[];
