@@ -5,7 +5,7 @@ import * as path from 'path';
 import { ModuleKind, transpileModule, TranspileOutput } from 'typescript';
 import { CoverageData, InstrumenterFnArgs, PublicAPI } from './model';
 
-export function getFileIntrumenterFn(
+export function getFileInstrumenterFn(
   coverageReporterConfig: PublicAPI
 ): (...args: InstrumenterFnArgs) => void {
   return (...[, { coverage }]: InstrumenterFnArgs): void => {
@@ -35,7 +35,7 @@ function addFileListToCoverageData(
     const fullFilePath: string = path.resolve(process.cwd(), filePath);
 
     if (!coverage[fullFilePath]) {
-      const fileContentJS: TranspileOutput = getFileTranspilledToJs(
+      const fileContentJS: TranspileOutput = getFileTranspiledToJs(
         fullFilePath
       );
 
@@ -44,7 +44,7 @@ function addFileListToCoverageData(
   });
 }
 
-function getFileTranspilledToJs(fullFilePath: string): TranspileOutput {
+function getFileTranspiledToJs(fullFilePath: string): TranspileOutput {
   const rawFile: string = fs.readFileSync(fullFilePath, 'utf-8');
   const jsResult: TranspileOutput = transpileModule(rawFile, {
     compilerOptions: {

@@ -1,10 +1,10 @@
 import {
   InstrumenterFnArgs,
   isValidSabarivkaReporterConfig,
-  KarmaReprter,
+  KarmaReporter,
   KarmaOptions,
 } from './model';
-import { getFileIntrumenterFn } from './instrumenter';
+import { getFileInstrumenterFn } from './instrumenter';
 import { ConfigOptions } from 'karma';
 import { structure, in as isIn } from 'predicates';
 
@@ -16,9 +16,12 @@ type Logger = {
   create: (arg0: string) => Log;
 };
 
-export const sabarivkaReporter: KarmaReprter = Object.defineProperty(
+export const sabarivkaReporter: KarmaReporter = Object.defineProperty(
   function (
-    this: { onBrowserComplete: (...args: InstrumenterFnArgs) => void },
+    this: {
+      onBrowserComplete: (...args: InstrumenterFnArgs) => void;
+      adapters: unknown[];
+    },
     karmaConfig: KarmaOptions,
     logger: Logger
   ): void {
@@ -26,7 +29,8 @@ export const sabarivkaReporter: KarmaReprter = Object.defineProperty(
       return;
     }
 
-    this.onBrowserComplete = getFileIntrumenterFn(karmaConfig);
+    this.onBrowserComplete = getFileInstrumenterFn(karmaConfig);
+    this.adapters = [];
   },
   '$inject',
   {
@@ -107,7 +111,7 @@ function ensureValidSabarivkaReporterConfig(
       2
     );
     throw new Error(
-      `Not valid karma-sabarivka-reporter-confiig\nvalid schema is: \n${schema}`
+      `Not valid karma-sabarivka-reporter-config\nvalid schema is: \n${schema}`
     );
   }
 
