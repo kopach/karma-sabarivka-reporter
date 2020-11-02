@@ -81,7 +81,7 @@
     "live-server": "1.2.1",
     "lockfix": "2.0.0",
     "make-dir-cli": "2.0.0",
-    "mocha": "8.2.0",
+    "mocha": "8.2.1",
     "np": "https://github.com/pixelastic/np/tarball/c3ab2e3b053c7da0ce40a572ca1616273ac080f8",
     "nyc": "15.1.0",
     "onchange": "7.1.0",
