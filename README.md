@@ -29,19 +29,19 @@
 
 </h1>
 
-## Table of Contents
+## 📖 Table of Contents
 
 - [❓ Why?](#-why-)
 - [✨ Features](#-features-)
 - [💾 Install](#-install-)
-- [👽 API](#-api-)
-- [🔨 Usage](#-usage-)
+- [🎛️ API](#️-api-)
+- [🤹 Usage](#-usage-)
   - [`include` as array of strings](#include-as-array-of-strings-)
   - [`include` as string](#include-as-string-)
   - [karma `plugins` section](#karma-plugins-section-)
 - [📄 License](#-license-)
 
-## ❓ Why? [🔝](#table-of-contents)
+## ❓ Why? [🔝](#-table-of-contents)
 
 With `karma`, to test source code – you need to include only `*.spec.(ts|js)` files into test config. Then those spec files will import corresponding source code files. This leads to an issue with "fake" test coverage, as if some source code file would be omitted by all `*.spec.(ts|js))` files – this source code file won't be shown in coverage report at all.
 
@@ -49,14 +49,14 @@ With `karma`, to test source code – you need to include only `*.spec.(ts|js)` 
 
 Plugin works with both: TypeScript (`*.ts`) and JavaScript (`*.js`) files
 
-## ✨ Features [🔝](#table-of-contents)
+## ✨ Features [🔝](#-table-of-contents)
 
 - Both [karma-coverage-istanbul-reporter](https://www.npmjs.com/package/karma-coverage-istanbul-reporter) and [karma-coverage](https://www.npmjs.com/package/karma-coverage) supported
 - Both JavaScript `*.js` and TypeScript `*.ts` files support
 - Multiple patterns
 - Negated patterns: ['foo*', '!foobar']
 
-## 💾 Install [🔝](#table-of-contents)
+## 💾 Install [🔝](#-table-of-contents)
 
 With [npm](https://npmjs.org/) installed, run
 
@@ -64,17 +64,17 @@ With [npm](https://npmjs.org/) installed, run
 npm install --save-dev karma-sabarivka-reporter
 ```
 
-## 👽 API [🔝](#table-of-contents)
+## 🎛️ API [🔝](#-table-of-contents)
 
 `@param {string[] | string} coverageReporter.include` - Glob pattern, `string` or `array of strings`. Files which should be included into the coverage result.
 
-## 🔨 Usage [🔝](#table-of-contents)
+## 🤹 Usage [🔝](#-table-of-contents)
 
 **Important Note:** if used with [karma-coverage](https://www.npmjs.com/package/karma-coverage), `'sabarivka'` should go before `'coverage'` in `reporters` list
 
 Update `karma.conf.js`
 
-### `include` as array of strings [🔝](#table-of-contents)
+### `include` as array of strings [🔝](#-table-of-contents)
 
 ```JavaScript
 reporters: [
@@ -98,7 +98,7 @@ coverageReporter: {
 
 Same result may be achieved with more complex one line glob pattern
 
-### `include` as string [🔝](#table-of-contents)
+### `include` as string [🔝](#-table-of-contents)
 
 ```JavaScript
 reporters: [
@@ -112,13 +112,14 @@ coverageReporter: {
 },
 ```
 
-### karma `plugins` section [🔝](#table-of-contents)
+### karma `plugins` section [🔝](#-table-of-contents)
 
 If your karma config has `plugins` section, add also `karma-sabarivka-reporter` there, otherwise — no action is required.
 
 Karma's documentation:
+
 > By default, Karma loads all sibling NPM modules which have a name starting with karma-\*.\
-You can also explicitly list plugins you want to load via the `plugins` configuration setting. The configuration value can either be a string (module name), which will be required by Karma, or an object (inlined plugin).
+> You can also explicitly list plugins you want to load via the `plugins` configuration setting. The configuration value can either be a string (module name), which will be required by Karma, or an object (inlined plugin).
 
 [See here more info on how karma plugins loading works](https://karma-runner.github.io/4.0/config/plugins.html)
 
@@ -130,6 +131,6 @@ plugins: [
 ],
 ```
 
-## 📄 License [🔝](#table-of-contents)
+## 📄 License [🔝](#-table-of-contents)
 
 This software is licensed under the [MIT](https://github.com/kopach/karma-sabarivka-reporter/blob/master/LICENSE)
