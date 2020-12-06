@@ -29,7 +29,7 @@
     "lint:fix": "npm run lint -- --fix",
     "prepublishOnly": "npm run build",
     "release": "HUSKY_SKIP_HOOKS=1 np --no-2fa",
-    "postshrinkwrap": "HUSKY_SKIP_HOOKS=1 lockfix",
+    "_postshrinkwrap": "HUSKY_SKIP_HOOKS=1 lockfix",
     "tdd": "concurrently --kill-others \"npm run test:watch\" \"live-server --watch=coverage/lcov-report --open=coverage/lcov-report --quiet\"",
     "pretest": "npm run generate-public-api-schema",
     "test": "nyc mocha --config test/.mocharc.json **/*.ts",
