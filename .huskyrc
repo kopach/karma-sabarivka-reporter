@@ -1,6 +1,6 @@
 {
   "hooks": {
-    "prepare-commit-msg": "devmoji -e --lint",
+    "prepare-commit-msg": "devmoji -e",
     "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
   }
 }
