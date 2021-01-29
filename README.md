@@ -134,3 +134,7 @@ plugins: [
 ## 📄 License [🔝](#-table-of-contents)
 
 This software is licensed under the [MIT](https://github.com/kopach/karma-sabarivka-reporter/blob/master/LICENSE)
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/kopach/karma-sabarivka-reporter.svg)](https://starchart.cc/kopach/karma-sabarivka-reporter)
