@@ -1,3 +1,4 @@
+# Automatically rebase PR with `/rebase` comment
 ---
 'on':
   issue_comment:
