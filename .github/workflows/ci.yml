@@ -1,0 +1,48 @@
+---
+name: CI Check
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the `master` branch
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  ci-check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+          # oldest supported
+          - 11.x
+          # current LTS
+          - 14.x
+          # Latest available
+          - 15.x
+    name: Node v${{ matrix.node-version }} ${{ matrix.install-option }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setting up Node.js v${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version:  ${{ matrix.node-version }}
+      - name: install
+        run: |
+          npm ci
+      - name: lint
+        run: |
+          ./scripts/npm_run_time.sh lint
+      - name: build
+        run: |
+          ./scripts/npm_run_time.sh build
+      - name: test
+        run: |
+          ./scripts/npm_run_time.sh test
+          npm run upload-code-coverage
+      - name: Push statistics to SeriesCI
+        # more info about `success` condition https://github.community/t/how-to-implement-an-after-success-action/16919/8
+        if: ${{ success() }}
+        run: |
+          scripts/seriesci.sh ${{ secrets.SERIESCI_TOKEN }}
