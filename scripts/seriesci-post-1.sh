@@ -31,6 +31,6 @@ curl \
     \"value\":\"${SERIE_VALUE}\",
     \"sha\":\"${GIT_SHA}\"
   }" \
-  https://seriesci.com/api/kopach/karma-sabarivka-reporter/${SERIE_NAME}/one
+  "https://seriesci.com/api/kopach/karma-sabarivka-reporter/${SERIE_NAME}/one"
 
 echo ""
