@@ -2,7 +2,7 @@
 
 [![logo](./assets/logo.png)](#)
 
-[karma-sabarivka-reporter](https://github.com/kopach/karma-sabarivka-reporter)
+[karma-sabarivka-reporter](https://github.com/kopach/karma-sabarivka-reporter) <sup>[![Version Badge][2]][1]</sup>
 
 </h1>
 
@@ -138,3 +138,6 @@ This software is licensed under the [MIT](https://github.com/kopach/karma-sabari
 ## Stargazers over time
 
 [![Stargazers over time](https://starchart.cc/kopach/karma-sabarivka-reporter.svg)](https://starchart.cc/kopach/karma-sabarivka-reporter)
+
+[1]: https://www.npmjs.com/package/karma-sabarivka-reporter
+[2]: https://versionbadg.es/kopach/karma-sabarivka-reporter.svg
