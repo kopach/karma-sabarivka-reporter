@@ -54,7 +54,7 @@
   "devDependencies": {
     "@commitlint/cli": "12.1.1",
     "@commitlint/config-conventional": "12.1.1",
-    "@types/chai": "4.2.15",
+    "@types/chai": "4.2.16",
     "@types/istanbul-lib-instrument": "1.7.4",
     "@types/karma": "5.0.0",
     "@types/mocha": "8.2.2",
