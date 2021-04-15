@@ -1,33 +1,21 @@
-<h1 align="center">
-
 [![logo](./assets/logo.png)](#)
 
-[karma-sabarivka-reporter](https://github.com/kopach/karma-sabarivka-reporter) <sup>[![Version Badge][2]][1]</sup>
+[karma-sabarivka-reporter][repo-link] <sup>[![Version Badge](https://versionbadg.es/kopach/karma-sabarivka-reporter.svg)][registry-link]</sup>
 
-</h1>
-
-<div align="center">
-
-[![Code coverrage badge](https://codecov.io/gh/kopach/karma-sabarivka-reporter/branch/master/graph/badge.svg)](https://codecov.io/gh/kopach/karma-sabarivka-reporter)
+[![Code coverage badge](https://codecov.io/gh/kopach/karma-sabarivka-reporter/branch/master/graph/badge.svg)](https://codecov.io/gh/kopach/karma-sabarivka-reporter)
 [![Snyk Vulnerabilities badge](https://snyk.io/test/github/kopach/karma-sabarivka-reporter/badge.svg)](https://snyk.io/test/github/kopach/karma-sabarivka-reporter)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f7e2f85327eeb6b52439/maintainability)](https://codeclimate.com/github/kopach/karma-sabarivka-reporter/maintainability)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/kopach/karma-sabarivka-reporter.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/kopach/karma-sabarivka-reporter/context:javascript)
 
-[![NPM badge](https://nodei.co/npm/karma-sabarivka-reporter.png?compact=true)](https://www.npmjs.com/package/karma-sabarivka-reporter)
-
-</div>
+[![NPM badge](https://nodei.co/npm/karma-sabarivka-reporter.png?compact=true)][registry-link]
 
 ⭐️ Please, star me on GitHub — it helps!
 
-[karma-sabarivka-reporter](https://github.com/kopach/karma-sabarivka-reporter) – is a Karma plugin which adds untested files to [istanbul](https://github.com/gotwarlost/istanbul) coverage statistic
-
-<h1 align="center">
+[karma-sabarivka-reporter][repo-link] – is a Karma plugin which adds untested files to [istanbul](https://github.com/gotwarlost/istanbul) coverage statistic
 
 ![screenshot before](./assets/before.png)
 
 ![screenshot after](./assets/after.png)
-
-</h1>
 
 ## 📖 Table of Contents
 
@@ -40,6 +28,7 @@
   - [`include` as string](#include-as-string-)
   - [karma `plugins` section](#karma-plugins-section-)
 - [📄 License](#-license-)
+- [Stargazers over time](#stargazers-over-time)
 
 ## ❓ Why? [🔝](#-table-of-contents)
 
@@ -51,7 +40,7 @@ Plugin works with both: TypeScript (`*.ts`) and JavaScript (`*.js`) files
 
 ## ✨ Features [🔝](#-table-of-contents)
 
-- Both [karma-coverage-istanbul-reporter](https://www.npmjs.com/package/karma-coverage-istanbul-reporter) and [karma-coverage](https://www.npmjs.com/package/karma-coverage) supported
+- Both [karma-coverage-istanbul-reporter](https://www.npmjs.com/package/karma-coverage-istanbul-reporter) and [karma-coverage][karma-coverage-link] supported
 - Both JavaScript `*.js` and TypeScript `*.ts` files support
 - Multiple patterns
 - Negated patterns: ['foo*', '!foobar']
@@ -70,7 +59,7 @@ npm install --save-dev karma-sabarivka-reporter
 
 ## 🤹 Usage [🔝](#-table-of-contents)
 
-**Important Note:** if used with [karma-coverage](https://www.npmjs.com/package/karma-coverage), `'sabarivka'` should go before `'coverage'` in `reporters` list
+**Important Note:** if used with [karma-coverage][karma-coverage-link], `'sabarivka'` should go before `'coverage'` in `reporters` list
 
 Update `karma.conf.js`
 
@@ -137,7 +126,8 @@ This software is licensed under the [MIT](https://github.com/kopach/karma-sabari
 
 ## Stargazers over time
 
-[![Stargazers over time](https://starchart.cc/kopach/karma-sabarivka-reporter.svg)](https://starchart.cc/kopach/karma-sabarivka-reporter)
+[<img src="https://starchart.cc/kopach/karma-sabarivka-reporter.svg" alt="Stargazers over time" width="50%" />](https://starchart.cc/kopach/karma-sabarivka-reporter)
 
-[1]: https://www.npmjs.com/package/karma-sabarivka-reporter
-[2]: https://versionbadg.es/kopach/karma-sabarivka-reporter.svg
+[registry-link]: https://www.npmjs.com/package/karma-sabarivka-reporter
+[repo-link]: https://github.com/kopach/karma-sabarivka-reporter
+[karma-coverage-link]: https://www.npmjs.com/package/karma-coverage
