@@ -44,7 +44,7 @@
   "dependencies": {
     "devmoji": "2.3.0",
     "globby": "11.0.4",
-    "istanbul-lib-instrument": "4.0.3",
+    "istanbul-lib-instrument": "5.0.4",
     "predicates": "2.0.3",
     "typescript": "4.2.4"
   },
