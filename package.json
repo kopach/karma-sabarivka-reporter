@@ -78,7 +78,7 @@
     "karma-webpack": "4.0.2",
     "lcov-total": "1.0.7",
     "live-server": "1.2.1",
-    "lockfix": "2.0.0",
+    "lockfix": "2.0.1",
     "make-dir-cli": "2.0.0",
     "mocha": "9.1.3",
     "np": "7.5.0",
