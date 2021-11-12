@@ -25,12 +25,12 @@ export const sabarivkaReporter: KarmaReporter = Object.defineProperty(
     karmaConfig: KarmaOptions,
     logger: Logger
   ): void {
+    this.adapters = [];
     if (!isKarmaConfigAppropriate(karmaConfig, logger)) {
       return;
-    }
 
+    }
     this.onBrowserComplete = getFileInstrumenterFn(karmaConfig);
-    this.adapters = [];
   },
   '$inject',
   {
