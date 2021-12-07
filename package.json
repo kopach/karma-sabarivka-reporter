@@ -79,7 +79,7 @@
     "lcov-total": "1.0.7",
     "live-server": "1.2.1",
     "lockfix": "2.0.1",
-    "make-dir-cli": "2.0.0",
+    "make-dir-cli": "3.0.0",
     "mocha": "9.1.3",
     "np": "7.6.0",
     "nyc": "15.1.0",
