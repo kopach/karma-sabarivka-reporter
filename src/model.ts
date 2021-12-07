@@ -20,11 +20,24 @@ export const isValidSabarivkaReporterConfig = (
     }),
   })(value);
 
-export type KarmaReporter = (
-  karmaConfig: KarmaOptions
-) => void & {
-  $inject: { value: string[] };
+export type Log = {
+  warn: (arg0: string) => void;
 };
+
+export type Logger = {
+  create: (arg0: string) => Log;
+};
+
+export type ReporterThis = {
+  onBrowserComplete: (...args: InstrumenterFnArgs) => void;
+  adapters: unknown[];
+};
+
+export type KarmaReporter = (
+  this: ReporterThis,
+  karmaConfig: KarmaOptions,
+  logger: Logger
+) => void;
 
 export type CoverageData = InitialCoverage['coverageData'];
 

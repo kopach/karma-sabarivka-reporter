@@ -1,27 +1,18 @@
 import {
-  InstrumenterFnArgs,
   isValidSabarivkaReporterConfig,
   KarmaReporter,
   KarmaOptions,
+  ReporterThis,
+  Logger,
+  Log,
 } from './model';
 import { getFileInstrumenterFn } from './instrumenter';
 import { ConfigOptions } from 'karma';
 import { structure, in as isIn } from 'predicates';
 
-type Log = {
-  warn: (arg0: string) => void;
-};
-
-type Logger = {
-  create: (arg0: string) => Log;
-};
-
 export const sabarivkaReporter: KarmaReporter = Object.defineProperty(
   function (
-    this: {
-      onBrowserComplete: (...args: InstrumenterFnArgs) => void;
-      adapters: unknown[];
-    },
+    this: ReporterThis,
     karmaConfig: KarmaOptions,
     logger: Logger
   ): void {
