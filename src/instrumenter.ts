@@ -35,9 +35,8 @@ function addFileListToCoverageData(
     const fullFilePath: string = path.resolve(process.cwd(), filePath);
 
     if (!coverage[fullFilePath]) {
-      const fileContentJS: TranspileOutput = getFileTranspiledToJs(
-        fullFilePath
-      );
+      const fileContentJS: TranspileOutput =
+        getFileTranspiledToJs(fullFilePath);
 
       coverage[fullFilePath] = getFileCoverageData(fileContentJS, fullFilePath);
     }
