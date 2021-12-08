@@ -1,5 +1,6 @@
 {
   "name": "karma-sabarivka-reporter",
+  "version": "3.3.1",
   "description": "A Karma plugin. Adds untested files to istanbul coverage statistic",
   "license": "MIT",
   "author": "Ihor Kopach (https://kopach.dev)",
@@ -11,12 +12,12 @@
   "bugs": {
     "url": "https://github.com/kopach/karma-sabarivka-reporter/issues"
   },
-  "version": "3.3.1",
   "main": "dist/index.js",
   "files": [
     "dist/*"
   ],
   "scripts": {
+    "_postshrinkwrap": "HUSKY_SKIP_HOOKS=1 lockfix",
     "adr:update": "adr update",
     "prebuild": "rimraf dist && npm run generate-public-api-schema",
     "build": "tsc --sourceMap false",
@@ -29,12 +30,11 @@
     "lint:fix": "npm run lint -- --fix",
     "prepublishOnly": "npm run build",
     "release": "HUSKY_SKIP_HOOKS=1 np --no-2fa",
-    "_postshrinkwrap": "HUSKY_SKIP_HOOKS=1 lockfix",
     "tdd": "concurrently --kill-others \"npm run test:watch\" \"live-server --watch=coverage/lcov-report --open=coverage/lcov-report --quiet\"",
     "pretest": "npm run generate-public-api-schema",
     "test": "nyc mocha --config test/.mocharc.json **/*.ts",
-    "upload-code-coverage": "codecov",
-    "test:watch": "onchange --kill --initial 'test/*.spec.ts' 'src/*.ts' -- npm run test"
+    "test:watch": "onchange --kill --initial 'test/*.spec.ts' 'src/*.ts' -- npm run test",
+    "upload-code-coverage": "codecov"
   },
   "config": {
     "commitizen": {
@@ -112,5 +112,9 @@
     "karma-plugin",
     "karma-reporter",
     "sabarivka"
-  ]
+  ],
+  "engines": {
+    "node": ">=12.0.0",
+    "npm": ">=8.0.0"
+  }
 }

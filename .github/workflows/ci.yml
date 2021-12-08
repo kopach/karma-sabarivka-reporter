@@ -16,11 +16,11 @@ jobs:
       matrix:
         node-version:
           # oldest supported
-          - 11.x
-          # current LTS
+          - 12.x
+          # Maintenance LTS
           - 14.x
-          # Latest available
-          # - 15.x
+          # Active LTS
+          - 16.x
     name: Node v${{ matrix.node-version }} ${{ matrix.install-option }}
     steps:
       - uses: actions/checkout@v2
