@@ -1,3 +1,5 @@
+[![#StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://vshymanskyy.github.io/StandWithUkraine/)
+
 [![logo](./assets/logo.png)](#)
 
 [karma-sabarivka-reporter][repo-link] <sup>[![Version Badge](https://versionbadg.es/kopach/karma-sabarivka-reporter.svg)][registry-link]</sup>
