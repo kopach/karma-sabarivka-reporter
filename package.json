@@ -85,7 +85,7 @@
     "nyc": "15.1.0",
     "onchange": "7.1.0",
     "prettier": "2.8.2",
-    "prettier-package-json": "2.6.3",
+    "prettier-package-json": "2.8.0",
     "puppeteer": "13.4.1",
     "rimraf": "3.0.2",
     "shortid": "2.2.16",
