@@ -84,7 +84,7 @@
     "np": "7.6.3",
     "nyc": "15.1.0",
     "onchange": "7.1.0",
-    "prettier": "2.5.1",
+    "prettier": "2.8.2",
     "prettier-package-json": "2.6.3",
     "puppeteer": "13.4.1",
     "rimraf": "3.0.2",
