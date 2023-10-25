@@ -100,7 +100,7 @@
     "tslint-no-circular-imports": "0.7.0",
     "tslint-plugin-prettier": "2.3.0",
     "typescript-json-schema": "0.50.1",
-    "webpack": "4.46.0"
+    "webpack": "4.47.0"
   },
   "keywords": [
     "allsources",
