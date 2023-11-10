@@ -76,7 +76,7 @@
     "karma-mocha": "2.0.1",
     "karma-sourcemap-loader": "0.4.0",
     "karma-webpack": "4.0.2",
-    "lcov-total": "1.0.7",
+    "lcov-total": "2.1.1",
     "live-server": "1.2.2",
     "lockfix": "2.2.1",
     "make-dir-cli": "2.0.0",
